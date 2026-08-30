@@ -8,24 +8,33 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
   font-family:Arial,sans-serif;
   background:#080b16;
   color:#fff;
   min-height:100vh;
+  padding-bottom:40px;
 }
+
 .container{
   width:92%;
   max-width:900px;
   margin:auto;
 }
+
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:20px 0;
 }
+
 .logo{
   font-size:25px;
   font-weight:800;
@@ -33,6 +42,7 @@ header{
   -webkit-background-clip:text;
   color:transparent;
 }
+
 .card{
   background:#11162a;
   border:1px solid #252c47;
@@ -40,14 +50,17 @@ header{
   padding:22px;
   margin:18px 0;
 }
+
 .balance{
   background:linear-gradient(135deg,#3824a8,#087fa8);
   border:0;
 }
+
 .balance h1{
   font-size:38px;
   margin:10px 0;
 }
+
 input{
   width:100%;
   padding:14px;
@@ -56,7 +69,13 @@ input{
   border:1px solid #303852;
   background:#080b16;
   color:#fff;
+  outline:none;
 }
+
+input:focus{
+  border-color:#7c5cff;
+}
+
 button{
   width:100%;
   padding:14px;
@@ -68,16 +87,40 @@ button{
   font-weight:700;
   cursor:pointer;
 }
-.secondary{background:#242b43}
-.hidden{display:none}
-.msg{margin-top:12px;color:#aab3ce}
+
+.secondary{
+  background:#242b43;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.msg{
+  margin-top:12px;
+  color:#aab3ce;
+}
+
 .task{
   padding:15px;
   border:1px solid #2b3350;
   border-radius:15px;
   margin-top:12px;
 }
-.small{color:#9da7c1;font-size:14px}
+
+.small{
+  color:#9da7c1;
+  font-size:14px;
+}
+
+.admin-title{
+  color:#00d4ff;
+  margin-bottom:6px;
+}
+
+.danger{
+  background:#b4233c;
+}
 </style>
 </head>
 
@@ -94,330 +137,743 @@ button{
 
   <div class="card">
     <h2>Welcome 👋</h2>
-    <p class="small">Login or create your TaskEarn BD account.</p>
 
-    <input id="name" type="text" placeholder="Full name">
-    <input id="email" type="email" placeholder="Email address">
-    <input id="password" type="password" placeholder="Password">
+    <p class="small">
+      Login or create your TaskEarn BD account.
+    </p>
 
-    <button onclick="signup()">Create Account</button>
-    <button class="secondary" onclick="login()">Login</button>
+    <input
+      id="name"
+      type="text"
+      placeholder="Full name"
+    >
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email address"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button onclick="signup()">
+      Create Account
+    </button>
+
+    <button
+      class="secondary"
+      onclick="login()"
+    >
+      Login
+    </button>
 
     <p id="authMsg" class="msg"></p>
   </div>
 
 </section>
 
-<!-- DASHBOARD -->
+
+<!-- USER DASHBOARD -->
 <section id="dashboard" class="hidden">
 
   <div class="card">
-    <h2 id="welcome">Welcome!</h2>
-    <p class="small">Your TaskEarn BD dashboard</p>
+    <h2 id="welcome">
+      Welcome!
+    </h2>
+
+    <p class="small">
+      Your TaskEarn BD dashboard
+    </p>
   </div>
+
 
   <div class="card balance">
-    <p>Available Balance</p>
-    <h1>৳ <span id="balance">0.00</span></h1>
+
+    <p>
+      Available Balance
+    </p>
+
+    <h1>
+      ৳ <span id="balance">0.00</span>
+    </h1>
+
   </div>
 
+
   <div class="card">
-    <h2>Available Tasks 📋</h2>
+
+    <h2>
+      Available Tasks 📋
+    </h2>
+
     <div id="tasks">
-      <p class="small">Loading tasks...</p>
+
+      <p class="small">
+        Loading tasks...
+      </p>
+
     </div>
+
   </div>
 
+
   <div class="card">
-    <h2>Account</h2>
-    <p id="userEmail" class="small"></p>
-    <button class="secondary" onclick="logout()">Logout</button>
+
+    <h2>
+      Account
+    </h2>
+
+    <p
+      id="userEmail"
+      class="small"
+      style="margin-top:8px"
+    ></p>
+
+    <button
+      class="secondary"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ADMIN PANEL -->
+<section id="adminPanel" class="hidden">
+
+  <div class="card">
+
+    <h2 class="admin-title">
+      👑 Admin Dashboard
+    </h2>
+
+    <p class="small">
+      TaskEarn BD Management
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      ➕ Add New Task
+    </h2>
+
+    <input
+      id="adminTitle"
+      type="text"
+      placeholder="Task title"
+    >
+
+    <input
+      id="adminDescription"
+      type="text"
+      placeholder="Task description"
+    >
+
+    <input
+      id="adminReward"
+      type="number"
+      step="0.01"
+      placeholder="Reward (৳)"
+    >
+
+    <input
+      id="adminUrl"
+      type="url"
+      placeholder="Task URL"
+    >
+
+    <button onclick="adminCreateTask()">
+      ➕ Add Task
+    </button>
+
+    <p
+      id="adminMsg"
+      class="msg"
+    ></p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      📋 Admin Tasks
+    </h2>
+
+    <div id="adminTasks">
+
+      <p class="small">
+        Loading...
+      </p>
+
+    </div>
+
   </div>
 
 </section>
 
 </div>
 
-<script>
-const SUPABASE_URL = "https://limhetefzzbekcdaqtqw.supabase.co";
-const SUPABASE_KEY = "sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+<script>
+
+const SUPABASE_URL =
+  "https://limhetefzzbekcdaqtqw.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
+
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+// ============================
+// SIGN UP
+// ============================
 
 async function signup(){
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+  const name =
+    document.getElementById("name").value.trim();
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
 
   if(!name || !email || !password){
+
     document.getElementById("authMsg").textContent =
       "সব ঘর পূরণ করুন।";
+
     return;
   }
 
-  const {data,error} = await db.auth.signUp({
-    email: email,
-    password: password,
-    options:{
-      data:{
-        full_name:name
+
+  const {data,error} =
+    await db.auth.signUp({
+
+      email:email,
+
+      password:password,
+
+      options:{
+        data:{
+          full_name:name
+        }
       }
-    }
-  });
+
+    });
+
 
   if(error){
-    document.getElementById("authMsg").textContent = error.message;
+
+    document.getElementById("authMsg").textContent =
+      error.message;
+
     return;
   }
 
+
   document.getElementById("authMsg").textContent =
-    "Account তৈরি হয়েছে। Email confirmation চাইলে আপনার email check করুন।";
+    "Account তৈরি হয়েছে। Email confirmation চাইলে email check করুন।";
 }
+
+
+// ============================
+// LOGIN
+// ============================
 
 async function login(){
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
 
   if(!email || !password){
+
     document.getElementById("authMsg").textContent =
       "Email ও password দিন।";
+
     return;
   }
 
-  const {data,error} = await db.auth.signInWithPassword({
-    email,
-    password
-  });
+
+  const {data,error} =
+    await db.auth.signInWithPassword({
+
+      email:email,
+
+      password:password
+
+    });
+
 
   if(error){
-    document.getElementById("authMsg").textContent = error.message;
+
+    document.getElementById("authMsg").textContent =
+      error.message;
+
     return;
   }
 
-  showDashboard(data.user);
-}
-const { data: profile } = await db
-  .from("profiles")
-  .select("role")
-  .eq("id", user.id)
-  .single();
 
-if(profile && profile.role === "admin"){
-  document.getElementById("adminPanel").classList.remove("hidden");
-  loadAdminTasks();
+  await showDashboard(data.user);
 }
+
+
+// ============================
+// SHOW DASHBOARD
+// ============================
+
 async function showDashboard(user){
 
-  document.getElementById("auth").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
+  document
+    .getElementById("auth")
+    .classList
+    .add("hidden");
 
-  document.getElementById("userEmail").textContent =
-    user.email || "";
 
-  const {data,error} = await db
-    .from("profiles")
-    .select("full_name,balance")
-    .eq("id",user.id)
-    .single();
+  document
+    .getElementById("dashboard")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("userEmail")
+    .textContent =
+      user.email || "";
+
+
+  const {data,error} =
+    await db
+      .from("profiles")
+      .select("full_name,balance")
+      .eq("id",user.id)
+      .single();
+
 
   if(!error && data){
-    document.getElementById("welcome").textContent =
-      "Welcome, " + (data.full_name || "User") + " 👋";
 
-    document.getElementById("balance").textContent =
-      Number(data.balance || 0).toFixed(2);
+    document
+      .getElementById("welcome")
+      .textContent =
+        "Welcome, " +
+        (data.full_name || "User") +
+        " 👋";
+
+
+    document
+      .getElementById("balance")
+      .textContent =
+        Number(data.balance || 0)
+          .toFixed(2);
   }
 
-  loadTasks();
+
+  // ADMIN CHECK
+  const {
+    data:adminCheck,
+    error:adminError
+  } =
+    await db.rpc("is_admin");
+
+
+  if(
+    !adminError &&
+    adminCheck === true
+  ){
+
+    document
+      .getElementById("adminPanel")
+      .classList
+      .remove("hidden");
+
+
+    await loadAdminTasks();
+  }
+
+
+  await loadTasks();
 }
+
+
+// ============================
+// LOAD USER TASKS
+// ============================
 
 async function loadTasks(){
 
-  const box = document.getElementById("tasks");
+  const box =
+    document.getElementById("tasks");
 
-  const {data,error} = await db
-    .from("tasks")
-    .select("id,title,description,reward,task_url")
-    .eq("status","active")
-    .order("created_at",{ascending:false});
+
+  const {data,error} =
+    await db
+      .from("tasks")
+      .select(
+        "id,title,description,reward,task_url"
+      )
+      .eq("status","active")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
 
   if(error){
+
     box.innerHTML =
       '<p class="small">Tasks এখন পাওয়া যাচ্ছে না।</p>';
+
     return;
   }
+
 
   if(!data || data.length === 0){
+
     box.innerHTML =
       '<p class="small">এখন কোনো active task নেই।</p>';
+
     return;
   }
 
-  box.innerHTML = data.map(task => `
-    <div class="task">
-      <h3>${escapeHtml(task.title)}</h3>
-      <p class="small">
-        ${escapeHtml(task.description || "")}
-      </p>
-      <p style="margin-top:8px">
-        Reward: <b>৳${Number(task.reward || 0).toFixed(2)}</b>
-      </p>
-      ${
-        task.task_url
-        ? `<a href="${escapeAttr(task.task_url)}"
-             target="_blank"
-             style="display:block;margin-top:10px;color:#00d4ff">
-             Open Task
-           </a>`
-        : ""
-      }
-    </div>
-  `).join("");
+
+  box.innerHTML =
+    data.map(task => `
+
+      <div class="task">
+
+        <h3>
+          ${escapeHtml(task.title)}
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(task.description || "")}
+        </p>
+
+        <p style="margin-top:8px">
+          Reward:
+          <b>
+            ৳${Number(task.reward || 0).toFixed(2)}
+          </b>
+        </p>
+
+        ${
+          task.task_url
+          ? `
+            <a
+              href="${escapeAttr(task.task_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="
+                display:block;
+                margin-top:10px;
+                color:#00d4ff;
+              "
+            >
+              Open Task
+            </a>
+          `
+          : ""
+        }
+
+      </div>
+
+    `).join("");
 }
+
+
+// ============================
+// ADMIN CREATE TASK
+// ============================
+
+async function adminCreateTask(){
+
+  const title =
+    document
+      .getElementById("adminTitle")
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById("adminDescription")
+      .value
+      .trim();
+
+
+  const reward =
+    Number(
+      document
+        .getElementById("adminReward")
+        .value
+    );
+
+
+  const taskUrl =
+    document
+      .getElementById("adminUrl")
+      .value
+      .trim();
+
+
+  const msg =
+    document.getElementById("adminMsg");
+
+
+  if(!title || !reward){
+
+    msg.textContent =
+      "Task title ও reward দিন।";
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await db.rpc(
+      "admin_create_task",
+      {
+        p_title:title,
+        p_description:description,
+        p_reward:reward,
+        p_task_url:taskUrl
+      }
+    );
+
+
+  if(error){
+
+    msg.textContent =
+      error.message;
+
+    return;
+  }
+
+
+  msg.textContent =
+    "✅ Task successfully added.";
+
+
+  document
+    .getElementById("adminTitle")
+    .value = "";
+
+
+  document
+    .getElementById("adminDescription")
+    .value = "";
+
+
+  document
+    .getElementById("adminReward")
+    .value = "";
+
+
+  document
+    .getElementById("adminUrl")
+    .value = "";
+
+
+  await loadAdminTasks();
+
+  await loadTasks();
+}
+
+
+// ============================
+// LOAD ADMIN TASKS
+// ============================
+
+async function loadAdminTasks(){
+
+  const box =
+    document.getElementById("adminTasks");
+
+
+  const {
+    data,
+    error
+  } =
+    await db.rpc(
+      "admin_get_tasks"
+    );
+
+
+  if(error){
+
+    box.innerHTML =
+      '<p class="small">Admin access required.</p>';
+
+    return;
+  }
+
+
+  if(!data || data.length === 0){
+
+    box.innerHTML =
+      '<p class="small">No tasks found.</p>';
+
+    return;
+  }
+
+
+  box.innerHTML =
+    data.map(task => `
+
+      <div class="task">
+
+        <h3>
+          ${escapeHtml(task.title)}
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(
+            task.description || ""
+          )}
+        </p>
+
+        <p style="margin-top:8px">
+          Reward:
+          <b>
+            ৳${Number(task.reward || 0).toFixed(2)}
+          </b>
+        </p>
+
+        <p class="small">
+          Status:
+          ${escapeHtml(task.status || "")}
+        </p>
+
+      </div>
+
+    `).join("");
+}
+
+
+// ============================
+// LOGOUT
+// ============================
 
 async function logout(){
 
   await db.auth.signOut();
 
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("auth").classList.remove("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("adminPanel")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("auth")
+    .classList
+    .remove("hidden");
 }
+
+
+// ============================
+// SECURITY HELPERS
+// ============================
 
 function escapeHtml(value){
+
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
+
 function escapeAttr(value){
-  return String(value).replaceAll('"',"&quot;");
+
+  return String(value)
+    .replaceAll(
+      '"',
+      "&quot;"
+    );
 }
+
+
+// ============================
+// SESSION CHECK
+// ============================
 
 async function checkSession(){
 
-  const {data} = await db.auth.getSession();
+  const {
+    data
+  } =
+    await db.auth.getSession();
+
 
   if(data.session){
-    showDashboard(data.session.user);
+
+    await showDashboard(
+      data.session.user
+    );
+
   }
+
 }
+
 
 checkSession();
-  async function adminCreateTask(){
 
-  const title = document.getElementById("adminTitle").value.trim();
-  const description = document.getElementById("adminDescription").value.trim();
-  const reward = Number(document.getElementById("adminReward").value);
-  const taskUrl = document.getElementById("adminUrl").value.trim();
-  const msg = document.getElementById("adminMsg");
-
-  if(!title || !reward){
-    msg.textContent = "Task title ও reward দিন।";
-    return;
-  }
-
-  const {data,error} = await db.rpc("admin_create_task", {
-    p_title: title,
-    p_description: description,
-    p_reward: reward,
-    p_task_url: taskUrl
-  });
-
-  if(error){
-    msg.textContent = error.message;
-    return;
-  }
-
-  msg.textContent = "✅ Task successfully added.";
-
-  document.getElementById("adminTitle").value = "";
-  document.getElementById("adminDescription").value = "";
-  document.getElementById("adminReward").value = "";
-  document.getElementById("adminUrl").value = "";
-
-  loadAdminTasks();
-}
-
-async function loadAdminTasks(){
-
-  const box = document.getElementById("adminTasks");
-
-  const {data,error} = await db.rpc("admin_get_tasks");
-
-  if(error){
-    box.innerHTML = '<p class="small">Admin access required.</p>';
-    return;
-  }
-
-  if(!data || data.length === 0){
-    box.innerHTML = '<p class="small">No tasks found.</p>';
-    return;
-  }
-
-  box.innerHTML = data.map(task => `
-    <div class="task">
-      <h3>${escapeHtml(task.title)}</h3>
-      <p class="small">${escapeHtml(task.description || "")}</p>
-      <p style="margin-top:8px">
-        Reward: <b>৳${Number(task.reward || 0).toFixed(2)}</b>
-      </p>
-      <p class="small">
-        Status: ${escapeHtml(task.status || "")}
-      </p>
-    </div>
-  `).join("");
-}
 </script>
-<!-- ADMIN PANEL -->
-<section id="adminPanel" class="hidden">
 
-  <div class="card">
-    <h2>👑 Admin Dashboard</h2>
-    <p class="small">TaskEarn BD Management</p>
-  </div>
-
-  <div class="card">
-    <h2>➕ Add New Task</h2>
-
-    <input id="adminTitle"
-           type="text"
-           placeholder="Task title">
-
-    <input id="adminDescription"
-           type="text"
-           placeholder="Task description">
-
-    <input id="adminReward"
-           type="number"
-           step="0.01"
-           placeholder="Reward (৳)">
-
-    <input id="adminUrl"
-           type="url"
-           placeholder="Task URL">
-
-    <button onclick="adminCreateTask()">
-      Add Task
-    </button>
-
-    <p id="adminMsg" class="msg"></p>
-  </div>
-
-  <div class="card">
-    <h2>📋 Tasks</h2>
-    <div id="adminTasks">
-      <p class="small">Loading...</p>
-    </div>
-  </div>
-
-</section>
 </body>
 </html>
