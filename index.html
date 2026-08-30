@@ -1,1 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskEarn BD - Task Dashboard</title>
 
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#080b16;
+  color:#fff;
+  padding-bottom:80px;
+}
+
+.container{
+  width:92%;
+  max-width:1100px;
+  margin:auto;
+}
+
+header{
+  padding:20px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  background:linear-gradient(90deg,#7c5cff,#00d4ff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.profile{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7557ff,#00cfff);
+  font-size:20px;
+}
+
+.welcome{
+  margin-top:10px;
+}
+
+.welcome p{
+  color:#8992aa;
+  font-size:14px;
+  margin-top:6px;
+}
+
+.balance{
+  margin-top:20px;
+  padding:25px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#3824a8,#087fa8);
+  box-shadow:0 15px 40px #0005;
+}
+
+.balance small{
+  color:#d8dcff;
+}
+
+.balance h1{
+  font-size:38px;
+  margin:10px 0 20px;
+}
+
+.balance button{
+  border:0;
+  padding:11px 18px;
+  border-radius:12px;
+  background:#fff;
+  color:#17152e;
+  font-weight:bold;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.stat{
+  background:#111629;
+  border:1px solid #252d49;
+  padding:17px 10px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:20px;
+}
+
+.stat span{
+  color:#8992aa;
+  font-size:11px;
+  display:block;
+  margin-top:5px;
+}
+
+.section{
+  margin-top:30px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.section-title a{
+  color:#8d7cff;
+  font-size:13px;
+  text-decoration:none;
+}
+
+.tasks{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.task{
+  background:#111629;
+  border:1px solid #252d49;
+  padding:20px;
+  border-radius:18px;
+}
+
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:#202747;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  margin-bottom:15px;
+}
+
+.task h3{
+  margin-bottom:7px;
+}
+
+.task p{
+  color:#8992aa;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.task-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:17px;
+}
+
+.reward{
+  color:#63e6a4;
+  font-weight:bold;
+}
+
+.start{
+  border:0;
+  padding:9px 13px;
+  border-radius:10px;
+  color:#fff;
+  background:linear-gradient(90deg,#7055ff,#00bde8);
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:68px;
+  background:#0d1120;
+  border-top:1px solid #252d49;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:10;
+}
+
+.nav-item{
+  text-align:center;
+  color:#7f879d;
+  font-size:11px;
+}
+
+.nav-item.active{
+  color:#8e7cff;
+}
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+@media(max-width:700px){
+  .tasks{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo">⚡ TaskEarn BD</div>
+  <div class="profile">👤</div>
+</header>
+
+<div class="welcome">
+  <h2>Welcome back! 👋</h2>
+  <p>Complete tasks and grow your rewards.</p>
+</div>
+
+<section class="balance">
+  <small>Available Balance</small>
+  <h1>৳ 0.00</h1>
+  <button>💳 Withdraw</button>
+</section>
+
+<section class="stats">
+
+<div class="stat">
+  <strong>0</strong>
+  <span>Tasks Done</span>
+</div>
+
+<div class="stat">
+  <strong>0</strong>
+  <span>Pending</span>
+</div>
+
+<div class="stat">
+  <strong>৳0</strong>
+  <span>Total Earned</span>
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-title">
+  <h2>🔥 Available Tasks</h2>
+  <a href="#">View All</a>
+</div>
+
+<div class="tasks">
+
+<div class="task">
+  <div class="icon">📱</div>
+  <h3>Social Task</h3>
+  <p>Complete an approved social media activity.</p>
+
+  <div class="task-bottom">
+    <span class="reward">+৳10</span>
+    <button class="start">Start</button>
+  </div>
+</div>
+
+<div class="task">
+  <div class="icon">🔗</div>
+  <h3>Website Visit</h3>
+  <p>Visit the assigned website and follow the task.</p>
+
+  <div class="task-bottom">
+    <span class="reward">+৳5</span>
+    <button class="start">Start</button>
+  </div>
+</div>
+
+<div class="task">
+  <div class="icon">🎯</div>
+  <h3>Daily Task</h3>
+  <p>Complete today's approved daily activity.</p>
+
+  <div class="task-bottom">
+    <span class="reward">+৳15</span>
+    <button class="start">Start</button>
+  </div>
+</div>
+
+<div class="task">
+  <div class="icon">📸</div>
+  <h3>Content Task</h3>
+  <p>Complete an approved content activity.</p>
+
+  <div class="task-bottom">
+    <span class="reward">+৳8</span>
+    <button class="start">Start</button>
+  </div>
+</div>
+
+<div class="task">
+  <div class="icon">🎁</div>
+  <h3>Bonus Task</h3>
+  <p>Special tasks with extra eligible rewards.</p>
+
+  <div class="task-bottom">
+    <span class="reward">+৳20</span>
+    <button class="start">Start</button>
+  </div>
+</div>
+
+<div class="task">
+  <div class="icon">👥</div>
+  <h3>Referral</h3>
+  <p>Invite friends and earn eligible referral bonuses.</p>
+
+  <div class="task-bottom">
+    <span class="reward">Bonus</span>
+    <button class="start">Open</button>
+  </div>
+</div>
+
+</div>
+</section>
+
+</div>
+
+<nav class="bottom-nav">
+
+<div class="nav-item active">
+  <span class="nav-icon">🏠</span>
+  Home
+</div>
+
+<div class="nav-item">
+  <span class="nav-icon">📋</span>
+  Tasks
+</div>
+
+<div class="nav-item">
+  <span class="nav-icon">💰</span>
+  Wallet
+</div>
+
+<div class="nav-item">
+  <span class="nav-icon">📜</span>
+  History
+</div>
+
+<div class="nav-item">
+  <span class="nav-icon">👤</span>
+  Profile
+</div>
+
+</nav>
+
+</body>
+</html>
