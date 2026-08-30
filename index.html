@@ -201,7 +201,16 @@ async function login(){
 
   showDashboard(data.user);
 }
+const { data: profile } = await db
+  .from("profiles")
+  .select("role")
+  .eq("id", user.id)
+  .single();
 
+if(profile && profile.role === "admin"){
+  document.getElementById("adminPanel").classList.remove("hidden");
+  loadAdminTasks();
+}
 async function showDashboard(user){
 
   document.getElementById("auth").classList.add("hidden");
@@ -302,7 +311,113 @@ async function checkSession(){
 }
 
 checkSession();
-</script>
+  async function adminCreateTask(){
 
+  const title = document.getElementById("adminTitle").value.trim();
+  const description = document.getElementById("adminDescription").value.trim();
+  const reward = Number(document.getElementById("adminReward").value);
+  const taskUrl = document.getElementById("adminUrl").value.trim();
+  const msg = document.getElementById("adminMsg");
+
+  if(!title || !reward){
+    msg.textContent = "Task title ও reward দিন।";
+    return;
+  }
+
+  const {data,error} = await db.rpc("admin_create_task", {
+    p_title: title,
+    p_description: description,
+    p_reward: reward,
+    p_task_url: taskUrl
+  });
+
+  if(error){
+    msg.textContent = error.message;
+    return;
+  }
+
+  msg.textContent = "✅ Task successfully added.";
+
+  document.getElementById("adminTitle").value = "";
+  document.getElementById("adminDescription").value = "";
+  document.getElementById("adminReward").value = "";
+  document.getElementById("adminUrl").value = "";
+
+  loadAdminTasks();
+}
+
+async function loadAdminTasks(){
+
+  const box = document.getElementById("adminTasks");
+
+  const {data,error} = await db.rpc("admin_get_tasks");
+
+  if(error){
+    box.innerHTML = '<p class="small">Admin access required.</p>';
+    return;
+  }
+
+  if(!data || data.length === 0){
+    box.innerHTML = '<p class="small">No tasks found.</p>';
+    return;
+  }
+
+  box.innerHTML = data.map(task => `
+    <div class="task">
+      <h3>${escapeHtml(task.title)}</h3>
+      <p class="small">${escapeHtml(task.description || "")}</p>
+      <p style="margin-top:8px">
+        Reward: <b>৳${Number(task.reward || 0).toFixed(2)}</b>
+      </p>
+      <p class="small">
+        Status: ${escapeHtml(task.status || "")}
+      </p>
+    </div>
+  `).join("");
+}
+</script>
+<!-- ADMIN PANEL -->
+<section id="adminPanel" class="hidden">
+
+  <div class="card">
+    <h2>👑 Admin Dashboard</h2>
+    <p class="small">TaskEarn BD Management</p>
+  </div>
+
+  <div class="card">
+    <h2>➕ Add New Task</h2>
+
+    <input id="adminTitle"
+           type="text"
+           placeholder="Task title">
+
+    <input id="adminDescription"
+           type="text"
+           placeholder="Task description">
+
+    <input id="adminReward"
+           type="number"
+           step="0.01"
+           placeholder="Reward (৳)">
+
+    <input id="adminUrl"
+           type="url"
+           placeholder="Task URL">
+
+    <button onclick="adminCreateTask()">
+      Add Task
+    </button>
+
+    <p id="adminMsg" class="msg"></p>
+  </div>
+
+  <div class="card">
+    <h2>📋 Tasks</h2>
+    <div id="adminTasks">
+      <p class="small">Loading...</p>
+    </div>
+  </div>
+
+</section>
 </body>
 </html>
