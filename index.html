@@ -8,36 +8,32 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:Arial,sans-serif;
-  background:
-    radial-gradient(circle at 10% 0%,#21175c 0,transparent 32%),
-    radial-gradient(circle at 100% 20%,#063e55 0,transparent 30%),
-    #070a14;
   color:#fff;
   min-height:100vh;
+  background:
+    radial-gradient(circle at 10% 0%,#24165c,transparent 30%),
+    radial-gradient(circle at 100% 20%,#06465c,transparent 30%),
+    #070a14;
 }
 
 .container{
   width:92%;
-  max-width:950px;
+  max-width:900px;
   margin:auto;
-  padding-bottom:45px;
+  padding-bottom:40px;
 }
 
 header{
-  padding:22px 0;
   text-align:center;
+  padding:25px 0 15px;
 }
 
 .logo{
-  font-size:29px;
+  font-size:30px;
   font-weight:900;
   background:linear-gradient(90deg,#8b5cf6,#00d9ff);
   -webkit-background-clip:text;
@@ -45,19 +41,18 @@ header{
 }
 
 .online{
-  display:inline-block;
-  margin-top:7px;
   color:#6ee7b7;
   font-size:13px;
+  margin-top:5px;
 }
 
 .card{
-  background:rgba(15,20,38,.94);
+  background:#11162a;
   border:1px solid #29314d;
-  border-radius:22px;
-  padding:21px;
+  border-radius:20px;
+  padding:20px;
   margin:16px 0;
-  box-shadow:0 12px 35px rgba(0,0,0,.2);
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .auth-card{
@@ -65,26 +60,20 @@ header{
   margin:30px auto;
 }
 
-h2{
-  margin-bottom:7px;
-}
-
-h3{
-  margin-bottom:6px;
-}
+h2{margin-bottom:7px}
+h3{margin-bottom:7px}
 
 .small{
-  color:#a5afca;
+  color:#aab3cc;
   font-size:14px;
   line-height:1.55;
 }
 
-input,
-textarea{
+input,textarea{
   width:100%;
   padding:14px;
   margin-top:10px;
-  border-radius:13px;
+  border-radius:12px;
   border:1px solid #303954;
   background:#080c18;
   color:#fff;
@@ -93,22 +82,21 @@ textarea{
 }
 
 textarea{
-  min-height:95px;
+  min-height:90px;
   resize:vertical;
 }
 
-input:focus,
-textarea:focus{
+input:focus,textarea:focus{
   border-color:#7c5cff;
 }
 
 button{
   width:100%;
-  border:0;
   padding:14px;
   margin-top:10px;
-  border-radius:13px;
-  color:white;
+  border:0;
+  border-radius:12px;
+  color:#fff;
   font-weight:800;
   cursor:pointer;
   background:linear-gradient(90deg,#7654f6,#00cfff);
@@ -126,17 +114,13 @@ button:disabled{
   background:linear-gradient(90deg,#07845d,#00a879);
 }
 
-.danger{
-  background:#a9213b;
-}
-
 .hidden{
   display:none!important;
 }
 
 .msg{
   margin-top:12px;
-  color:#b9c2da;
+  color:#c1c9df;
   line-height:1.5;
 }
 
@@ -145,12 +129,8 @@ button:disabled{
   border:0;
 }
 
-.balance-label{
-  color:#d8e5ff;
-}
-
 .balance-value{
-  font-size:42px;
+  font-size:40px;
   font-weight:900;
   margin:8px 0;
 }
@@ -164,15 +144,15 @@ button:disabled{
 .stat{
   background:#0d1221;
   border:1px solid #29314d;
-  border-radius:17px;
-  padding:16px;
+  border-radius:16px;
+  padding:15px;
 }
 
 .stat-number{
   display:block;
-  font-size:22px;
+  font-size:21px;
   font-weight:900;
-  margin-top:6px;
+  margin-top:5px;
 }
 
 .task{
@@ -184,50 +164,50 @@ button:disabled{
 }
 
 .reward{
-  margin-top:9px;
   color:#6ee7b7;
   font-weight:800;
+  margin-top:9px;
 }
 
 .task-link{
   display:block;
-  margin-top:12px;
   color:#50dfff;
   text-decoration:none;
   font-weight:800;
+  margin-top:12px;
 }
 
 .badge{
   display:inline-block;
-  margin-top:9px;
   padding:6px 10px;
   border-radius:20px;
   font-size:12px;
   font-weight:800;
+  margin-top:9px;
 }
 
-.badge-pending{
+.pending{
   background:#493b0a;
   color:#ffd866;
 }
 
-.badge-approved{
+.approved{
   background:#073e2d;
   color:#62e4b2;
 }
 
-.badge-rejected{
+.rejected{
   background:#481525;
   color:#ff8da5;
 }
 
-.admin-title{
-  color:#4de0ff;
+.error-box{
+  border-color:#7f1d1d;
+  background:#2a1017;
 }
 
-.empty{
-  text-align:center;
-  padding:20px 5px;
+.admin-title{
+  color:#50dfff;
 }
 
 hr{
@@ -236,27 +216,9 @@ hr{
   margin:15px 0;
 }
 
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.refresh{
-  width:auto;
-  padding:9px 13px;
-  margin:0;
-  font-size:12px;
-}
-
 @media(max-width:650px){
   .stats{
     grid-template-columns:1fr;
-  }
-
-  .balance-value{
-    font-size:36px;
   }
 }
 </style>
@@ -272,37 +234,23 @@ hr{
 </header>
 
 
-<!-- ================= AUTH ================= -->
+<!-- AUTH -->
 
 <section id="auth">
 
   <div id="signupBox" class="card auth-card">
 
     <h2>Create Account 🚀</h2>
+
     <p class="small">
-      TaskEarn BD-তে account তৈরি করুন।
+      TaskEarn BD account তৈরি করুন।
     </p>
 
-    <input
-      id="name"
-      type="text"
-      placeholder="আপনার নাম"
-      autocomplete="name"
-    >
+    <input id="name" type="text" placeholder="Full name">
 
-    <input
-      id="signupEmail"
-      type="email"
-      placeholder="Gmail / Email"
-      autocomplete="email"
-    >
+    <input id="signupEmail" type="email" placeholder="Email address">
 
-    <input
-      id="signupPassword"
-      type="password"
-      placeholder="Password"
-      autocomplete="new-password"
-    >
+    <input id="signupPassword" type="password" placeholder="Password">
 
     <button onclick="signup()">
       Create Account
@@ -320,23 +268,14 @@ hr{
   <div id="loginBox" class="card auth-card hidden">
 
     <h2>Welcome Back 👋</h2>
+
     <p class="small">
-      আপনার account-এ Login করুন।
+      Email ও password দিয়ে Login করুন।
     </p>
 
-    <input
-      id="loginEmail"
-      type="email"
-      placeholder="Email address"
-      autocomplete="email"
-    >
+    <input id="loginEmail" type="email" placeholder="Email address">
 
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+    <input id="loginPassword" type="password" placeholder="Password">
 
     <button onclick="login()">
       Login 🔐
@@ -353,7 +292,7 @@ hr{
 </section>
 
 
-<!-- ================= USER DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <section id="dashboard" class="hidden">
 
@@ -372,17 +311,15 @@ hr{
 
   <div class="card balance">
 
-    <div class="balance-label">
-      Available Balance
-    </div>
+    <p>Available Balance</p>
 
     <div class="balance-value">
       ৳ <span id="balance">0.00</span>
     </div>
 
-    <div class="small">
+    <p class="small">
       Approved task earnings
-    </div>
+    </p>
 
   </div>
 
@@ -390,47 +327,41 @@ hr{
   <div class="stats">
 
     <div class="stat">
-      <div class="small">Total Earned</div>
+      <span class="small">Total Earned</span>
       <span class="stat-number">
         ৳<span id="totalEarned">0.00</span>
       </span>
     </div>
 
     <div class="stat">
-      <div class="small">Pending</div>
-      <span class="stat-number" id="pendingCount">
-        0
-      </span>
+      <span class="small">Pending</span>
+      <span class="stat-number" id="pendingCount">0</span>
     </div>
 
     <div class="stat">
-      <div class="small">Submissions</div>
-      <span class="stat-number" id="submissionCount">
-        0
-      </span>
+      <span class="small">Submissions</span>
+      <span class="stat-number" id="submissionCount">0</span>
     </div>
 
   </div>
 
 
-  <!-- AVAILABLE TASKS -->
+  <!-- TASKS -->
 
   <div class="card">
 
-    <div class="section-head">
-      <h2>Available Tasks 📋</h2>
-
-      <button
-        class="secondary refresh"
-        onclick="loadTasks()"
-      >
-        Refresh
-      </button>
-    </div>
+    <h2>Available Tasks 📋</h2>
 
     <p class="small">
       Complete available tasks and follow the task instructions.
     </p>
+
+    <button
+      class="secondary"
+      onclick="loadTasks()"
+    >
+      🔄 Refresh Tasks
+    </button>
 
     <div id="tasks">
       <p class="small">Loading tasks...</p>
@@ -439,7 +370,7 @@ hr{
   </div>
 
 
-  <!-- MY SUBMISSIONS -->
+  <!-- SUBMISSIONS -->
 
   <div class="card">
 
@@ -482,7 +413,7 @@ hr{
 </section>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- ADMIN -->
 
 <section id="adminPanel" class="hidden">
 
@@ -493,13 +424,11 @@ hr{
     </h2>
 
     <p class="small">
-      TaskEarn BD Management Panel
+      TaskEarn BD Management
     </p>
 
   </div>
 
-
-  <!-- CREATE TASK -->
 
   <div class="card">
 
@@ -532,7 +461,7 @@ hr{
     >
 
     <button onclick="adminCreateTask()">
-      Add Task
+      ➕ Add Task
     </button>
 
     <p id="adminMsg" class="msg"></p>
@@ -540,15 +469,9 @@ hr{
   </div>
 
 
-  <!-- PENDING SUBMISSIONS -->
-
   <div class="card">
 
     <h2>📥 Pending Submissions</h2>
-
-    <p class="small">
-      এখানে user-এর submitted task review করুন।
-    </p>
 
     <div id="adminSubmissions">
       <p class="small">Loading...</p>
@@ -557,11 +480,9 @@ hr{
   </div>
 
 
-  <!-- ADMIN TASKS -->
-
   <div class="card">
 
-    <h2>📋 Task Management</h2>
+    <h2>📋 Admin Tasks</h2>
 
     <div id="adminTasks">
       <p class="small">Loading...</p>
@@ -570,7 +491,6 @@ hr{
   </div>
 
 </section>
-
 
 </div>
 
@@ -604,13 +524,11 @@ function showLogin(){
 
   document
     .getElementById("signupBox")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("loginBox")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
 }
 
@@ -618,19 +536,17 @@ function showSignup(){
 
   document
     .getElementById("loginBox")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("signupBox")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
 }
 
 
 /* =====================================================
-   SIGN UP
+   SIGNUP
 ===================================================== */
 
 async function signup(){
@@ -679,8 +595,9 @@ async function signup(){
   } =
     await db.auth.signUp({
 
-      email,
-      password,
+      email:email,
+
+      password:password,
 
       options:{
         data:{
@@ -700,11 +617,6 @@ async function signup(){
   }
 
 
-  /*
-    If email confirmation is OFF,
-    Supabase can return an active session.
-  */
-
   if(data.session && data.user){
 
     msg.textContent = "";
@@ -718,7 +630,7 @@ async function signup(){
 
 
   msg.textContent =
-    "Account তৈরি হয়েছে। Email confirmation চালু থাকলে আগে email verify করে Login করুন।";
+    "Account তৈরি হয়েছে। Email confirmation প্রয়োজন হলে email verify করে Login করুন।";
 
 }
 
@@ -760,8 +672,9 @@ async function login(){
   } =
     await db.auth.signInWithPassword({
 
-      email,
-      password
+      email:email,
+
+      password:password
 
     });
 
@@ -785,7 +698,7 @@ async function login(){
 
 
 /* =====================================================
-   SHOW DASHBOARD
+   DASHBOARD
 ===================================================== */
 
 async function showDashboard(user){
@@ -795,14 +708,12 @@ async function showDashboard(user){
 
   document
     .getElementById("auth")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
 
   document
     .getElementById("dashboard")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
 
   document
@@ -820,8 +731,6 @@ async function showDashboard(user){
   await loadEarnings();
 
 
-  /* ADMIN CHECK */
-
   const {
     data:adminCheck,
     error:adminError
@@ -836,8 +745,7 @@ async function showDashboard(user){
 
     document
       .getElementById("adminPanel")
-      .classList
-      .remove("hidden");
+      .classList.remove("hidden");
 
 
     await loadAdminTasks();
@@ -874,31 +782,35 @@ async function loadProfile(){
       .single();
 
 
-  if(error || !data){
+  if(error){
 
-    document
-      .getElementById("welcome")
-      .textContent =
-        "Welcome 👋";
+    console.error(
+      "Profile error:",
+      error
+    );
 
     return;
   }
 
 
-  document
-    .getElementById("welcome")
-    .textContent =
-      "Welcome, " +
-      (data.full_name || "User") +
-      " 👋";
+  if(data){
+
+    document
+      .getElementById("welcome")
+      .textContent =
+        "Welcome, " +
+        (data.full_name || "User") +
+        " 👋";
 
 
-  document
-    .getElementById("balance")
-    .textContent =
-      Number(
-        data.balance || 0
-      ).toFixed(2);
+    document
+      .getElementById("balance")
+      .textContent =
+        Number(
+          data.balance || 0
+        ).toFixed(2);
+
+  }
 
 }
 
@@ -938,26 +850,38 @@ async function loadTasks(){
       );
 
 
+  /* IMPORTANT DEBUG */
+
   if(error){
 
     console.error(
-      "Task loading error:",
+      "TASK DATABASE ERROR:",
       error
     );
 
 
     box.innerHTML = `
 
-      <div class="task">
+      <div class="task error-box">
 
         <h3>
-          ⚠️ Task loading error
+          ⚠️ Task Loading Error
         </h3>
 
         <p class="small">
           ${escapeHtml(
             error.message ||
-            "Unknown error"
+            "Unknown database error"
+          )}
+        </p>
+
+        <p
+          class="small"
+          style="margin-top:8px"
+        >
+          Error code:
+          ${escapeHtml(
+            error.code || "N/A"
           )}
         </p>
 
@@ -969,14 +893,27 @@ async function loadTasks(){
   }
 
 
-  if(!data || data.length === 0){
+  console.log(
+    "TASK DATA:",
+    data
+  );
+
+
+  if(
+    !data ||
+    data.length === 0
+  ){
 
     box.innerHTML = `
 
-      <div class="empty">
+      <div class="task">
+
+        <h3>
+          📋 No Active Tasks
+        </h3>
 
         <p class="small">
-          এখন কোনো active task নেই।
+          Database-এ এখন কোনো active task পাওয়া যায়নি।
         </p>
 
       </div>
@@ -994,7 +931,9 @@ async function loadTasks(){
         <div class="task">
 
           <h3>
-            ${escapeHtml(task.title)}
+            ${escapeHtml(
+              task.title
+            )}
           </h3>
 
           <p class="small">
@@ -1017,11 +956,13 @@ async function loadTasks(){
 
               <a
                 class="task-link"
-                href="${escapeAttr(task.task_url)}"
+                href="${escapeAttr(
+                  task.task_url
+                )}"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🔗 Open Task
+                🔗 Open Task →
               </a>
 
             `
@@ -1064,7 +1005,7 @@ async function loadTasks(){
 
 
 /* =====================================================
-   TOGGLE SUBMIT
+   TOGGLE SUBMISSION
 ===================================================== */
 
 function toggleSubmit(taskId){
@@ -1165,7 +1106,7 @@ async function submitTask(taskId){
 
 
 /* =====================================================
-   LOAD USER SUBMISSIONS
+   USER SUBMISSIONS
 ===================================================== */
 
 async function loadSubmissions(){
@@ -1213,8 +1154,9 @@ async function loadSubmissions(){
     box.innerHTML =
       `
         <p class="small">
-          Submission load error:
-          ${escapeHtml(error.message)}
+          ${escapeHtml(
+            error.message
+          )}
         </p>
       `;
 
@@ -1227,34 +1169,34 @@ async function loadSubmissions(){
 
 
   document
-    .getElementById("submissionCount")
+    .getElementById(
+      "submissionCount"
+    )
     .textContent =
       rows.length;
 
 
-  const pending =
-    rows.filter(
-      item =>
-        String(item.status)
-          .toLowerCase() === "pending"
-    ).length;
-
-
   document
-    .getElementById("pendingCount")
+    .getElementById(
+      "pendingCount"
+    )
     .textContent =
-      pending;
+      rows.filter(
+        x =>
+          String(
+            x.status
+          ).toLowerCase()
+          === "pending"
+      ).length;
 
 
   if(rows.length === 0){
 
     box.innerHTML =
       `
-        <div class="empty">
-          <p class="small">
-            এখনো কোনো task submit করেননি।
-          </p>
-        </div>
+        <p class="small">
+          এখনো কোনো task submit করেননি।
+        </p>
       `;
 
     return;
@@ -1271,18 +1213,17 @@ async function loadSubmissions(){
           ).toLowerCase();
 
 
-        let badgeClass =
-          "badge-pending";
+        let cls =
+          "pending";
 
 
         if(status === "approved"){
-          badgeClass =
-            "badge-approved";
+          cls = "approved";
         }
 
+
         if(status === "rejected"){
-          badgeClass =
-            "badge-rejected";
+          cls = "rejected";
         }
 
 
@@ -1298,15 +1239,12 @@ async function loadSubmissions(){
             </h3>
 
             <p class="reward">
-              Reward:
               ৳${Number(
                 item.tasks?.reward || 0
               ).toFixed(2)}
             </p>
 
-            <span
-              class="badge ${badgeClass}"
-            >
+            <span class="badge ${cls}">
               ${escapeHtml(
                 item.status || ""
               )}
@@ -1373,8 +1311,9 @@ async function loadEarnings(){
     box.innerHTML =
       `
         <p class="small">
-          Earnings load error:
-          ${escapeHtml(error.message)}
+          ${escapeHtml(
+            error.message
+          )}
         </p>
       `;
 
@@ -1392,7 +1331,9 @@ async function loadEarnings(){
   rows.forEach(item => {
 
     if(
-      item.type === "task_reward"
+      String(item.type)
+        .toLowerCase()
+        .includes("task")
     ){
 
       total +=
@@ -1406,7 +1347,9 @@ async function loadEarnings(){
 
 
   document
-    .getElementById("totalEarned")
+    .getElementById(
+      "totalEarned"
+    )
     .textContent =
       total.toFixed(2);
 
@@ -1415,11 +1358,9 @@ async function loadEarnings(){
 
     box.innerHTML =
       `
-        <div class="empty">
-          <p class="small">
-            এখনো কোনো earning নেই।
-          </p>
-        </div>
+        <p class="small">
+          এখনো কোনো earning নেই।
+        </p>
       `;
 
     return;
@@ -1469,15 +1410,13 @@ async function adminCreateTask(){
   const title =
     document
       .getElementById("adminTitle")
-      .value
-      .trim();
+      .value.trim();
 
 
   const description =
     document
       .getElementById("adminDescription")
-      .value
-      .trim();
+      .value.trim();
 
 
   const reward =
@@ -1491,8 +1430,7 @@ async function adminCreateTask(){
   const taskUrl =
     document
       .getElementById("adminUrl")
-      .value
-      .trim();
+      .value.trim();
 
 
   const msg =
@@ -1517,10 +1455,6 @@ async function adminCreateTask(){
 
     return;
   }
-
-
-  msg.textContent =
-    "Task তৈরি হচ্ছে...";
 
 
   const {
@@ -1614,11 +1548,9 @@ async function loadAdminTasks(){
 
     box.innerHTML =
       `
-        <div class="empty">
-          <p class="small">
-            কোনো task নেই।
-          </p>
-        </div>
+        <p class="small">
+          কোনো task নেই।
+        </p>
       `;
 
     return;
@@ -1632,7 +1564,9 @@ async function loadAdminTasks(){
         <div class="task">
 
           <h3>
-            ${escapeHtml(task.title)}
+            ${escapeHtml(
+              task.title
+            )}
           </h3>
 
           <p class="reward">
@@ -1641,12 +1575,12 @@ async function loadAdminTasks(){
             ).toFixed(2)}
           </p>
 
-          <span class="small">
+          <p class="small">
             Status:
             ${escapeHtml(
               task.status || ""
             )}
-          </span>
+          </p>
 
         </div>
 
@@ -1702,14 +1636,11 @@ async function loadAdminSubmissions(){
 
     box.innerHTML =
       `
-        <div class="task">
-          <p class="small">
-            Admin submissions load error:
-            ${escapeHtml(
-              error.message
-            )}
-          </p>
-        </div>
+        <p class="small">
+          ${escapeHtml(
+            error.message
+          )}
+        </p>
       `;
 
     return;
@@ -1720,11 +1651,9 @@ async function loadAdminSubmissions(){
 
     box.innerHTML =
       `
-        <div class="empty">
-          <p class="small">
-            কোনো pending submission নেই।
-          </p>
-        </div>
+        <p class="small">
+          কোনো pending submission নেই।
+        </p>
       `;
 
     return;
@@ -1767,12 +1696,6 @@ async function loadAdminSubmissions(){
             )}
           </p>
 
-          <p class="small">
-            ${formatDate(
-              item.submitted_at
-            )}
-          </p>
-
           <button
             class="success"
             onclick="approveSubmission('${item.id}')"
@@ -1789,20 +1712,18 @@ async function loadAdminSubmissions(){
 
 
 /* =====================================================
-   ADMIN APPROVE
+   APPROVE
 ===================================================== */
 
 async function approveSubmission(
   submissionId
 ){
 
-  const ok =
-    confirm(
-      "এই submission approve করে reward user balance-এ যোগ করবেন?"
-    );
-
-
-  if(!ok) return;
+  if(!confirm(
+    "এই submission approve করবেন?"
+  )){
+    return;
+  }
 
 
   const {
@@ -1829,7 +1750,7 @@ async function approveSubmission(
 
 
   alert(
-    "✅ Approved! Reward balance-এ যোগ হয়েছে।"
+    "✅ Approved successfully!"
   );
 
 
@@ -1857,20 +1778,17 @@ async function logout(){
 
   document
     .getElementById("dashboard")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
 
   document
     .getElementById("adminPanel")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
 
   document
     .getElementById("auth")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
 
   showSignup();
@@ -1887,7 +1805,6 @@ function escapeHtml(value){
   return String(
     value ?? ""
   )
-
   .replaceAll("&","&amp;")
   .replaceAll("<","&lt;")
   .replaceAll(">","&gt;")
@@ -1902,7 +1819,6 @@ function escapeAttr(value){
   return String(
     value ?? ""
   )
-
   .replaceAll("&","&amp;")
   .replaceAll('"',"&quot;")
   .replaceAll("'","&#039;")
@@ -1937,7 +1853,7 @@ function formatDate(value){
 
 
 /* =====================================================
-   SESSION
+   SESSION CHECK
 ===================================================== */
 
 async function checkSession(){
@@ -1949,9 +1865,7 @@ async function checkSession(){
 
 
   if(
-    data &&
-    data.session &&
-    data.session.user
+    data?.session?.user
   ){
 
     await showDashboard(
@@ -1961,33 +1875,6 @@ async function checkSession(){
   }
 
 }
-
-
-db.auth.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
-
-    if(
-      event === "SIGNED_IN" &&
-      session?.user
-    ){
-
-      if(
-        !currentUser
-      ){
-
-        await showDashboard(
-          session.user
-        );
-
-      }
-
-    }
-
-  }
-);
 
 
 checkSession();
