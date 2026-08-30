@@ -14,12 +14,32 @@
   padding:0;
 }
 
+:root{
+  --bg:#070a14;
+  --card:#10162a;
+  --card2:#151c33;
+  --border:#26304d;
+  --text:#fff;
+  --muted:#9da8c4;
+  --primary:#7c5cff;
+  --cyan:#00d4ff;
+  --green:#25d366;
+  --danger:#ff4d67;
+}
+
 body{
   font-family:Arial,sans-serif;
-  background:#080b16;
-  color:#fff;
+  background:
+    radial-gradient(circle at top left,#17103d 0,transparent 35%),
+    radial-gradient(circle at top right,#063c4b 0,transparent 30%),
+    var(--bg);
+  color:var(--text);
   min-height:100vh;
-  padding-bottom:40px;
+  padding-bottom:90px;
+}
+
+button,input{
+  font-family:inherit;
 }
 
 .container{
@@ -29,87 +49,355 @@ body{
 }
 
 header{
-  padding:22px 0;
-  text-align:center;
+  padding:22px 0 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
   font-size:27px;
-  font-weight:800;
+  font-weight:900;
   background:linear-gradient(90deg,#7c5cff,#00d4ff);
   -webkit-background-clip:text;
   color:transparent;
 }
 
-.card{
-  background:#11162a;
-  border:1px solid #252c47;
+.header-badge{
+  padding:7px 11px;
   border-radius:20px;
-  padding:22px;
-  margin:18px 0;
+  background:#171e35;
+  border:1px solid var(--border);
+  font-size:12px;
+  color:#b8c3df;
 }
 
-.balance{
-  background:linear-gradient(135deg,#3824a8,#087fa8);
+.card{
+  background:rgba(16,22,42,.92);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:20px;
+  margin:16px 0;
+  box-shadow:0 10px 35px rgba(0,0,0,.18);
+}
+
+.hero{
+  padding:24px;
+  background:
+    linear-gradient(135deg,rgba(124,92,255,.32),rgba(0,212,255,.15)),
+    #10162a;
+}
+
+.hero h1{
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.small{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.balance-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(135deg,#3922a7,#087c9f);
   border:0;
 }
 
-.balance h1{
-  font-size:38px;
-  margin:10px 0;
+.balance-card:after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  right:-65px;
+  top:-65px;
+}
+
+.balance-label{
+  color:#dceaff;
+  font-size:14px;
+}
+
+.balance{
+  font-size:40px;
+  font-weight:900;
+  margin:7px 0;
+}
+
+.balance-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.balance-actions button{
+  flex:1;
+}
+
+button{
+  width:100%;
+  padding:13px 15px;
+  margin-top:10px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(90deg,var(--primary),var(--cyan));
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.secondary{
+  background:#252d48;
+}
+
+.danger{
+  background:#a9213b;
 }
 
 input{
   width:100%;
   padding:14px;
-  margin:8px 0;
-  border-radius:12px;
-  border:1px solid #303852;
-  background:#080b16;
+  margin:7px 0;
+  border-radius:13px;
+  border:1px solid #303a59;
+  background:#080c18;
   color:#fff;
   outline:none;
 }
 
 input:focus{
-  border-color:#7c5cff;
+  border-color:var(--primary);
 }
 
-button{
-  width:100%;
-  padding:14px;
-  margin-top:10px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(90deg,#7c5cff,#00cfff);
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.secondary{
-  background:#242b43;
+.msg{
+  margin-top:12px;
+  color:#aeb9d4;
+  font-size:14px;
 }
 
 .hidden{
   display:none !important;
 }
 
-.msg{
-  margin-top:12px;
-  color:#aab3ce;
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.section-head h2{
+  font-size:19px;
+}
+
+.view-all{
+  color:var(--cyan);
+  font-size:13px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#151c32;
+  border:1px solid #27314e;
+  border-radius:16px;
+  padding:15px;
+}
+
+.stat-icon{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.stat-value{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:3px;
 }
 
 .task{
-  padding:15px;
-  border:1px solid #2b3350;
-  border-radius:15px;
+  padding:16px;
+  border:1px solid #2a3452;
+  border-radius:17px;
+  margin-top:12px;
+  background:#12192d;
+}
+
+.task h3{
+  font-size:17px;
+  margin-bottom:6px;
+}
+
+.reward{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 10px;
+  border-radius:10px;
+  background:rgba(37,211,102,.12);
+  color:#67ed98;
+  font-weight:800;
+  font-size:13px;
+}
+
+.task-link{
+  display:block;
+  margin-top:12px;
+  padding:11px;
+  text-align:center;
+  border-radius:11px;
+  background:linear-gradient(90deg,#7c5cff,#00cfff);
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.feature{
+  background:#131a2f;
+  border:1px solid #283250;
+  border-radius:17px;
+  padding:17px;
+  cursor:pointer;
+}
+
+.feature-icon{
+  font-size:25px;
+  margin-bottom:9px;
+}
+
+.feature h3{
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.progress{
+  height:9px;
+  background:#252d47;
+  border-radius:20px;
+  overflow:hidden;
   margin-top:12px;
 }
 
-.small{
-  color:#9da7c1;
-  font-size:14px;
-  line-height:1.5;
+.progress span{
+  display:block;
+  width:35%;
+  height:100%;
+  background:linear-gradient(90deg,#7c5cff,#00d4ff);
+  border-radius:20px;
+}
+
+.referral-box{
+  padding:15px;
+  border:1px dashed #394566;
+  border-radius:15px;
+  background:#0c1120;
+  margin-top:12px;
+}
+
+.referral-code{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin:8px 0;
+  color:#00d4ff;
+}
+
+.profile-row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.avatar{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  font-weight:900;
+  background:linear-gradient(135deg,#7c5cff,#00d4ff);
+}
+
+.profile-info h3{
+  margin-bottom:4px;
+}
+
+.withdraw-option{
+  padding:14px;
+  border:1px solid #2b3553;
+  border-radius:14px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.withdraw-option.active{
+  border-color:#7c5cff;
+  background:rgba(124,92,255,.12);
+}
+
+.nav{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:12px;
+  width:94%;
+  max-width:700px;
+  background:rgba(13,18,34,.96);
+  backdrop-filter:blur(18px);
+  border:1px solid #2b3553;
+  border-radius:20px;
+  padding:8px;
+  display:flex;
+  justify-content:space-around;
+  z-index:1000;
+  box-shadow:0 15px 40px rgba(0,0,0,.45);
+}
+
+.nav button{
+  margin:0;
+  padding:9px 6px;
+  background:transparent;
+  color:#8995b3;
+  font-size:11px;
+  width:20%;
+}
+
+.nav button.active{
+  color:#fff;
+  background:linear-gradient(135deg,rgba(124,92,255,.3),rgba(0,212,255,.12));
+  border-radius:13px;
+}
+
+.nav-icon{
+  display:block;
+  font-size:19px;
+  margin-bottom:3px;
 }
 
 .admin-title{
@@ -117,12 +405,43 @@ button{
   margin-bottom:6px;
 }
 
-.task-link{
-  display:block;
-  margin-top:10px;
-  color:#00d4ff;
-  text-decoration:none;
-  font-weight:700;
+.notice{
+  padding:13px;
+  border-radius:14px;
+  background:#151d35;
+  border:1px solid #2b3553;
+  color:#b6c1db;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.empty{
+  padding:20px 10px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media(max-width:500px){
+  .container{
+    width:94%;
+  }
+
+  .balance{
+    font-size:34px;
+  }
+
+  .hero h1{
+    font-size:24px;
+  }
+
+  .card{
+    padding:17px;
+    border-radius:18px;
+  }
+
+  .feature-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 </style>
 </head>
@@ -133,6 +452,7 @@ button{
 
 <header>
   <div class="logo">TaskEarn BD</div>
+  <div class="header-badge">● Online</div>
 </header>
 
 
@@ -142,7 +462,6 @@ button{
 
 <section id="auth">
 
-  <!-- SIGN UP -->
   <div class="card" id="signupBox">
 
     <h2>Welcome 👋</h2>
@@ -173,7 +492,7 @@ button{
     >
 
     <button onclick="signup()">
-      Create Account
+      🚀 Create Account
     </button>
 
     <button
@@ -183,21 +502,17 @@ button{
       Already have an account? Login
     </button>
 
-    <p
-      id="signupMsg"
-      class="msg"
-    ></p>
+    <p id="signupMsg" class="msg"></p>
 
   </div>
 
 
-  <!-- LOGIN -->
   <div
     class="card hidden"
     id="loginBox"
   >
 
-    <h2>Login 🔐</h2>
+    <h2>Welcome Back 🔐</h2>
 
     <p class="small">
       Login with your email and password.
@@ -218,7 +533,7 @@ button{
     >
 
     <button onclick="login()">
-      Login
+      🔐 Login
     </button>
 
     <button
@@ -228,10 +543,7 @@ button{
       Create a new account
     </button>
 
-    <p
-      id="loginMsg"
-      class="msg"
-    ></p>
+    <p id="loginMsg" class="msg"></p>
 
   </div>
 
@@ -239,50 +551,498 @@ button{
 
 
 <!-- =========================
-     USER DASHBOARD
+     USER APP
 ========================= -->
 
-<section
-  id="dashboard"
-  class="hidden"
->
+<section id="app" class="hidden">
 
-  <div class="card">
 
-    <h2 id="welcome">
-      Welcome!
-    </h2>
+<!-- HOME -->
+
+<div id="homePage">
+
+  <div class="card hero">
+
+    <h1 id="welcome">
+      Welcome! 👋
+    </h1>
 
     <p class="small">
-      Your TaskEarn BD dashboard
+      Complete tasks and manage your account from one place.
     </p>
 
   </div>
 
 
-  <div class="card balance">
+  <div class="card balance-card">
 
-    <p>
+    <p class="balance-label">
       Available Balance
     </p>
 
-    <h1>
+    <div class="balance">
       ৳ <span id="balance">0.00</span>
-    </h1>
+    </div>
+
+    <p class="small" style="color:#d8eaff">
+      Your current available balance
+    </p>
+
+    <div class="balance-actions">
+      <button onclick="showPage('walletPage')">
+        💰 Wallet
+      </button>
+
+      <button onclick="showPage('withdrawPage')">
+        💸 Withdraw
+      </button>
+    </div>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">💵</div>
+      <div class="stat-value">
+        ৳ <span id="totalEarned">0.00</span>
+      </div>
+      <p class="small">Total Earned</p>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">✅</div>
+      <div class="stat-value" id="completedCount">
+        0
+      </div>
+      <p class="small">Completed Tasks</p>
+    </div>
 
   </div>
 
 
   <div class="card">
 
-    <h2>
-      Available Tasks 📋
-    </h2>
+    <div class="section-head">
+      <h2>Today's Progress 🎯</h2>
+      <span class="view-all">35%</span>
+    </div>
 
-    <div id="tasks">
+    <p class="small">
+      Keep completing tasks to increase your earnings.
+    </p>
 
+    <div class="progress">
+      <span></span>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="section-head">
+      <h2>Quick Access ⚡</h2>
+    </div>
+
+    <div class="feature-grid">
+
+      <div
+        class="feature"
+        onclick="showPage('tasksPage')"
+      >
+        <div class="feature-icon">📋</div>
+        <h3>Tasks</h3>
+        <p>Find available tasks</p>
+      </div>
+
+      <div
+        class="feature"
+        onclick="showPage('referralPage')"
+      >
+        <div class="feature-icon">👥</div>
+        <h3>Referral</h3>
+        <p>Invite friends</p>
+      </div>
+
+      <div
+        class="feature"
+        onclick="showPage('bonusPage')"
+      >
+        <div class="feature-icon">🎁</div>
+        <h3>Daily Bonus</h3>
+        <p>Check your bonus</p>
+      </div>
+
+      <div
+        class="feature"
+        onclick="showPage('leaderboardPage')"
+      >
+        <div class="feature-icon">🏆</div>
+        <h3>Leaderboard</h3>
+        <p>Top earners</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="section-head">
+      <h2>Latest Tasks 📋</h2>
+      <span
+        class="view-all"
+        onclick="showPage('tasksPage')"
+      >
+        View all
+      </span>
+    </div>
+
+    <div id="homeTasks">
       <p class="small">
         Loading tasks...
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TASKS -->
+
+<div id="tasksPage" class="hidden">
+
+  <div class="card">
+
+    <div class="section-head">
+      <h2>Available Tasks 📋</h2>
+    </div>
+
+    <p class="small">
+      Complete available tasks and follow the task instructions.
+    </p>
+
+    <div id="tasks">
+      <p class="small">Loading tasks...</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- WALLET -->
+
+<div id="walletPage" class="hidden">
+
+  <div class="card balance-card">
+
+    <p class="balance-label">
+      Available Balance
+    </p>
+
+    <div class="balance">
+      ৳ <span id="walletBalance">0.00</span>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Wallet Overview 💳</h2>
+
+    <div class="stats" style="margin-top:14px">
+
+      <div class="stat">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value">
+          ৳ <span id="walletTotal">0.00</span>
+        </div>
+        <p class="small">Total Earned</p>
+      </div>
+
+      <div class="stat">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value">৳ 0.00</div>
+        <p class="small">Pending</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Transaction History</h2>
+
+    <div class="empty">
+      <div style="font-size:30px">📊</div>
+      <p style="margin-top:8px">
+        No transactions yet.
+      </p>
+      <p class="small">
+        Your real transactions will appear here.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- WITHDRAW -->
+
+<div id="withdrawPage" class="hidden">
+
+  <div class="card">
+
+    <h2>Withdraw Money 💸</h2>
+
+    <p class="small" style="margin-top:7px">
+      Available balance:
+      <b style="color:#fff">
+        ৳ <span id="withdrawBalance">0.00</span>
+      </b>
+    </p>
+
+    <div class="notice" style="margin-top:14px">
+      ⚠️ Withdrawal processing will be connected to the secure backend before real payments are sent.
+    </div>
+
+    <h3 style="margin-top:18px">
+      Select Method
+    </h3>
+
+    <div
+      class="withdraw-option"
+      onclick="selectWithdraw('bKash',this)"
+    >
+      📱 <b>bKash</b>
+      <p class="small">Mobile wallet</p>
+    </div>
+
+    <div
+      class="withdraw-option"
+      onclick="selectWithdraw('Nagad',this)"
+    >
+      🟠 <b>Nagad</b>
+      <p class="small">Mobile wallet</p>
+    </div>
+
+    <div
+      class="withdraw-option"
+      onclick="selectWithdraw('Rocket',this)"
+    >
+      🟣 <b>Rocket</b>
+      <p class="small">Mobile wallet</p>
+    </div>
+
+    <input
+      id="withdrawNumber"
+      type="tel"
+      placeholder="Account / mobile number"
+    >
+
+    <input
+      id="withdrawAmount"
+      type="number"
+      min="1"
+      step="0.01"
+      placeholder="Withdrawal amount (৳)"
+    >
+
+    <button onclick="requestWithdraw()">
+      💸 Submit Withdrawal Request
+    </button>
+
+    <p id="withdrawMsg" class="msg"></p>
+
+  </div>
+
+</div>
+
+
+<!-- REFERRAL -->
+
+<div id="referralPage" class="hidden">
+
+  <div class="card hero">
+
+    <h2>Invite & Earn 👥</h2>
+
+    <p class="small" style="margin-top:7px">
+      Share your referral link with friends.
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Your Referral Code</h3>
+
+    <div class="referral-box">
+
+      <div class="referral-code" id="referralCode">
+        TASKEARN
+      </div>
+
+      <button onclick="copyReferral()">
+        📋 Copy Referral Code
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value" id="referralCount">0</div>
+      <p class="small">Total Referrals</p>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🎁</div>
+      <div class="stat-value">৳ 0.00</div>
+      <p class="small">Referral Reward</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BONUS -->
+
+<div id="bonusPage" class="hidden">
+
+  <div class="card hero">
+
+    <h2>Daily Bonus 🎁</h2>
+
+    <p class="small" style="margin-top:7px">
+      Come back every day and maintain your streak.
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Daily Streak 🔥</h2>
+
+    <div style="
+      font-size:42px;
+      text-align:center;
+      margin:18px 0;
+    ">
+      🔥
+    </div>
+
+    <h2 style="text-align:center">
+      0 Days
+    </h2>
+
+    <p
+      class="small"
+      style="text-align:center;margin-top:6px"
+    >
+      Your daily streak
+    </p>
+
+    <button onclick="claimBonus()">
+      🎁 Claim Daily Bonus
+    </button>
+
+    <p id="bonusMsg" class="msg"></p>
+
+  </div>
+
+</div>
+
+
+<!-- LEADERBOARD -->
+
+<div id="leaderboardPage" class="hidden">
+
+  <div class="card">
+
+    <h2>Leaderboard 🏆</h2>
+
+    <p class="small" style="margin-top:7px">
+      Top earners will appear here.
+    </p>
+
+    <div class="empty">
+      <div style="font-size:38px">🏆</div>
+      <p style="margin-top:8px">
+        Leaderboard is getting ready.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div id="profilePage" class="hidden">
+
+  <div class="card">
+
+    <div class="profile-row">
+
+      <div class="avatar" id="avatar">
+        U
+      </div>
+
+      <div class="profile-info">
+        <h3 id="profileName">
+          User
+        </h3>
+
+        <p
+          id="userEmail"
+          class="small"
+        ></p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>Account Information</h2>
+
+    <div style="margin-top:15px">
+
+      <p class="small">Full Name</p>
+      <p
+        id="profileFullName"
+        style="margin-top:4px"
+      >
+        User
+      </p>
+
+      <p
+        class="small"
+        style="margin-top:14px"
+      >
+        Email
+      </p>
+
+      <p
+        id="profileEmail"
+        style="margin-top:4px"
+      >
+        -
       </p>
 
     </div>
@@ -292,24 +1052,17 @@ button{
 
   <div class="card">
 
-    <h2>
-      Account
-    </h2>
-
-    <p
-      id="userEmail"
-      class="small"
-      style="margin-top:8px"
-    ></p>
-
     <button
-      class="secondary"
+      class="danger"
       onclick="logout()"
     >
-      Logout
+      🚪 Logout
     </button>
 
   </div>
+
+</div>
+
 
 </section>
 
@@ -338,9 +1091,7 @@ button{
 
   <div class="card">
 
-    <h2>
-      ➕ Add New Task
-    </h2>
+    <h2>➕ Add New Task</h2>
 
     <input
       id="adminTitle"
@@ -382,21 +1133,63 @@ button{
 
   <div class="card">
 
-    <h2>
-      📋 Admin Tasks
-    </h2>
+    <h2>📋 Admin Tasks</h2>
 
     <div id="adminTasks">
-
       <p class="small">
         Loading...
       </p>
-
     </div>
 
   </div>
 
 </section>
+
+
+<!-- BOTTOM NAV -->
+
+<div
+  id="bottomNav"
+  class="nav hidden"
+>
+
+  <button
+    class="active"
+    onclick="showPage('homePage',this)"
+  >
+    <span class="nav-icon">🏠</span>
+    Home
+  </button>
+
+  <button
+    onclick="showPage('tasksPage',this)"
+  >
+    <span class="nav-icon">📋</span>
+    Tasks
+  </button>
+
+  <button
+    onclick="showPage('walletPage',this)"
+  >
+    <span class="nav-icon">💰</span>
+    Wallet
+  </button>
+
+  <button
+    onclick="showPage('referralPage',this)"
+  >
+    <span class="nav-icon">👥</span>
+    Referral
+  </button>
+
+  <button
+    onclick="showPage('profilePage',this)"
+  >
+    <span class="nav-icon">👤</span>
+    Profile
+  </button>
+
+</div>
 
 </div>
 
@@ -419,9 +1212,12 @@ const db =
     SUPABASE_KEY
   );
 
+let currentUser = null;
+let selectedWithdrawMethod = "";
+
 
 // =========================
-// SHOW LOGIN
+// AUTH UI
 // =========================
 
 function showLogin(){
@@ -439,10 +1235,6 @@ function showLogin(){
 }
 
 
-// =========================
-// SHOW SIGNUP
-// =========================
-
 function showSignup(){
 
   document
@@ -459,7 +1251,7 @@ function showSignup(){
 
 
 // =========================
-// SIGN UP
+// SIGNUP
 // =========================
 
 async function signup(){
@@ -503,6 +1295,10 @@ async function signup(){
   }
 
 
+  msg.textContent =
+    "Account তৈরি হচ্ছে...";
+
+
   const {
     data,
     error
@@ -531,8 +1327,25 @@ async function signup(){
   }
 
 
+  /*
+    যদি Supabase email confirmation OFF থাকে,
+    তাহলে session পাওয়া যাবে এবং সরাসরি dashboard খুলবে।
+  */
+
+  if(data && data.session && data.user){
+
+    msg.textContent = "";
+
+    await showDashboard(
+      data.user
+    );
+
+    return;
+  }
+
+
   msg.textContent =
-    "Account তৈরি হয়েছে। Email confirmation প্রয়োজন হলে আপনার email check করুন।";
+    "Account তৈরি হয়েছে। যদি Email confirmation চালু থাকে, email confirm করুন তারপর Login করুন।";
 
 }
 
@@ -565,6 +1378,10 @@ async function login(){
 
     return;
   }
+
+
+  msg.textContent =
+    "Logging in...";
 
 
   const {
@@ -604,6 +1421,9 @@ async function login(){
 
 async function showDashboard(user){
 
+  currentUser = user;
+
+
   document
     .getElementById("auth")
     .classList
@@ -611,15 +1431,33 @@ async function showDashboard(user){
 
 
   document
-    .getElementById("dashboard")
+    .getElementById("app")
     .classList
     .remove("hidden");
+
+
+  document
+    .getElementById("bottomNav")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("adminPanel")
+    .classList
+    .add("hidden");
 
 
   document
     .getElementById("userEmail")
     .textContent =
       user.email || "";
+
+
+  document
+    .getElementById("profileEmail")
+    .textContent =
+      user.email || "-";
 
 
   const {
@@ -633,49 +1471,53 @@ async function showDashboard(user){
       .single();
 
 
+  let name =
+    user.user_metadata?.full_name ||
+    "User";
+
+  let balance = 0;
+
+
   if(!error && data){
 
-    document
-      .getElementById("welcome")
-      .textContent =
-        "Welcome, " +
-        (data.full_name || "User") +
-        " 👋";
+    name =
+      data.full_name ||
+      name;
 
-
-    document
-      .getElementById("balance")
-      .textContent =
-        Number(
-          data.balance || 0
-        ).toFixed(2);
+    balance =
+      Number(data.balance || 0);
 
   }
 
 
-  // ADMIN CHECK
-
-  const {
-    data:adminCheck,
-    error:adminError
-  } =
-    await db.rpc("is_admin");
+  document
+    .getElementById("welcome")
+    .textContent =
+      "Welcome, " + name + " 👋";
 
 
-  if(
-    !adminError &&
-    adminCheck === true
-  ){
+  document
+    .getElementById("profileName")
+    .textContent =
+      name;
 
-    document
-      .getElementById("adminPanel")
-      .classList
-      .remove("hidden");
 
-    await loadAdminTasks();
+  document
+    .getElementById("profileFullName")
+    .textContent =
+      name;
 
-  }
 
+  document
+    .getElementById("avatar")
+    .textContent =
+      name.charAt(0).toUpperCase();
+
+
+  setBalance(balance);
+
+
+  await checkAdmin();
 
   await loadTasks();
 
@@ -683,13 +1525,59 @@ async function showDashboard(user){
 
 
 // =========================
-// LOAD USER TASKS
+// BALANCE
+// =========================
+
+function setBalance(balance){
+
+  const value =
+    Number(balance || 0)
+      .toFixed(2);
+
+
+  document
+    .getElementById("balance")
+    .textContent =
+      value;
+
+
+  document
+    .getElementById("walletBalance")
+    .textContent =
+      value;
+
+
+  document
+    .getElementById("walletTotal")
+    .textContent =
+      value;
+
+
+  document
+    .getElementById("totalEarned")
+    .textContent =
+      value;
+
+
+  document
+    .getElementById("withdrawBalance")
+    .textContent =
+      value;
+
+}
+
+
+// =========================
+// TASKS
 // =========================
 
 async function loadTasks(){
 
   const box =
     document.getElementById("tasks");
+
+  const homeBox =
+    document.getElementById("homeTasks");
 
 
   const {
@@ -712,8 +1600,14 @@ async function loadTasks(){
 
   if(error){
 
-    box.innerHTML =
+    const message =
       '<p class="small">Tasks এখন পাওয়া যাচ্ছে না।</p>';
+
+    box.innerHTML =
+      message;
+
+    homeBox.innerHTML =
+      message;
 
     return;
   }
@@ -721,14 +1615,27 @@ async function loadTasks(){
 
   if(!data || data.length === 0){
 
+    const empty =
+      `
+        <div class="empty">
+          <div style="font-size:30px">📋</div>
+          <p style="margin-top:8px">
+            এখন কোনো active task নেই।
+          </p>
+        </div>
+      `;
+
     box.innerHTML =
-      '<p class="small">এখন কোনো active task নেই।</p>';
+      empty;
+
+    homeBox.innerHTML =
+      empty;
 
     return;
   }
 
 
-  box.innerHTML =
+  const html =
     data
       .map(task => `
 
@@ -744,14 +1651,12 @@ async function loadTasks(){
             )}
           </p>
 
-          <p style="margin-top:8px">
+          <span class="reward">
             Reward:
-            <b>
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </b>
-          </p>
+            ৳${Number(
+              task.reward || 0
+            ).toFixed(2)}
+          </span>
 
           ${
             task.task_url
@@ -762,7 +1667,7 @@ async function loadTasks(){
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open Task →
+                🚀 Open Task
               </a>
             `
             : ""
@@ -772,6 +1677,311 @@ async function loadTasks(){
 
       `)
       .join("");
+
+
+  box.innerHTML =
+    html;
+
+
+  homeBox.innerHTML =
+    data
+      .slice(0,3)
+      .map(task => `
+
+        <div class="task">
+
+          <h3>
+            ${escapeHtml(task.title)}
+          </h3>
+
+          <p class="small">
+            ${escapeHtml(
+              task.description || ""
+            )}
+          </p>
+
+          <span class="reward">
+            ৳${Number(
+              task.reward || 0
+            ).toFixed(2)}
+          </span>
+
+        </div>
+
+      `)
+      .join("");
+
+
+}
+
+
+// =========================
+// PAGE NAVIGATION
+// =========================
+
+function showPage(pageId,button){
+
+  const pages = [
+    "homePage",
+    "tasksPage",
+    "walletPage",
+    "withdrawPage",
+    "referralPage",
+    "bonusPage",
+    "leaderboardPage",
+    "profilePage"
+  ];
+
+
+  pages.forEach(id => {
+
+    const el =
+      document.getElementById(id);
+
+    if(el){
+
+      el.classList.add("hidden");
+
+    }
+
+  });
+
+
+  const page =
+    document.getElementById(pageId);
+
+
+  if(page){
+
+    page.classList.remove("hidden");
+
+  }
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+// =========================
+// WITHDRAW UI
+// =========================
+
+function selectWithdraw(method,element){
+
+  selectedWithdrawMethod =
+    method;
+
+
+  document
+    .querySelectorAll(".withdraw-option")
+    .forEach(el => {
+
+      el.classList.remove("active");
+
+    });
+
+
+  element.classList.add("active");
+
+}
+
+
+function requestWithdraw(){
+
+  const number =
+    document
+      .getElementById("withdrawNumber")
+      .value
+      .trim();
+
+  const amount =
+    Number(
+      document
+        .getElementById("withdrawAmount")
+        .value
+    );
+
+  const msg =
+    document.getElementById("withdrawMsg");
+
+
+  if(!selectedWithdrawMethod){
+
+    msg.textContent =
+      "একটি withdrawal method নির্বাচন করুন।";
+
+    return;
+  }
+
+
+  if(!number){
+
+    msg.textContent =
+      "Account / mobile number দিন।";
+
+    return;
+  }
+
+
+  if(!amount || amount <= 0){
+
+    msg.textContent =
+      "সঠিক withdrawal amount দিন।";
+
+    return;
+  }
+
+
+  msg.textContent =
+    "Withdrawal backend এখনো connected হয়নি। নিরাপদ payment system যুক্ত করার পর request এখানে submit হবে.";
+
+}
+
+
+// =========================
+// REFERRAL
+// =========================
+
+function createReferralCode(user){
+
+  if(!user){
+
+    return "TASKEARN";
+
+  }
+
+
+  return (
+    "TE" +
+    String(user.id)
+      .replaceAll("-","")
+      .substring(0,8)
+      .toUpperCase()
+  );
+
+}
+
+
+async function setupReferral(){
+
+  const code =
+    createReferralCode(
+      currentUser
+    );
+
+
+  document
+    .getElementById("referralCode")
+    .textContent =
+      code;
+
+}
+
+
+function copyReferral(){
+
+  const code =
+    document
+      .getElementById("referralCode")
+      .textContent;
+
+
+  navigator.clipboard
+    .writeText(code)
+    .then(() => {
+
+      alert(
+        "Referral code copied: " +
+        code
+      );
+
+    })
+    .catch(() => {
+
+      alert(
+        "Referral code: " +
+        code
+      );
+
+    });
+
+}
+
+
+// =========================
+// DAILY BONUS UI
+// =========================
+
+function claimBonus(){
+
+  document
+    .getElementById("bonusMsg")
+    .textContent =
+      "Daily bonus backend এখনো connected হয়নি।";
+
+}
+
+
+// =========================
+// ADMIN CHECK
+// =========================
+
+async function checkAdmin(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.rpc(
+        "is_admin"
+      );
+
+
+    if(
+      !error &&
+      data === true
+    ){
+
+      document
+        .getElementById("adminPanel")
+        .classList
+        .remove("hidden");
+
+
+      await loadAdminTasks();
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Admin check:",
+      error
+    );
+
+  }
 
 }
 
@@ -826,6 +2036,10 @@ async function adminCreateTask(){
   }
 
 
+  msg.textContent =
+    "Task adding...";
+
+
   const {
     error
   } =
@@ -857,13 +2071,16 @@ async function adminCreateTask(){
     .getElementById("adminTitle")
     .value = "";
 
+
   document
     .getElementById("adminDescription")
     .value = "";
 
+
   document
     .getElementById("adminReward")
     .value = "";
+
 
   document
     .getElementById("adminUrl")
@@ -932,16 +2149,16 @@ async function loadAdminTasks(){
             )}
           </p>
 
-          <p style="margin-top:8px">
-            Reward:
-            <b>
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </b>
-          </p>
+          <span class="reward">
+            ৳${Number(
+              task.reward || 0
+            ).toFixed(2)}
+          </span>
 
-          <p class="small">
+          <p
+            class="small"
+            style="margin-top:8px"
+          >
             Status:
             ${escapeHtml(
               task.status || ""
@@ -965,14 +2182,24 @@ async function logout(){
   await db.auth.signOut();
 
 
+  currentUser =
+    null;
+
+
   document
-    .getElementById("dashboard")
+    .getElementById("app")
     .classList
     .add("hidden");
 
 
   document
     .getElementById("adminPanel")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("bottomNav")
     .classList
     .add("hidden");
 
@@ -1047,16 +2274,50 @@ async function checkSession(){
     await db.auth.getSession();
 
 
-  if(data.session){
+  if(
+    data &&
+    data.session
+  ){
 
     await showDashboard(
       data.session.user
     );
 
+    await setupReferral();
+
   }
 
 }
 
+
+// =========================
+// AUTH STATE LISTENER
+// =========================
+
+db.auth.onAuthStateChange(
+  async (event,session) => {
+
+    if(
+      session &&
+      (
+        event === "SIGNED_IN" ||
+        event === "INITIAL_SESSION"
+      )
+    ){
+
+      await showDashboard(
+        session.user
+      );
+
+      await setupReferral();
+
+    }
+
+  }
+);
+
+
+// START
 
 checkSession();
 
