@@ -17,216 +17,246 @@
 body{
   font-family:Arial,sans-serif;
   background:
-    radial-gradient(circle at top left,#17134a 0,#080b16 35%),
-    #080b16;
+    radial-gradient(circle at 10% 0%,#21175c 0,transparent 32%),
+    radial-gradient(circle at 100% 20%,#063e55 0,transparent 30%),
+    #070a14;
   color:#fff;
   min-height:100vh;
-  padding-bottom:50px;
 }
 
 .container{
   width:92%;
-  max-width:900px;
+  max-width:950px;
   margin:auto;
+  padding-bottom:45px;
 }
 
 header{
   padding:22px 0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  text-align:center;
 }
 
 .logo{
-  font-size:28px;
+  font-size:29px;
   font-weight:900;
-  background:linear-gradient(90deg,#8b5cf6,#00d4ff);
+  background:linear-gradient(90deg,#8b5cf6,#00d9ff);
   -webkit-background-clip:text;
   color:transparent;
 }
 
+.online{
+  display:inline-block;
+  margin-top:7px;
+  color:#6ee7b7;
+  font-size:13px;
+}
+
 .card{
-  background:rgba(17,22,42,.95);
-  border:1px solid #292f4b;
+  background:rgba(15,20,38,.94);
+  border:1px solid #29314d;
   border-radius:22px;
-  padding:22px;
-  margin:18px 0;
-  box-shadow:0 10px 35px rgba(0,0,0,.18);
+  padding:21px;
+  margin:16px 0;
+  box-shadow:0 12px 35px rgba(0,0,0,.2);
 }
 
 .auth-card{
-  margin-top:35px;
+  max-width:500px;
+  margin:30px auto;
 }
 
-.balance{
-  background:linear-gradient(135deg,#3824a8,#087fa8);
-  border:0;
+h2{
+  margin-bottom:7px;
 }
 
-.balance h1{
-  font-size:42px;
-  margin:10px 0;
+h3{
+  margin-bottom:6px;
 }
 
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.small{
+  color:#a5afca;
+  font-size:14px;
+  line-height:1.55;
 }
 
-.stat{
-  background:#0d1222;
-  border:1px solid #292f4b;
-  border-radius:17px;
-  padding:17px;
-}
-
-.stat strong{
-  display:block;
-  font-size:24px;
-  margin-top:7px;
-}
-
-input,textarea,select{
+input,
+textarea{
   width:100%;
   padding:14px;
-  margin:8px 0;
+  margin-top:10px;
   border-radius:13px;
-  border:1px solid #303852;
-  background:#080b16;
+  border:1px solid #303954;
+  background:#080c18;
   color:#fff;
   outline:none;
   font-family:inherit;
 }
 
 textarea{
-  min-height:100px;
+  min-height:95px;
   resize:vertical;
 }
 
-input:focus,textarea:focus,select:focus{
+input:focus,
+textarea:focus{
   border-color:#7c5cff;
 }
 
 button{
   width:100%;
+  border:0;
   padding:14px;
   margin-top:10px;
-  border:0;
   border-radius:13px;
-  background:linear-gradient(90deg,#7c5cff,#00cfff);
   color:white;
   font-weight:800;
   cursor:pointer;
+  background:linear-gradient(90deg,#7654f6,#00cfff);
 }
 
 button:disabled{
-  opacity:.55;
-  cursor:not-allowed;
+  opacity:.5;
 }
 
 .secondary{
-  background:#242b43;
+  background:#252d46;
 }
 
 .success{
-  background:linear-gradient(90deg,#087f5b,#00a878);
+  background:linear-gradient(90deg,#07845d,#00a879);
 }
 
 .danger{
-  background:#b4233c;
+  background:#a9213b;
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
 .msg{
   margin-top:12px;
-  color:#b8c1dc;
+  color:#b9c2da;
   line-height:1.5;
 }
 
-.small{
-  color:#9da7c1;
-  font-size:14px;
-  line-height:1.55;
+.balance{
+  background:linear-gradient(135deg,#3823a9,#087f9e);
+  border:0;
+}
+
+.balance-label{
+  color:#d8e5ff;
+}
+
+.balance-value{
+  font-size:42px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.stat{
+  background:#0d1221;
+  border:1px solid #29314d;
+  border-radius:17px;
+  padding:16px;
+}
+
+.stat-number{
+  display:block;
+  font-size:22px;
+  font-weight:900;
+  margin-top:6px;
 }
 
 .task{
-  padding:17px;
-  border:1px solid #2b3350;
+  background:#0c1120;
+  border:1px solid #29324d;
   border-radius:17px;
-  margin-top:13px;
-  background:#0d1222;
+  padding:17px;
+  margin-top:12px;
 }
 
-.task h3{
-  margin-bottom:7px;
+.reward{
+  margin-top:9px;
+  color:#6ee7b7;
+  font-weight:800;
 }
 
 .task-link{
   display:block;
   margin-top:12px;
-  color:#00d4ff;
+  color:#50dfff;
   text-decoration:none;
   font-weight:800;
 }
 
 .badge{
   display:inline-block;
+  margin-top:9px;
   padding:6px 10px;
   border-radius:20px;
   font-size:12px;
   font-weight:800;
-  margin-top:10px;
 }
 
-.pending{
-  background:#4a3b0b;
-  color:#ffd666;
+.badge-pending{
+  background:#493b0a;
+  color:#ffd866;
 }
 
-.approved{
-  background:#083f2d;
-  color:#58e0ae;
+.badge-approved{
+  background:#073e2d;
+  color:#62e4b2;
 }
 
-.rejected{
-  background:#491525;
+.badge-rejected{
+  background:#481525;
   color:#ff8da5;
 }
 
 .admin-title{
-  color:#00d4ff;
-  margin-bottom:5px;
-}
-
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+  color:#4de0ff;
 }
 
 .empty{
   text-align:center;
-  padding:20px;
+  padding:20px 5px;
 }
 
 hr{
   border:0;
-  border-top:1px solid #292f4b;
-  margin:18px 0;
+  border-top:1px solid #29314d;
+  margin:15px 0;
 }
 
-@media(max-width:600px){
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.refresh{
+  width:auto;
+  padding:9px 13px;
+  margin:0;
+  font-size:12px;
+}
+
+@media(max-width:650px){
   .stats{
     grid-template-columns:1fr;
   }
 
-  .balance h1{
-    font-size:35px;
+  .balance-value{
+    font-size:36px;
   }
 }
 </style>
@@ -238,34 +268,32 @@ hr{
 
 <header>
   <div class="logo">TaskEarn BD</div>
+  <div class="online">● Online</div>
 </header>
 
 
-<!-- =========================
-     AUTH
-========================= -->
+<!-- ================= AUTH ================= -->
 
 <section id="auth">
 
-  <div class="card auth-card" id="signupBox">
+  <div id="signupBox" class="card auth-card">
 
-    <h2>Welcome 👋</h2>
-
+    <h2>Create Account 🚀</h2>
     <p class="small">
-      Create your TaskEarn BD account.
+      TaskEarn BD-তে account তৈরি করুন।
     </p>
 
     <input
       id="name"
       type="text"
-      placeholder="Full name"
+      placeholder="আপনার নাম"
       autocomplete="name"
     >
 
     <input
       id="signupEmail"
       type="email"
-      placeholder="Email address"
+      placeholder="Gmail / Email"
       autocomplete="email"
     >
 
@@ -280,10 +308,7 @@ hr{
       Create Account
     </button>
 
-    <button
-      class="secondary"
-      onclick="showLogin()"
-    >
+    <button class="secondary" onclick="showLogin()">
       Already have an account? Login
     </button>
 
@@ -292,12 +317,11 @@ hr{
   </div>
 
 
-  <div class="card auth-card hidden" id="loginBox">
+  <div id="loginBox" class="card auth-card hidden">
 
-    <h2>Login 🔐</h2>
-
+    <h2>Welcome Back 👋</h2>
     <p class="small">
-      Login to your TaskEarn BD account.
+      আপনার account-এ Login করুন।
     </p>
 
     <input
@@ -315,14 +339,11 @@ hr{
     >
 
     <button onclick="login()">
-      Login
+      Login 🔐
     </button>
 
-    <button
-      class="secondary"
-      onclick="showSignup()"
-    >
-      Create a new account
+    <button class="secondary" onclick="showSignup()">
+      Create New Account
     </button>
 
     <p id="loginMsg" class="msg"></p>
@@ -332,20 +353,18 @@ hr{
 </section>
 
 
-<!-- =========================
-     USER DASHBOARD
-========================= -->
+<!-- ================= USER DASHBOARD ================= -->
 
 <section id="dashboard" class="hidden">
 
   <div class="card">
 
     <h2 id="welcome">
-      Welcome! 👋
+      Welcome 👋
     </h2>
 
     <p class="small">
-      Your TaskEarn BD dashboard
+      আপনার TaskEarn BD dashboard
     </p>
 
   </div>
@@ -353,17 +372,17 @@ hr{
 
   <div class="card balance">
 
-    <p>
+    <div class="balance-label">
       Available Balance
-    </p>
+    </div>
 
-    <h1>
+    <div class="balance-value">
       ৳ <span id="balance">0.00</span>
-    </h1>
+    </div>
 
-    <p class="small">
-      Your current available earnings
-    </p>
+    <div class="small">
+      Approved task earnings
+    </div>
 
   </div>
 
@@ -371,53 +390,63 @@ hr{
   <div class="stats">
 
     <div class="stat">
-      <p class="small">Completed Earnings</p>
-      <strong>
+      <div class="small">Total Earned</div>
+      <span class="stat-number">
         ৳<span id="totalEarned">0.00</span>
-      </strong>
+      </span>
     </div>
 
     <div class="stat">
-      <p class="small">Pending Tasks</p>
-      <strong id="pendingCount">0</strong>
+      <div class="small">Pending</div>
+      <span class="stat-number" id="pendingCount">
+        0
+      </span>
+    </div>
+
+    <div class="stat">
+      <div class="small">Submissions</div>
+      <span class="stat-number" id="submissionCount">
+        0
+      </span>
     </div>
 
   </div>
 
 
-  <!-- TASKS -->
+  <!-- AVAILABLE TASKS -->
 
   <div class="card">
 
-    <div class="section-title">
+    <div class="section-head">
       <h2>Available Tasks 📋</h2>
+
+      <button
+        class="secondary refresh"
+        onclick="loadTasks()"
+      >
+        Refresh
+      </button>
     </div>
+
+    <p class="small">
+      Complete available tasks and follow the task instructions.
+    </p>
 
     <div id="tasks">
-
-      <p class="small">
-        Loading tasks...
-      </p>
-
+      <p class="small">Loading tasks...</p>
     </div>
 
   </div>
 
 
-  <!-- SUBMISSIONS -->
+  <!-- MY SUBMISSIONS -->
 
   <div class="card">
 
-    <div class="section-title">
-      <h2>My Submissions 📤</h2>
-    </div>
+    <h2>My Submissions 📤</h2>
 
     <div id="submissions">
-
-      <p class="small">
-        Loading submissions...
-      </p>
-
+      <p class="small">Loading...</p>
     </div>
 
   </div>
@@ -427,16 +456,10 @@ hr{
 
   <div class="card">
 
-    <div class="section-title">
-      <h2>Earnings History 💰</h2>
-    </div>
+    <h2>Earnings History 💰</h2>
 
     <div id="earnings">
-
-      <p class="small">
-        Loading history...
-      </p>
-
+      <p class="small">Loading...</p>
     </div>
 
   </div>
@@ -448,16 +471,9 @@ hr{
 
     <h2>Account 👤</h2>
 
-    <p
-      id="userEmail"
-      class="small"
-      style="margin-top:8px"
-    ></p>
+    <p id="userEmail" class="small"></p>
 
-    <button
-      class="secondary"
-      onclick="logout()"
-    >
+    <button class="secondary" onclick="logout()">
       Logout
     </button>
 
@@ -466,9 +482,7 @@ hr{
 </section>
 
 
-<!-- =========================
-     ADMIN PANEL
-========================= -->
+<!-- ================= ADMIN ================= -->
 
 <section id="adminPanel" class="hidden">
 
@@ -479,13 +493,13 @@ hr{
     </h2>
 
     <p class="small">
-      TaskEarn BD Management
+      TaskEarn BD Management Panel
     </p>
 
   </div>
 
 
-  <!-- ADD TASK -->
+  <!-- CREATE TASK -->
 
   <div class="card">
 
@@ -506,9 +520,9 @@ hr{
     <input
       id="adminReward"
       type="number"
-      step="0.01"
       min="0"
-      placeholder="Reward (৳)"
+      step="0.01"
+      placeholder="Reward ৳"
     >
 
     <input
@@ -518,7 +532,7 @@ hr{
     >
 
     <button onclick="adminCreateTask()">
-      ➕ Add Task
+      Add Task
     </button>
 
     <p id="adminMsg" class="msg"></p>
@@ -526,18 +540,18 @@ hr{
   </div>
 
 
-  <!-- ADMIN SUBMISSIONS -->
+  <!-- PENDING SUBMISSIONS -->
 
   <div class="card">
 
     <h2>📥 Pending Submissions</h2>
 
+    <p class="small">
+      এখানে user-এর submitted task review করুন।
+    </p>
+
     <div id="adminSubmissions">
-
-      <p class="small">
-        Loading...
-      </p>
-
+      <p class="small">Loading...</p>
     </div>
 
   </div>
@@ -547,14 +561,10 @@ hr{
 
   <div class="card">
 
-    <h2>📋 All Tasks</h2>
+    <h2>📋 Task Management</h2>
 
     <div id="adminTasks">
-
-      <p class="small">
-        Loading...
-      </p>
-
+      <p class="small">Loading...</p>
     </div>
 
   </div>
@@ -567,9 +577,9 @@ hr{
 
 <script>
 
-// =========================
-// SUPABASE
-// =========================
+/* =====================================================
+   SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
   "https://limhetefzzbekcdaqtqw.supabase.co";
@@ -586,9 +596,9 @@ const db =
 let currentUser = null;
 
 
-// =========================
-// AUTH SCREEN
-// =========================
+/* =====================================================
+   AUTH UI
+===================================================== */
 
 function showLogin(){
 
@@ -601,8 +611,8 @@ function showLogin(){
     .getElementById("loginBox")
     .classList
     .remove("hidden");
-}
 
+}
 
 function showSignup(){
 
@@ -615,30 +625,26 @@ function showSignup(){
     .getElementById("signupBox")
     .classList
     .remove("hidden");
+
 }
 
 
-// =========================
-// SIGNUP
-// =========================
+/* =====================================================
+   SIGN UP
+===================================================== */
 
 async function signup(){
 
   const name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
+    document.getElementById("name")
+      .value.trim();
 
   const email =
-    document
-      .getElementById("signupEmail")
-      .value
-      .trim();
+    document.getElementById("signupEmail")
+      .value.trim();
 
   const password =
-    document
-      .getElementById("signupPassword")
+    document.getElementById("signupPassword")
       .value;
 
   const msg =
@@ -673,9 +679,8 @@ async function signup(){
   } =
     await db.auth.signUp({
 
-      email:email,
-
-      password:password,
+      email,
+      password,
 
       options:{
         data:{
@@ -695,6 +700,11 @@ async function signup(){
   }
 
 
+  /*
+    If email confirmation is OFF,
+    Supabase can return an active session.
+  */
+
   if(data.session && data.user){
 
     msg.textContent = "";
@@ -708,25 +718,23 @@ async function signup(){
 
 
   msg.textContent =
-    "Account তৈরি হয়েছে। Email confirmation চালু থাকলে আগে email confirm করে Login করুন।";
+    "Account তৈরি হয়েছে। Email confirmation চালু থাকলে আগে email verify করে Login করুন।";
+
 }
 
 
-// =========================
-// LOGIN
-// =========================
+/* =====================================================
+   LOGIN
+===================================================== */
 
 async function login(){
 
   const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+    document.getElementById("loginEmail")
+      .value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
+    document.getElementById("loginPassword")
       .value;
 
   const msg =
@@ -743,7 +751,7 @@ async function login(){
 
 
   msg.textContent =
-    "Logging in...";
+    "Login হচ্ছে...";
 
 
   const {
@@ -752,9 +760,8 @@ async function login(){
   } =
     await db.auth.signInWithPassword({
 
-      email:email,
-
-      password:password
+      email,
+      password
 
     });
 
@@ -773,12 +780,13 @@ async function login(){
   await showDashboard(
     data.user
   );
+
 }
 
 
-// =========================
-// DASHBOARD
-// =========================
+/* =====================================================
+   SHOW DASHBOARD
+===================================================== */
 
 async function showDashboard(user){
 
@@ -812,7 +820,7 @@ async function showDashboard(user){
   await loadEarnings();
 
 
-  // ADMIN CHECK
+  /* ADMIN CHECK */
 
   const {
     data:adminCheck,
@@ -841,9 +849,9 @@ async function showDashboard(user){
 }
 
 
-// =========================
-// PROFILE
-// =========================
+/* =====================================================
+   PROFILE
+===================================================== */
 
 async function loadProfile(){
 
@@ -856,8 +864,13 @@ async function loadProfile(){
   } =
     await db
       .from("profiles")
-      .select("full_name,balance")
-      .eq("id",currentUser.id)
+      .select(
+        "full_name,balance"
+      )
+      .eq(
+        "id",
+        currentUser.id
+      )
       .single();
 
 
@@ -866,7 +879,7 @@ async function loadProfile(){
     document
       .getElementById("welcome")
       .textContent =
-        "Welcome, User 👋";
+        "Welcome 👋";
 
     return;
   }
@@ -890,14 +903,18 @@ async function loadProfile(){
 }
 
 
-// =========================
-// LOAD TASKS
-// =========================
+/* =====================================================
+   LOAD TASKS
+===================================================== */
 
 async function loadTasks(){
 
   const box =
     document.getElementById("tasks");
+
+
+  box.innerHTML =
+    '<p class="small">Loading tasks...</p>';
 
 
   const {
@@ -909,7 +926,10 @@ async function loadTasks(){
       .select(
         "id,title,description,reward,task_url,status,created_at"
       )
-      .eq("status","active")
+      .eq(
+        "status",
+        "active"
+      )
       .order(
         "created_at",
         {
@@ -920,8 +940,30 @@ async function loadTasks(){
 
   if(error){
 
-    box.innerHTML =
-      '<p class="small">Tasks এখন পাওয়া যাচ্ছে না।</p>';
+    console.error(
+      "Task loading error:",
+      error
+    );
+
+
+    box.innerHTML = `
+
+      <div class="task">
+
+        <h3>
+          ⚠️ Task loading error
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(
+            error.message ||
+            "Unknown error"
+          )}
+        </p>
+
+      </div>
+
+    `;
 
     return;
   }
@@ -929,8 +971,17 @@ async function loadTasks(){
 
   if(!data || data.length === 0){
 
-    box.innerHTML =
-      '<div class="empty"><p class="small">এখন কোনো active task নেই।</p></div>';
+    box.innerHTML = `
+
+      <div class="empty">
+
+        <p class="small">
+          এখন কোনো active task নেই।
+        </p>
+
+      </div>
+
+    `;
 
     return;
   }
@@ -952,52 +1003,54 @@ async function loadTasks(){
             )}
           </p>
 
-          <p style="margin-top:9px">
-            Reward:
-            <b>
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </b>
+          <p class="reward">
+            💰 Reward:
+            ৳${Number(
+              task.reward || 0
+            ).toFixed(2)}
           </p>
+
 
           ${
             task.task_url
             ? `
+
               <a
                 class="task-link"
                 href="${escapeAttr(task.task_url)}"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Open Task →
+                🔗 Open Task
               </a>
+
             `
             : ""
           }
 
+
           <button
-            onclick="openSubmitBox('${task.id}')"
+            onclick="toggleSubmit('${task.id}')"
           >
             📤 Submit Proof
           </button>
 
+
           <div
             id="submit-${task.id}"
             class="hidden"
-            style="margin-top:10px"
           >
 
             <textarea
               id="proof-${task.id}"
-              placeholder="Task proof / details লিখুন..."
+              placeholder="Task proof/details লিখুন..."
             ></textarea>
 
             <button
               class="success"
               onclick="submitTask('${task.id}')"
             >
-              Submit Task
+              Submit for Review
             </button>
 
           </div>
@@ -1010,11 +1063,11 @@ async function loadTasks(){
 }
 
 
-// =========================
-// OPEN SUBMIT BOX
-// =========================
+/* =====================================================
+   TOGGLE SUBMIT
+===================================================== */
 
-function openSubmitBox(taskId){
+function toggleSubmit(taskId){
 
   const box =
     document.getElementById(
@@ -1033,11 +1086,21 @@ function openSubmitBox(taskId){
 }
 
 
-// =========================
-// SUBMIT TASK
-// =========================
+/* =====================================================
+   SUBMIT TASK
+===================================================== */
 
 async function submitTask(taskId){
+
+  if(!currentUser){
+
+    alert(
+      "আগে Login করুন।"
+    );
+
+    return;
+  }
+
 
   const proofBox =
     document.getElementById(
@@ -1062,7 +1125,6 @@ async function submitTask(taskId){
 
 
   const {
-    data,
     error
   } =
     await db.rpc(
@@ -1077,6 +1139,7 @@ async function submitTask(taskId){
   if(error){
 
     alert(
+      "Submission failed: " +
       error.message
     );
 
@@ -1085,8 +1148,15 @@ async function submitTask(taskId){
 
 
   alert(
-    "✅ Task submitted successfully. Admin review করবে।"
+    "✅ Task submitted successfully!"
   );
+
+
+  if(proofBox){
+
+    proofBox.value = "";
+
+  }
 
 
   await loadSubmissions();
@@ -1094,19 +1164,19 @@ async function submitTask(taskId){
 }
 
 
-// =========================
-// LOAD MY SUBMISSIONS
-// =========================
+/* =====================================================
+   LOAD USER SUBMISSIONS
+===================================================== */
 
 async function loadSubmissions(){
+
+  if(!currentUser) return;
+
 
   const box =
     document.getElementById(
       "submissions"
     );
-
-
-  if(!currentUser) return;
 
 
   const {
@@ -1141,18 +1211,33 @@ async function loadSubmissions(){
   if(error){
 
     box.innerHTML =
-      '<p class="small">Submission history পাওয়া যাচ্ছে না।</p>';
+      `
+        <p class="small">
+          Submission load error:
+          ${escapeHtml(error.message)}
+        </p>
+      `;
 
     return;
   }
 
 
+  const rows =
+    data || [];
+
+
+  document
+    .getElementById("submissionCount")
+    .textContent =
+      rows.length;
+
+
   const pending =
-    (data || [])
-      .filter(
-        x => x.status === "pending"
-      )
-      .length;
+    rows.filter(
+      item =>
+        String(item.status)
+          .toLowerCase() === "pending"
+    ).length;
 
 
   document
@@ -1161,28 +1246,24 @@ async function loadSubmissions(){
       pending;
 
 
-  if(!data || data.length === 0){
+  if(rows.length === 0){
 
     box.innerHTML =
-      '<div class="empty"><p class="small">এখনো কোনো task submit করেননি।</p></div>';
+      `
+        <div class="empty">
+          <p class="small">
+            এখনো কোনো task submit করেননি।
+          </p>
+        </div>
+      `;
 
     return;
   }
 
 
   box.innerHTML =
-    data
+    rows
       .map(item => {
-
-        const title =
-          item.tasks?.title ||
-          "Task";
-
-        const reward =
-          Number(
-            item.tasks?.reward || 0
-          ).toFixed(2);
-
 
         const status =
           String(
@@ -1190,25 +1271,51 @@ async function loadSubmissions(){
           ).toLowerCase();
 
 
+        let badgeClass =
+          "badge-pending";
+
+
+        if(status === "approved"){
+          badgeClass =
+            "badge-approved";
+        }
+
+        if(status === "rejected"){
+          badgeClass =
+            "badge-rejected";
+        }
+
+
         return `
 
           <div class="task">
 
             <h3>
-              ${escapeHtml(title)}
+              ${escapeHtml(
+                item.tasks?.title ||
+                "Task"
+              )}
             </h3>
 
-            <p class="small">
-              Reward: ৳${reward}
+            <p class="reward">
+              Reward:
+              ৳${Number(
+                item.tasks?.reward || 0
+              ).toFixed(2)}
             </p>
 
-            <span class="badge ${escapeAttr(status)}">
+            <span
+              class="badge ${badgeClass}"
+            >
               ${escapeHtml(
                 item.status || ""
               )}
             </span>
 
-            <p class="small" style="margin-top:9px">
+            <p
+              class="small"
+              style="margin-top:8px"
+            >
               Submitted:
               ${formatDate(
                 item.submitted_at
@@ -1225,19 +1332,19 @@ async function loadSubmissions(){
 }
 
 
-// =========================
-// EARNINGS HISTORY
-// =========================
+/* =====================================================
+   EARNINGS
+===================================================== */
 
 async function loadEarnings(){
+
+  if(!currentUser) return;
+
 
   const box =
     document.getElementById(
       "earnings"
     );
-
-
-  if(!currentUser) return;
 
 
   const {
@@ -1264,39 +1371,34 @@ async function loadEarnings(){
   if(error){
 
     box.innerHTML =
-      '<p class="small">Earnings history পাওয়া যাচ্ছে না।</p>';
+      `
+        <p class="small">
+          Earnings load error:
+          ${escapeHtml(error.message)}
+        </p>
+      `;
 
     return;
   }
 
 
-  if(!data || data.length === 0){
-
-    document
-      .getElementById("totalEarned")
-      .textContent =
-        "0.00";
-
-
-    box.innerHTML =
-      '<div class="empty"><p class="small">এখনো কোনো earning নেই।</p></div>';
-
-    return;
-  }
+  const rows =
+    data || [];
 
 
   let total = 0;
 
 
-  data.forEach(item => {
+  rows.forEach(item => {
 
     if(
       item.type === "task_reward"
     ){
 
-      total += Number(
-        item.amount || 0
-      );
+      total +=
+        Number(
+          item.amount || 0
+        );
 
     }
 
@@ -1309,8 +1411,23 @@ async function loadEarnings(){
       total.toFixed(2);
 
 
+  if(rows.length === 0){
+
+    box.innerHTML =
+      `
+        <div class="empty">
+          <p class="small">
+            এখনো কোনো earning নেই।
+          </p>
+        </div>
+      `;
+
+    return;
+  }
+
+
   box.innerHTML =
-    data
+    rows
       .map(item => `
 
         <div class="task">
@@ -1323,11 +1440,13 @@ async function loadEarnings(){
 
           <p class="small">
             ${escapeHtml(
-              item.description || item.type || ""
+              item.description ||
+              item.type ||
+              ""
             )}
           </p>
 
-          <p class="small" style="margin-top:7px">
+          <p class="small">
             ${formatDate(
               item.created_at
             )}
@@ -1341,9 +1460,9 @@ async function loadEarnings(){
 }
 
 
-// =========================
-// ADMIN CREATE TASK
-// =========================
+/* =====================================================
+   ADMIN CREATE TASK
+===================================================== */
 
 async function adminCreateTask(){
 
@@ -1382,10 +1501,19 @@ async function adminCreateTask(){
     );
 
 
-  if(!title || !reward){
+  if(!title){
 
     msg.textContent =
-      "Task title ও reward দিন।";
+      "Task title দিন।";
+
+    return;
+  }
+
+
+  if(!reward || reward <= 0){
+
+    msg.textContent =
+      "Valid reward দিন।";
 
     return;
   }
@@ -1446,9 +1574,9 @@ async function adminCreateTask(){
 }
 
 
-// =========================
-// ADMIN TASKS
-// =========================
+/* =====================================================
+   ADMIN TASKS
+===================================================== */
 
 async function loadAdminTasks(){
 
@@ -1470,7 +1598,13 @@ async function loadAdminTasks(){
   if(error){
 
     box.innerHTML =
-      '<p class="small">Admin access required.</p>';
+      `
+        <p class="small">
+          ${escapeHtml(
+            error.message
+          )}
+        </p>
+      `;
 
     return;
   }
@@ -1479,7 +1613,13 @@ async function loadAdminTasks(){
   if(!data || data.length === 0){
 
     box.innerHTML =
-      '<p class="small">No tasks found.</p>';
+      `
+        <div class="empty">
+          <p class="small">
+            কোনো task নেই।
+          </p>
+        </div>
+      `;
 
     return;
   }
@@ -1495,27 +1635,18 @@ async function loadAdminTasks(){
             ${escapeHtml(task.title)}
           </h3>
 
-          <p class="small">
-            ${escapeHtml(
-              task.description || ""
-            )}
+          <p class="reward">
+            ৳${Number(
+              task.reward || 0
+            ).toFixed(2)}
           </p>
 
-          <p style="margin-top:8px">
-            Reward:
-            <b>
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </b>
-          </p>
-
-          <p class="small">
+          <span class="small">
             Status:
             ${escapeHtml(
               task.status || ""
             )}
-          </p>
+          </span>
 
         </div>
 
@@ -1525,9 +1656,9 @@ async function loadAdminTasks(){
 }
 
 
-// =========================
-// ADMIN SUBMISSIONS
-// =========================
+/* =====================================================
+   ADMIN SUBMISSIONS
+===================================================== */
 
 async function loadAdminSubmissions(){
 
@@ -1571,10 +1702,14 @@ async function loadAdminSubmissions(){
 
     box.innerHTML =
       `
-        <p class="small">
-          Admin submissions load করা যাচ্ছে না।
-          আপনার Supabase RLS policy check করুন।
-        </p>
+        <div class="task">
+          <p class="small">
+            Admin submissions load error:
+            ${escapeHtml(
+              error.message
+            )}
+          </p>
+        </div>
       `;
 
     return;
@@ -1584,7 +1719,13 @@ async function loadAdminSubmissions(){
   if(!data || data.length === 0){
 
     box.innerHTML =
-      '<div class="empty"><p class="small">কোনো pending submission নেই।</p></div>';
+      `
+        <div class="empty">
+          <p class="small">
+            কোনো pending submission নেই।
+          </p>
+        </div>
+      `;
 
     return;
   }
@@ -1598,24 +1739,23 @@ async function loadAdminSubmissions(){
 
           <h3>
             📋 ${escapeHtml(
-              item.tasks?.title || "Task"
+              item.tasks?.title ||
+              "Task"
             )}
           </h3>
+
+          <p class="reward">
+            Reward:
+            ৳${Number(
+              item.tasks?.reward || 0
+            ).toFixed(2)}
+          </p>
 
           <p class="small">
             User ID:
             ${escapeHtml(
               item.user_id
             )}
-          </p>
-
-          <p style="margin-top:8px">
-            Reward:
-            <b>
-              ৳${Number(
-                item.tasks?.reward || 0
-              ).toFixed(2)}
-            </b>
           </p>
 
           <hr>
@@ -1627,8 +1767,7 @@ async function loadAdminSubmissions(){
             )}
           </p>
 
-          <p class="small" style="margin-top:8px">
-            Submitted:
+          <p class="small">
             ${formatDate(
               item.submitted_at
             )}
@@ -1649,25 +1788,24 @@ async function loadAdminSubmissions(){
 }
 
 
-// =========================
-// APPROVE SUBMISSION
-// =========================
+/* =====================================================
+   ADMIN APPROVE
+===================================================== */
 
 async function approveSubmission(
   submissionId
 ){
 
-  const confirmed =
+  const ok =
     confirm(
-      "এই submission approve করে reward balance-এ যোগ করবেন?"
+      "এই submission approve করে reward user balance-এ যোগ করবেন?"
     );
 
 
-  if(!confirmed) return;
+  if(!ok) return;
 
 
   const {
-    data,
     error
   } =
     await db.rpc(
@@ -1682,6 +1820,7 @@ async function approveSubmission(
   if(error){
 
     alert(
+      "Approval failed: " +
       error.message
     );
 
@@ -1690,7 +1829,7 @@ async function approveSubmission(
 
 
   alert(
-    "✅ Submission approved এবং reward balance-এ যোগ হয়েছে।"
+    "✅ Approved! Reward balance-এ যোগ হয়েছে।"
   );
 
 
@@ -1705,9 +1844,9 @@ async function approveSubmission(
 }
 
 
-// =========================
-// LOGOUT
-// =========================
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 async function logout(){
 
@@ -1739,70 +1878,36 @@ async function logout(){
 }
 
 
-// =========================
-// SECURITY HELPERS
-// =========================
+/* =====================================================
+   HELPERS
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
+  return String(
+    value ?? ""
+  )
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 
 }
 
 
 function escapeAttr(value){
 
-  return String(value ?? "")
+  return String(
+    value ?? ""
+  )
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    );
+  .replaceAll("&","&amp;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;");
 
 }
 
@@ -1831,9 +1936,9 @@ function formatDate(value){
 }
 
 
-// =========================
-// SESSION CHECK
-// =========================
+/* =====================================================
+   SESSION
+===================================================== */
 
 async function checkSession(){
 
@@ -1843,7 +1948,11 @@ async function checkSession(){
     await db.auth.getSession();
 
 
-  if(data.session){
+  if(
+    data &&
+    data.session &&
+    data.session.user
+  ){
 
     await showDashboard(
       data.session.user
@@ -1852,6 +1961,33 @@ async function checkSession(){
   }
 
 }
+
+
+db.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    if(
+      event === "SIGNED_IN" &&
+      session?.user
+    ){
+
+      if(
+        !currentUser
+      ){
+
+        await showDashboard(
+          session.user
+        );
+
+      }
+
+    }
+
+  }
+);
 
 
 checkSession();
