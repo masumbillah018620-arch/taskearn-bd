@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>TaskEarn BD</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -22,28 +23,46 @@ body{
   font-family:Arial,sans-serif;
   color:#fff;
   min-height:100vh;
+  overflow-x:hidden;
   background:
-    radial-gradient(circle at 10% 0%,#30206d 0%,transparent 28%),
-    radial-gradient(circle at 100% 15%,#07556d 0%,transparent 28%),
-    #070a14;
+    radial-gradient(circle at 10% 10%,rgba(124,58,237,.35),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(6,182,212,.30),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(236,72,153,.18),transparent 35%),
+    #050816;
 }
 
-button,
-input{
-  font-family:inherit;
+/* BACKGROUND LIGHTS */
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:.18;
+  z-index:-1;
+  pointer-events:none;
 }
 
-button{
-  cursor:pointer;
+body::before{
+  background:#8b5cf6;
+  top:80px;
+  left:-120px;
 }
 
-.hidden{
-  display:none!important;
+body::after{
+  background:#06b6d4;
+  right:-120px;
+  bottom:50px;
 }
+
+/* MAIN */
 
 .container{
   width:92%;
-  max-width:900px;
+  max-width:1000px;
   margin:auto;
   padding-bottom:100px;
 }
@@ -52,15 +71,23 @@ button{
 
 header{
   text-align:center;
-  padding:30px 0 20px;
+  padding:30px 0 18px;
 }
 
 .logo{
   font-size:32px;
   font-weight:900;
-  background:linear-gradient(90deg,#9b6cff,#00e5ff);
+  letter-spacing:.5px;
+  background:linear-gradient(
+    90deg,
+    #a78bfa,
+    #22d3ee,
+    #f472b6
+  );
   -webkit-background-clip:text;
+  background-clip:text;
   color:transparent;
+  text-shadow:0 0 30px rgba(34,211,238,.15);
 }
 
 .online{
@@ -69,44 +96,83 @@ header{
   font-size:13px;
 }
 
-/* CARDS */
-
-.card{
-  background:rgba(17,22,42,.92);
-  border:1px solid #293451;
-  border-radius:22px;
-  padding:20px;
-  margin:15px 0;
-  box-shadow:0 15px 40px rgba(0,0,0,.22);
-  backdrop-filter:blur(10px);
+.online::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  background:#22c55e;
+  border-radius:50%;
+  margin-right:6px;
+  box-shadow:0 0 12px #22c55e;
 }
 
+/* GLASS CARD */
+
+.card{
+  background:rgba(17,24,45,.60);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:24px;
+  padding:20px;
+  margin:16px 0;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.card:hover{
+  border-color:rgba(139,92,246,.35);
+}
+
+/* AUTH */
+
 .auth-card{
-  max-width:500px;
-  margin:30px auto;
+  max-width:520px;
+  margin:35px auto;
+}
+
+h2{
+  margin-bottom:8px;
+}
+
+h3{
+  margin-bottom:7px;
 }
 
 .small{
-  color:#aab4cf;
+  color:#aab4ce;
   font-size:14px;
   line-height:1.55;
 }
 
 /* INPUT */
 
-input{
+input,
+textarea{
   width:100%;
-  padding:15px;
-  margin-top:11px;
-  border-radius:13px;
-  border:1px solid #303a57;
-  background:#080c18;
+  padding:14px 15px;
+  margin-top:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(3,7,18,.65);
   color:#fff;
   outline:none;
+  font-family:inherit;
 }
 
-input:focus{
-  border-color:#8064ff;
+input:focus,
+textarea:focus{
+  border-color:#8b5cf6;
+  box-shadow:
+    0 0 0 3px rgba(139,92,246,.12),
+    0 0 20px rgba(139,92,246,.12);
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
 }
 
 /* BUTTON */
@@ -114,24 +180,219 @@ input:focus{
 button{
   width:100%;
   padding:14px;
-  margin-top:11px;
-  border:0;
-  border-radius:13px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
   color:#fff;
   font-weight:800;
-  background:linear-gradient(90deg,#7654f6,#00cfff);
+  cursor:pointer;
+
+  background:linear-gradient(
+    90deg,
+    #7c3aed,
+    #06b6d4
+  );
+
+  box-shadow:
+    0 0 18px rgba(124,58,237,.25),
+    inset 0 1px 0 rgba(255,255,255,.15);
+
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 0 25px rgba(124,58,237,.45),
+    0 0 45px rgba(6,182,212,.18);
+}
+
+button:active{
+  transform:scale(.98);
 }
 
 button:disabled{
   opacity:.5;
+  cursor:not-allowed;
+  transform:none;
 }
 
 .secondary{
-  background:#252d46;
+  background:rgba(37,45,70,.75);
 }
 
 .success{
-  background:linear-gradient(90deg,#07845d,#00b883);
+  background:linear-gradient(
+    90deg,
+    #059669,
+    #10b981
+  );
+}
+
+.danger{
+  background:linear-gradient(
+    90deg,
+    #be123c,
+    #ef4444
+  );
+}
+
+/* HIDDEN */
+
+.hidden{
+  display:none!important;
+}
+
+/* MESSAGE */
+
+.msg{
+  margin-top:12px;
+  color:#c5cee5;
+  line-height:1.5;
+}
+
+/* BALANCE */
+
+.balance{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124,58,237,.78),
+      rgba(8,145,178,.72),
+      rgba(236,72,153,.45)
+    );
+  border-color:rgba(255,255,255,.18);
+}
+
+.balance::after{
+  content:"৳";
+  position:absolute;
+  right:25px;
+  top:5px;
+  font-size:100px;
+  font-weight:900;
+  color:rgba(255,255,255,.07);
+}
+
+.balance-value{
+  font-size:42px;
+  font-weight:900;
+  margin:9px 0;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.stat{
+  background:rgba(13,18,33,.65);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:17px;
+  backdrop-filter:blur(15px);
+}
+
+.stat-number{
+  display:block;
+  font-size:22px;
+  font-weight:900;
+  margin-top:7px;
+}
+
+/* TASK */
+
+.task{
+  background:rgba(8,13,28,.72);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:18px;
+  margin-top:12px;
+  transition:.2s;
+}
+
+.task:hover{
+  transform:translateY(-2px);
+  border-color:rgba(34,211,238,.25);
+  box-shadow:0 10px 30px rgba(0,0,0,.20);
+}
+
+.reward{
+  color:#6ee7b7;
+  font-weight:900;
+  margin-top:9px;
+}
+
+.task-link{
+  display:block;
+  color:#50dfff;
+  text-decoration:none;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.task-link:hover{
+  text-decoration:underline;
+}
+
+.task-meta{
+  margin-top:8px;
+  color:#8994b2;
+  font-size:12px;
+}
+
+/* BADGES */
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:800;
+  margin-top:9px;
+}
+
+.pending{
+  background:#493b0a;
+  color:#ffd866;
+}
+
+.approved{
+  background:#073e2d;
+  color:#62e4b2;
+}
+
+.rejected{
+  background:#481525;
+  color:#ff8da5;
+}
+
+/* ERROR */
+
+.error-box{
+  border-color:#7f1d1d;
+  background:rgba(42,16,23,.8);
+}
+
+/* EMPTY */
+
+.empty-box{
+  text-align:center;
+  padding:28px 10px;
+  color:#aab3cc;
+}
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#aab3cc;
 }
 
 /* TOPBAR */
@@ -140,288 +401,173 @@ button:disabled{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:15px;
-}
-
-.logout{
-  width:auto;
-  margin:0;
-  padding:10px 15px;
-  background:#252d46;
-}
-
-/* HERO */
-
-.hero{
-  padding:25px;
-  border-radius:24px;
-  background:
-    linear-gradient(135deg,rgba(118,84,246,.9),rgba(0,207,255,.65));
-  box-shadow:0 20px 45px rgba(0,0,0,.25);
-}
-
-.hero h1{
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.hero p{
-  color:#e8f8ff;
-  line-height:1.6;
-}
-
-/* BALANCE */
-
-.balance{
-  background:
-    linear-gradient(135deg,#3b25ad,#087d9c);
-  border:0;
-}
-
-.balance-label{
-  color:#dcecff;
-  font-size:14px;
-}
-
-.balance-value{
-  font-size:42px;
-  font-weight:900;
-  margin:8px 0;
-}
-
-.balance-sub{
-  color:#d8f7ff;
-  font-size:13px;
-}
-
-/* QUICK ACTIONS */
-
-.actions{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
 
-.action{
-  padding:18px;
-  border-radius:17px;
-  background:#0d1221;
-  border:1px solid #293451;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.action:hover{
-  transform:translateY(-2px);
-  border-color:#6654e8;
-}
-
-.action-icon{
-  font-size:27px;
-  margin-bottom:9px;
-}
-
-.action-title{
-  font-weight:800;
-}
-
-.action-text{
-  margin-top:5px;
-  color:#8e9ab8;
-  font-size:12px;
-}
-
-/* SECTION */
-
-.section-title{
-  margin-bottom:7px;
-}
-
-.section-sub{
-  color:#8994b2;
-  font-size:13px;
-}
-
-/* NOTIFICATION */
-
-.notification{
-  display:flex;
-  gap:13px;
-  padding:15px;
-  margin-top:11px;
-  border-radius:15px;
-  background:#0c1120;
-  border:1px solid #293451;
-}
-
-.notification-icon{
-  font-size:23px;
-}
-
-.notification-title{
-  font-weight:800;
-  margin-bottom:4px;
-}
-
-/* WALLET */
-
-.wallet-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 0;
-  border-bottom:1px solid #293451;
-}
-
-.wallet-row:last-child{
-  border-bottom:0;
-}
-
-.wallet-name{
-  color:#aab4cf;
-}
-
-.wallet-value{
-  font-weight:900;
-}
-
-/* REFERRAL */
-
-.ref-box{
-  background:#0b1020;
-  border:1px dashed #58658a;
-  border-radius:15px;
-  padding:15px;
-  margin-top:13px;
-  word-break:break-all;
-  color:#62ddff;
-  font-weight:700;
+.logout-small{
+  width:auto;
+  padding:10px 16px;
+  margin:0;
+  background:rgba(37,45,70,.8);
 }
 
 /* PROFILE */
 
-.profile-avatar{
-  width:72px;
-  height:72px;
+.profile-box{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.avatar{
+  width:58px;
+  height:58px;
   border-radius:50%;
-  margin:auto;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:32px;
+  font-size:25px;
   font-weight:900;
-  background:linear-gradient(135deg,#7654f6,#00cfff);
+  background:linear-gradient(
+    135deg,
+    #7c3aed,
+    #06b6d4
+  );
+  box-shadow:0 0 25px rgba(124,58,237,.3);
 }
 
-.profile-name{
-  text-align:center;
-  font-size:22px;
-  font-weight:900;
-  margin-top:12px;
-}
-
-.profile-email{
-  text-align:center;
-  color:#8994b2;
-  font-size:13px;
-  margin-top:5px;
-}
-
-/* MESSAGE */
-
-.msg{
-  margin-top:12px;
-  color:#c6cee3;
-  line-height:1.5;
-}
-
-/* BOTTOM NAV */
+/* NAVIGATION */
 
 .bottom-nav{
   position:fixed;
+  bottom:15px;
   left:50%;
-  bottom:12px;
   transform:translateX(-50%);
-  width:92%;
-  max-width:600px;
-  padding:8px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-  background:rgba(10,14,28,.94);
-  border:1px solid #303a57;
-  border-radius:20px;
-  backdrop-filter:blur(15px);
-  box-shadow:0 15px 40px rgba(0,0,0,.4);
-  z-index:100;
+  width:94%;
+  max-width:700px;
+  z-index:999;
+
+  display:flex;
+  justify-content:space-around;
+  gap:5px;
+
+  padding:10px;
+
+  background:rgba(8,12,28,.82);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.45),
+    0 0 25px rgba(124,58,237,.12);
 }
 
 .nav-btn{
+  flex:1;
   border:0;
-  background:transparent;
   margin:0;
-  padding:9px 4px;
-  border-radius:14px;
-  color:#8994b2;
-  font-size:11px;
+  padding:10px 7px;
+  background:transparent;
+  box-shadow:none;
+  color:#8f9ab7;
+  font-size:12px;
+  font-weight:800;
+  border-radius:15px;
 }
 
-.nav-btn span{
-  display:block;
-  font-size:21px;
-  margin-bottom:3px;
+.nav-btn:hover{
+  transform:none;
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  box-shadow:none;
 }
 
 .nav-btn.active{
   color:#fff;
-  background:linear-gradient(135deg,#5140b7,#087d9c);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124,58,237,.65),
+      rgba(6,182,212,.40)
+    );
+  box-shadow:
+    0 0 18px rgba(124,58,237,.25);
 }
 
-/* PAGES */
-
-.page{
-  animation:fade .2s ease;
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
 }
 
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(5px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+/* SECTION */
+
+.page-section{
+  display:none;
+}
+
+.page-section.active{
+  display:block;
+}
+
+/* ADMIN */
+
+.admin-title{
+  color:#67e8f9;
+}
+
+.admin-card{
+  border-color:rgba(34,211,238,.18);
+}
+
+/* DIVIDER */
+
+hr{
+  border:0;
+  border-top:1px solid rgba(255,255,255,.08);
+  margin:15px 0;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:650px){
 
   .container{
     width:94%;
   }
 
   .logo{
-    font-size:28px;
-  }
-
-  .hero h1{
-    font-size:24px;
+    font-size:27px;
   }
 
   .balance-value{
-    font-size:36px;
+    font-size:35px;
   }
 
-  .actions{
-    grid-template-columns:1fr 1fr;
+  .stats{
+    grid-template-columns:1fr;
   }
 
   .topbar{
     align-items:flex-start;
   }
 
+  .bottom-nav{
+    bottom:10px;
+    width:96%;
+  }
+
+  .nav-btn{
+    font-size:10px;
+    padding:8px 3px;
+  }
+
+  .nav-icon{
+    font-size:18px;
+  }
 }
 </style>
 </head>
@@ -432,7 +578,7 @@ button:disabled{
 
 <header>
   <div class="logo">TaskEarn BD</div>
-  <div class="online">● Online</div>
+  <div class="online">Online</div>
 </header>
 
 
@@ -445,28 +591,25 @@ button:disabled{
     <h2>Create Account 🚀</h2>
 
     <p class="small">
-      TaskEarn BD-তে আপনার account তৈরি করুন।
+      TaskEarn BD-তে নতুন account তৈরি করুন।
     </p>
 
     <input
       id="name"
       type="text"
       placeholder="Full name"
-      autocomplete="name"
     >
 
     <input
       id="signupEmail"
       type="email"
       placeholder="Email address"
-      autocomplete="email"
     >
 
     <input
       id="signupPassword"
       type="password"
       placeholder="Password"
-      autocomplete="new-password"
     >
 
     <button id="signupBtn" onclick="signup()">
@@ -485,29 +628,24 @@ button:disabled{
   </div>
 
 
-  <div
-    id="loginBox"
-    class="card auth-card hidden"
-  >
+  <div id="loginBox" class="card auth-card hidden">
 
     <h2>Welcome Back 👋</h2>
 
     <p class="small">
-      Email এবং password দিয়ে Login করুন।
+      Email ও password দিয়ে Login করুন।
     </p>
 
     <input
       id="loginEmail"
       type="email"
       placeholder="Email address"
-      autocomplete="email"
     >
 
     <input
       id="loginPassword"
       type="password"
       placeholder="Password"
-      autocomplete="current-password"
     >
 
     <button id="loginBtn" onclick="login()">
@@ -528,494 +666,362 @@ button:disabled{
 </section>
 
 
-<!-- ================= APP ================= -->
+<!-- ================= DASHBOARD ================= -->
 
-<section id="app" class="hidden">
+<section id="dashboard" class="hidden">
 
-  <!-- HOME -->
 
-  <div id="homePage" class="page">
+<!-- HOME -->
 
-    <div class="card hero">
+<div id="homePage" class="page-section active">
 
-      <h1 id="homeWelcome">
-        Welcome 👋
-      </h1>
+  <div class="card">
 
-      <p>
-        TaskEarn BD-তে আপনাকে স্বাগতম।
-        আপনার account এবং earnings এখান থেকে পরিচালনা করুন।
-      </p>
+    <div class="profile-box">
 
-    </div>
-
-
-    <div class="card balance">
-
-      <div class="balance-label">
-        Available Balance
-      </div>
-
-      <div class="balance-value">
-        ৳ <span id="homeBalance">0.00</span>
-      </div>
-
-      <div class="balance-sub">
-        আপনার বর্তমান balance
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2 class="section-title">
-        Quick Actions ⚡
-      </h2>
-
-      <p class="section-sub">
-        দ্রুত আপনার প্রয়োজনীয় section খুলুন।
-      </p>
-
-      <div class="actions">
-
-        <div
-          class="action"
-          onclick="openPage('wallet')"
-        >
-          <div class="action-icon">💰</div>
-          <div class="action-title">
-            Wallet
-          </div>
-          <div class="action-text">
-            Balance দেখুন
-          </div>
-        </div>
-
-
-        <div
-          class="action"
-          onclick="openPage('referral')"
-        >
-          <div class="action-icon">🎁</div>
-          <div class="action-title">
-            Referral
-          </div>
-          <div class="action-text">
-            Referral details
-          </div>
-        </div>
-
-
-        <div
-          class="action"
-          onclick="openPage('notifications')"
-        >
-          <div class="action-icon">🔔</div>
-          <div class="action-title">
-            Notifications
-          </div>
-          <div class="action-text">
-            Updates দেখুন
-          </div>
-        </div>
-
-
-        <div
-          class="action"
-          onclick="openPage('profile')"
-        >
-          <div class="action-icon">👤</div>
-          <div class="action-title">
-            Profile
-          </div>
-          <div class="action-text">
-            Account details
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2 class="section-title">
-        Latest Update 📢
-      </h2>
-
-      <div class="notification">
-
-        <div class="notification-icon">
-          🎉
-        </div>
-
-        <div>
-
-          <div class="notification-title">
-            Welcome to TaskEarn BD
-          </div>
-
-          <p class="small">
-            আপনার account সফলভাবে তৈরি হয়েছে।
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- WALLET -->
-
-  <div id="walletPage" class="page hidden">
-
-    <div class="card">
-
-      <h2>💰 Wallet</h2>
-
-      <p class="small">
-        আপনার account balance এবং earnings information।
-      </p>
-
-    </div>
-
-
-    <div class="card balance">
-
-      <div class="balance-label">
-        Current Balance
-      </div>
-
-      <div class="balance-value">
-        ৳ <span id="walletBalance">0.00</span>
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Available Balance
-        </span>
-
-        <span class="wallet-value">
-          ৳<span id="walletAvailable">0.00</span>
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Account Status
-        </span>
-
-        <span class="wallet-value">
-          Active
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Currency
-        </span>
-
-        <span class="wallet-value">
-          BDT (৳)
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>
-        💳 Withdrawal
-      </h3>
-
-      <p class="small">
-        Withdrawal system পরবর্তীতে database-এর সাথে যুক্ত করা যাবে।
-      </p>
-
-      <button
-        class="secondary"
-        onclick="alert('Withdrawal feature এখনো চালু করা হয়নি।')"
-      >
-        Withdrawal
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- REFERRAL -->
-
-  <div id="referralPage" class="page hidden">
-
-    <div class="card">
-
-      <h2>🎁 Referral Program</h2>
-
-      <p class="small">
-        আপনার referral link ব্যবহার করে বন্ধুদের invite করুন।
-      </p>
-
-      <div class="ref-box" id="refLink">
-        Referral link তৈরি হচ্ছে...
-      </div>
-
-      <button onclick="copyReferral()">
-        📋 Copy Referral Link
-      </button>
-
-      <p id="copyMsg" class="msg"></p>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>
-        Referral Stats 📊
-      </h2>
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Referral Code
-        </span>
-
-        <span
-          class="wallet-value"
-          id="refCode"
-        >
-          —
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Total Referrals
-        </span>
-
-        <span class="wallet-value">
-          0
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Referral Earnings
-        </span>
-
-        <span class="wallet-value">
-          ৳0.00
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- NOTIFICATIONS -->
-
-  <div id="notificationsPage" class="page hidden">
-
-    <div class="card">
-
-      <h2>🔔 Notifications</h2>
-
-      <p class="small">
-        আপনার account-এর গুরুত্বপূর্ণ update এখানে দেখানো হবে।
-      </p>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="notification">
-
-        <div class="notification-icon">
-          🎉
-        </div>
-
-        <div>
-
-          <div class="notification-title">
-            Welcome!
-          </div>
-
-          <p class="small">
-            TaskEarn BD-তে স্বাগতম।
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="notification">
-
-        <div class="notification-icon">
-          🔐
-        </div>
-
-        <div>
-
-          <div class="notification-title">
-            Account Security
-          </div>
-
-          <p class="small">
-            আপনার account information নিরাপদ রাখুন।
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="notification">
-
-        <div class="notification-icon">
-          📢
-        </div>
-
-        <div>
-
-          <div class="notification-title">
-            New features coming
-          </div>
-
-          <p class="small">
-            আরো earning features ভবিষ্যতে যোগ করা যাবে।
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- PROFILE -->
-
-  <div id="profilePage" class="page hidden">
-
-    <div class="card">
-
-      <div class="profile-avatar">
+      <div class="avatar">
         👤
       </div>
 
-      <div
-        id="profileName"
-        class="profile-name"
-      >
-        User
+      <div>
+        <h2 id="welcome">
+          Welcome 👋
+        </h2>
+
+        <p class="small">
+          TaskEarn BD Dashboard
+        </p>
       </div>
-
-      <div
-        id="profileEmail"
-        class="profile-email"
-      >
-        —
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <h2>
-        Account Information
-      </h2>
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Name
-        </span>
-
-        <span
-          class="wallet-value"
-          id="infoName"
-        >
-          —
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Email
-        </span>
-
-        <span
-          class="wallet-value"
-          id="infoEmail"
-        >
-          —
-        </span>
-
-      </div>
-
-
-      <div class="wallet-row">
-
-        <span class="wallet-name">
-          Account
-        </span>
-
-        <span class="wallet-value">
-          Active
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <button
-        class="secondary"
-        onclick="logout()"
-      >
-        🚪 Logout
-      </button>
 
     </div>
 
   </div>
+
+
+  <div class="card balance">
+
+    <p>Available Balance</p>
+
+    <div class="balance-value">
+      ৳ <span id="balance">0.00</span>
+    </div>
+
+    <p class="small">
+      Approved task earnings
+    </p>
+
+  </div>
+
+
+  <div class="stats">
+
+    <div class="stat">
+      <span class="small">
+        Total Earned
+      </span>
+
+      <span class="stat-number">
+        ৳<span id="totalEarned">0.00</span>
+      </span>
+    </div>
+
+    <div class="stat">
+      <span class="small">
+        Pending
+      </span>
+
+      <span
+        class="stat-number"
+        id="pendingCount"
+      >
+        0
+      </span>
+    </div>
+
+    <div class="stat">
+      <span class="small">
+        Submissions
+      </span>
+
+      <span
+        class="stat-number"
+        id="submissionCount"
+      >
+        0
+      </span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TASKS -->
+
+<div id="tasksPage" class="page-section">
+
+  <div class="card">
+
+    <h2>
+      Available Tasks 📋
+    </h2>
+
+    <p class="small">
+      Task সম্পূর্ণ করে proof submit করুন।
+    </p>
+
+    <button
+      class="secondary"
+      onclick="loadTasks()"
+    >
+      🔄 Refresh Tasks
+    </button>
+
+    <div id="tasks">
+
+      <div class="loading">
+        🔄 Loading tasks...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      My Submissions 📤
+    </h2>
+
+    <div id="submissions">
+
+      <div class="loading">
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- WALLET -->
+
+<div id="walletPage" class="page-section">
+
+  <div class="card balance">
+
+    <p>My Wallet 💰</p>
+
+    <div class="balance-value">
+      ৳ <span id="walletBalance">0.00</span>
+    </div>
+
+    <p class="small">
+      আপনার বর্তমান available balance
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>
+      Earnings History
+    </h2>
+
+    <div id="earnings">
+
+      <div class="loading">
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- REFERRAL -->
+
+<div id="referralPage" class="page-section">
+
+  <div class="card">
+
+    <h2>
+      🎁 Referral
+    </h2>
+
+    <p class="small">
+      বন্ধুদের invite করে referral system ব্যবহার করতে পারবেন।
+    </p>
+
+    <input
+      id="referralLink"
+      readonly
+      value="Login required"
+    >
+
+    <button onclick="copyReferral()">
+      📋 Copy Referral Link
+    </button>
+
+    <p id="referralMsg" class="msg"></p>
+
+  </div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div id="profilePage" class="page-section">
+
+  <div class="card">
+
+    <div class="profile-box">
+
+      <div class="avatar">
+        👤
+      </div>
+
+      <div>
+        <h2>
+          Account
+        </h2>
+
+        <p
+          id="profileName"
+          class="small"
+        >
+          User
+        </p>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <p
+      id="userEmail"
+      class="small"
+    ></p>
+
+    <button
+      class="danger"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section
+  id="adminPanel"
+  class="hidden"
+>
+
+  <div class="card admin-card">
+
+    <h2 class="admin-title">
+      👑 Admin Dashboard
+    </h2>
+
+    <p class="small">
+      TaskEarn BD Management
+    </p>
+
+  </div>
+
+
+  <div class="card admin-card">
+
+    <h2>
+      ➕ Add New Task
+    </h2>
+
+    <input
+      id="adminTitle"
+      type="text"
+      placeholder="Task title"
+    >
+
+    <input
+      id="adminDescription"
+      type="text"
+      placeholder="Task description"
+    >
+
+    <input
+      id="adminReward"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="Reward ৳"
+    >
+
+    <input
+      id="adminUrl"
+      type="url"
+      placeholder="Task URL"
+    >
+
+    <button onclick="adminCreateTask()">
+      ➕ Add Task
+    </button>
+
+    <p
+      id="adminMsg"
+      class="msg"
+    ></p>
+
+  </div>
+
+
+  <div class="card admin-card">
+
+    <h2>
+      📥 Pending Submissions
+    </h2>
+
+    <div id="adminSubmissions">
+
+      <div class="loading">
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card admin-card">
+
+    <h2>
+      📋 Admin Tasks
+    </h2>
+
+    <div id="adminTasks">
+
+      <div class="loading">
+        Loading...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 
 </section>
 
@@ -1031,40 +1037,41 @@ button:disabled{
 
   <button
     class="nav-btn active"
-    data-page="home"
-    onclick="openPage('home')"
+    onclick="showPage('home',this)"
   >
-    <span>🏠</span>
+    <span class="nav-icon">🏠</span>
     Home
   </button>
 
+  <button
+    class="nav-btn"
+    onclick="showPage('tasks',this)"
+  >
+    <span class="nav-icon">📋</span>
+    Tasks
+  </button>
 
   <button
     class="nav-btn"
-    data-page="wallet"
-    onclick="openPage('wallet')"
+    onclick="showPage('wallet',this)"
   >
-    <span>💰</span>
+    <span class="nav-icon">💰</span>
     Wallet
   </button>
 
-
   <button
     class="nav-btn"
-    data-page="referral"
-    onclick="openPage('referral')"
+    onclick="showPage('referral',this)"
   >
-    <span>🎁</span>
+    <span class="nav-icon">🎁</span>
     Referral
   </button>
 
-
   <button
     class="nav-btn"
-    data-page="profile"
-    onclick="openPage('profile')"
+    onclick="showPage('profile',this)"
   >
-    <span>👤</span>
+    <span class="nav-icon">👤</span>
     Profile
   </button>
 
@@ -1073,9 +1080,9 @@ button:disabled{
 
 <script>
 
-/* =========================================
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://limhetefzzbekcdaqtqw.supabase.co";
@@ -1090,12 +1097,78 @@ window.supabase.createClient(
 );
 
 let currentUser = null;
-let currentProfile = null;
 
 
-/* =========================================
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(page,button){
+
+  const pages = [
+    "homePage",
+    "tasksPage",
+    "walletPage",
+    "referralPage",
+    "profilePage"
+  ];
+
+  pages.forEach(id => {
+
+    const el =
+      document.getElementById(id);
+
+    if(el){
+      el.classList.remove("active");
+    }
+
+  });
+
+
+  const selected =
+    document.getElementById(
+      page + "Page"
+    );
+
+  if(selected){
+    selected.classList.add("active");
+  }
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+
+  if(button){
+    button.classList.add("active");
+  }
+
+
+  /*
+   * IMPORTANT:
+   * এখানে পুরো website reload হচ্ছে না।
+   * শুধু selected section দেখানো হচ্ছে।
+   */
+
+  if(page === "tasks"){
+    loadTasks();
+    loadSubmissions();
+  }
+
+  if(page === "wallet"){
+    loadEarnings();
+    loadProfile();
+  }
+
+}
+
+
+/* =====================================================
    AUTH UI
-========================================= */
+===================================================== */
 
 function showLogin(){
 
@@ -1123,9 +1196,9 @@ function showSignup(){
 }
 
 
-/* =========================================
+/* =====================================================
    SIGNUP
-========================================= */
+===================================================== */
 
 async function signup(){
 
@@ -1159,7 +1232,6 @@ async function signup(){
       "সব ঘর পূরণ করুন।";
 
     return;
-
   }
 
 
@@ -1169,14 +1241,13 @@ async function signup(){
       "Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
 
     return;
-
   }
 
 
-  btn.disabled = true;
-
   msg.textContent =
     "Account তৈরি হচ্ছে...";
+
+  btn.disabled = true;
 
 
   try{
@@ -1206,7 +1277,6 @@ async function signup(){
         error.message;
 
       return;
-
     }
 
 
@@ -1214,15 +1284,16 @@ async function signup(){
 
       msg.textContent = "";
 
-      await showApp(data.user);
+      await showDashboard(
+        data.user
+      );
 
       return;
-
     }
 
 
     msg.textContent =
-      "Account তৈরি হয়েছে। Email verify করে Login করুন।";
+      "Account তৈরি হয়েছে। Email verify করে Login করুন।";
 
   }finally{
 
@@ -1233,9 +1304,9 @@ async function signup(){
 }
 
 
-/* =========================================
+/* =====================================================
    LOGIN
-========================================= */
+===================================================== */
 
 async function login(){
 
@@ -1263,14 +1334,13 @@ async function login(){
       "Email ও password দিন।";
 
     return;
-
   }
 
 
-  btn.disabled = true;
-
   msg.textContent =
     "Login হচ্ছে...";
+
+  btn.disabled = true;
 
 
   try{
@@ -1294,13 +1364,14 @@ async function login(){
         error.message;
 
       return;
-
     }
 
 
     msg.textContent = "";
 
-    await showApp(data.user);
+    await showDashboard(
+      data.user
+    );
 
   }finally{
 
@@ -1311,11 +1382,11 @@ async function login(){
 }
 
 
-/* =========================================
-   SHOW APP
-========================================= */
+/* =====================================================
+   DASHBOARD
+===================================================== */
 
-async function showApp(user){
+async function showDashboard(user){
 
   currentUser = user;
 
@@ -1326,7 +1397,7 @@ async function showApp(user){
 
 
   document
-    .getElementById("app")
+    .getElementById("dashboard")
     .classList.remove("hidden");
 
 
@@ -1335,80 +1406,76 @@ async function showApp(user){
     .classList.remove("hidden");
 
 
+  document
+    .getElementById("userEmail")
+    .textContent =
+      user.email || "";
+
+
   await loadProfile();
 
-  openPage("home");
+  await loadTasks();
 
-}
+  await loadSubmissions();
 
-
-/* =========================================
-   PAGE SWITCHING
-   Browser reload হবে না
-========================================= */
-
-function openPage(page){
-
-  const pages = [
-
-    "home",
-    "wallet",
-    "referral",
-    "notifications",
-    "profile"
-
-  ];
+  await loadEarnings();
 
 
-  pages.forEach(name => {
+  /* REFERRAL */
 
-    const element =
-      document.getElementById(
-        name + "Page"
-      );
+  const referral =
+    document.getElementById(
+      "referralLink"
+    );
 
-    if(element){
+  if(referral){
 
-      element.classList.toggle(
-        "hidden",
-        name !== page
-      );
+    referral.value =
+      location.origin +
+      "?ref=" +
+      user.id;
+
+  }
+
+
+  /* ADMIN */
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.rpc("is_admin");
+
+
+    if(!error && data === true){
+
+      document
+        .getElementById("adminPanel")
+        .classList.remove("hidden");
+
+      await loadAdminTasks();
+
+      await loadAdminSubmissions();
 
     }
 
-  });
+  }catch(error){
 
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-
-      btn.classList.toggle(
-        "active",
-        btn.dataset.page === page
-      );
-
-    });
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-
-  if(page === "wallet"){
-
-    updateWallet();
+    console.warn(
+      "Admin check skipped:",
+      error
+    );
 
   }
 
 }
 
 
-/* =========================================
+/* =====================================================
    PROFILE
-========================================= */
+===================================================== */
 
 async function loadProfile(){
 
@@ -1423,223 +1490,1123 @@ async function loadProfile(){
   } =
     await db
       .from("profiles")
-      .select("*")
-      .eq("id",currentUser.id)
+      .select(
+        "full_name,balance"
+      )
+      .eq(
+        "id",
+        currentUser.id
+      )
       .single();
 
 
   if(error){
 
-    console.warn(
-      "Profile load:",
-      error.message
+    console.error(
+      "PROFILE ERROR:",
+      error
     );
 
-    currentProfile = {
-
-      full_name:
-        currentUser.user_metadata?.full_name ||
-        "User",
-
-      balance:0
-
-    };
-
-  }else{
-
-    currentProfile =
-      data || {
-
-        full_name:"User",
-        balance:0
-
-      };
-
-  }
-
-
-  updateProfileUI();
-
-}
-
-
-/* =========================================
-   PROFILE UI
-========================================= */
-
-function updateProfileUI(){
-
-  if(!currentUser){
     return;
   }
 
 
-  const name =
-    currentProfile?.full_name ||
-    currentUser.user_metadata?.full_name ||
-    "User";
+  if(data){
+
+    const name =
+      data.full_name ||
+      "User";
 
 
-  const balance =
-    Number(
-      currentProfile?.balance || 0
-    ).toFixed(2);
+    document
+      .getElementById("welcome")
+      .textContent =
+        "Welcome, " +
+        name +
+        " 👋";
 
 
-  document
-    .getElementById("homeWelcome")
-    .textContent =
-      "Welcome, " + name + " 👋";
+    document
+      .getElementById("profileName")
+      .textContent =
+        name;
 
 
-  document
-    .getElementById("homeBalance")
-    .textContent =
-      balance;
+    const amount =
+      Number(
+        data.balance || 0
+      ).toFixed(2);
 
 
-  document
-    .getElementById("walletBalance")
-    .textContent =
-      balance;
+    document
+      .getElementById("balance")
+      .textContent =
+        amount;
 
 
-  document
-    .getElementById("walletAvailable")
-    .textContent =
-      balance;
+    document
+      .getElementById("walletBalance")
+      .textContent =
+        amount;
 
-
-  document
-    .getElementById("profileName")
-    .textContent =
-      name;
-
-
-  document
-    .getElementById("profileEmail")
-    .textContent =
-      currentUser.email || "—";
-
-
-  document
-    .getElementById("infoName")
-    .textContent =
-      name;
-
-
-  document
-    .getElementById("infoEmail")
-    .textContent =
-      currentUser.email || "—";
-
-
-  createReferral();
-
-}
-
-
-/* =========================================
-   WALLET
-========================================= */
-
-function updateWallet(){
-
-  const balance =
-    Number(
-      currentProfile?.balance || 0
-    ).toFixed(2);
-
-
-  document
-    .getElementById("walletBalance")
-    .textContent =
-      balance;
-
-
-  document
-    .getElementById("walletAvailable")
-    .textContent =
-      balance;
-
-}
-
-
-/* =========================================
-   REFERRAL
-========================================= */
-
-function createReferral(){
-
-  if(!currentUser){
-    return;
   }
 
-
-  const code =
-    currentUser.id
-      .replaceAll("-","")
-      .substring(0,8)
-      .toUpperCase();
-
-
-  const base =
-    window.location.origin +
-    window.location.pathname;
-
-
-  const link =
-    base +
-    "?ref=" +
-    code;
-
-
-  document
-    .getElementById("refCode")
-    .textContent =
-      code;
-
-
-  document
-    .getElementById("refLink")
-    .textContent =
-      link;
-
 }
 
 
-async function copyReferral(){
+/* =====================================================
+   TASKS
+   ONLY TASK LIST REFRESHES
+===================================================== */
 
-  const link =
-    document
-      .getElementById("refLink")
-      .textContent;
+async function loadTasks(){
 
-  const msg =
-    document
-      .getElementById("copyMsg");
+  const box =
+    document.getElementById(
+      "tasks"
+    );
+
+
+  /*
+   * শুধু #tasks এর ভিতরের content
+   * replace হবে।
+   * পুরো page reload হবে না।
+   */
+
+  box.innerHTML = `
+    <div class="loading">
+      🔄 Loading tasks...
+    </div>
+  `;
 
 
   try{
 
-    await navigator.clipboard.writeText(link);
+    const {
+      data,
+      error
+    } =
+      await db
+        .from("tasks")
+        .select(
+          "id,title,description,reward,task_url,status,created_at"
+        )
+        .eq(
+          "status",
+          "active"
+        )
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
 
-    msg.textContent =
-      "✅ Referral link copied!";
+
+    if(error){
+
+      box.innerHTML = `
+        <div class="task error-box">
+          <h3>⚠️ Task Loading Error</h3>
+
+          <p class="small">
+            ${escapeHtml(error.message)}
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    if(
+      !Array.isArray(data) ||
+      data.length === 0
+    ){
+
+      box.innerHTML = `
+        <div class="task empty-box">
+
+          <h3>
+            📋 No Active Tasks
+          </h3>
+
+          <p class="small">
+            এই মুহূর্তে কোনো active task পাওয়া যায়নি।
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    box.innerHTML =
+      data.map(task => {
+
+        const id =
+          String(task.id || "");
+
+        const title =
+          task.title ||
+          "Untitled Task";
+
+        const description =
+          task.description ||
+          "এই task সম্পূর্ণ করুন।";
+
+        const reward =
+          Number(
+            task.reward || 0
+          ).toFixed(2);
+
+        const url =
+          task.task_url || "";
+
+
+        return `
+          <div class="task">
+
+            <h3>
+              ${escapeHtml(title)}
+            </h3>
+
+            <p class="small">
+              ${escapeHtml(description)}
+            </p>
+
+            <p class="reward">
+              💰 Reward: ৳${reward}
+            </p>
+
+            ${
+              url
+              ? `
+                <a
+                  class="task-link"
+                  href="${escapeAttr(url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🔗 Open Task →
+                </a>
+              `
+              : `
+                <p class="task-meta">
+                  ⚠️ Task link unavailable
+                </p>
+              `
+            }
+
+            <button
+              onclick="toggleSubmit('${escapeAttr(id)}')"
+            >
+              📤 Submit Proof
+            </button>
+
+            <div
+              id="submit-${escapeAttr(id)}"
+              class="hidden"
+            >
+
+              <textarea
+                id="proof-${escapeAttr(id)}"
+                placeholder="Task proof/details লিখুন..."
+              ></textarea>
+
+              <button
+                class="success"
+                onclick="submitTask('${escapeAttr(id)}')"
+              >
+                ✅ Submit for Review
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
 
   }catch(error){
 
-    msg.textContent =
-      "Link copy করা যায়নি।";
+    box.innerHTML = `
+      <div class="task error-box">
+
+        <h3>
+          ⚠️ Unexpected Error
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(
+            error.message ||
+            String(error)
+          )}
+        </p>
+
+      </div>
+    `;
 
   }
 
 }
 
 
-/* =========================================
+/* =====================================================
+   TOGGLE SUBMIT
+===================================================== */
+
+function toggleSubmit(taskId){
+
+  const box =
+    document.getElementById(
+      "submit-" + taskId
+    );
+
+
+  if(box){
+
+    box.classList.toggle(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SUBMIT TASK
+===================================================== */
+
+async function submitTask(taskId){
+
+  if(!currentUser){
+
+    alert(
+      "আগে Login করুন।"
+    );
+
+    return;
+  }
+
+
+  const proofBox =
+    document.getElementById(
+      "proof-" + taskId
+    );
+
+
+  const proof =
+    proofBox
+      ? proofBox.value.trim()
+      : "";
+
+
+  if(!proof){
+
+    alert(
+      "Task proof/details লিখুন।"
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "submit_task",
+        {
+          p_task_id:taskId,
+          p_proof:proof
+        }
+      );
+
+
+    if(error){
+
+      alert(
+        "Submission failed: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "✅ Task submitted successfully!"
+    );
+
+
+    if(proofBox){
+
+      proofBox.value = "";
+
+    }
+
+
+    await loadSubmissions();
+
+  }catch(error){
+
+    alert(
+      "Submission error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SUBMISSIONS
+===================================================== */
+
+async function loadSubmissions(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const box =
+    document.getElementById(
+      "submissions"
+    );
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("task_submissions")
+      .select(`
+        id,
+        task_id,
+        status,
+        proof,
+        submitted_at,
+        tasks(
+          title,
+          reward
+        )
+      `)
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "submitted_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
+
+    return;
+  }
+
+
+  const rows =
+    data || [];
+
+
+  document
+    .getElementById(
+      "submissionCount"
+    )
+    .textContent =
+      rows.length;
+
+
+  document
+    .getElementById(
+      "pendingCount"
+    )
+    .textContent =
+      rows.filter(
+        item =>
+          String(
+            item.status || ""
+          ).toLowerCase()
+          === "pending"
+      ).length;
+
+
+  if(rows.length === 0){
+
+    box.innerHTML = `
+      <div class="empty-box">
+        এখনো কোনো task submit করেননি।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    rows.map(item => {
+
+      const status =
+        String(
+          item.status || ""
+        ).toLowerCase();
+
+
+      let cls =
+        "pending";
+
+
+      if(status === "approved"){
+        cls = "approved";
+      }
+
+      if(status === "rejected"){
+        cls = "rejected";
+      }
+
+
+      return `
+        <div class="task">
+
+          <h3>
+            ${escapeHtml(
+              item.tasks?.title ||
+              "Task"
+            )}
+          </h3>
+
+          <p class="reward">
+            ৳${Number(
+              item.tasks?.reward || 0
+            ).toFixed(2)}
+          </p>
+
+          <span class="badge ${cls}">
+            ${escapeHtml(
+              item.status || ""
+            )}
+          </span>
+
+          <p
+            class="small"
+            style="margin-top:8px"
+          >
+            Submitted:
+            ${formatDate(
+              item.submitted_at
+            )}
+          </p>
+
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   EARNINGS
+===================================================== */
+
+async function loadEarnings(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const box =
+    document.getElementById(
+      "earnings"
+    );
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("transactions")
+      .select(
+        "id,type,amount,description,created_at"
+      )
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
+
+    return;
+  }
+
+
+  const rows =
+    data || [];
+
+
+  let total = 0;
+
+
+  rows.forEach(item => {
+
+    if(
+      String(
+        item.type || ""
+      )
+      .toLowerCase()
+      .includes("task")
+    ){
+
+      total +=
+        Number(
+          item.amount || 0
+        );
+
+    }
+
+  });
+
+
+  document
+    .getElementById(
+      "totalEarned"
+    )
+    .textContent =
+      total.toFixed(2);
+
+
+  if(rows.length === 0){
+
+    box.innerHTML = `
+      <div class="empty-box">
+        এখনো কোনো earning নেই।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    rows.map(item => `
+
+      <div class="task">
+
+        <h3>
+          💰 ৳${Number(
+            item.amount || 0
+          ).toFixed(2)}
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(
+            item.description ||
+            item.type ||
+            ""
+          )}
+        </p>
+
+        <p class="small">
+          ${formatDate(
+            item.created_at
+          )}
+        </p>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =====================================================
+   REFERRAL
+===================================================== */
+
+function copyReferral(){
+
+  const input =
+    document.getElementById(
+      "referralLink"
+    );
+
+
+  if(!input){
+    return;
+  }
+
+
+  navigator.clipboard
+    .writeText(input.value)
+    .then(() => {
+
+      document
+        .getElementById(
+          "referralMsg"
+        )
+        .textContent =
+          "✅ Referral link copied!";
+
+    })
+    .catch(() => {
+
+      input.select();
+
+      document.execCommand(
+        "copy"
+      );
+
+      document
+        .getElementById(
+          "referralMsg"
+        )
+        .textContent =
+          "✅ Referral link copied!";
+
+    });
+
+}
+
+
+/* =====================================================
+   ADMIN CREATE TASK
+===================================================== */
+
+async function adminCreateTask(){
+
+  const title =
+    document
+      .getElementById(
+        "adminTitle"
+      )
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById(
+        "adminDescription"
+      )
+      .value
+      .trim();
+
+
+  const reward =
+    Number(
+      document
+        .getElementById(
+          "adminReward"
+        )
+        .value
+    );
+
+
+  const taskUrl =
+    document
+      .getElementById(
+        "adminUrl"
+      )
+      .value
+      .trim();
+
+
+  const msg =
+    document.getElementById(
+      "adminMsg"
+    );
+
+
+  if(!title){
+
+    msg.textContent =
+      "Task title দিন।";
+
+    return;
+  }
+
+
+  if(!reward || reward <= 0){
+
+    msg.textContent =
+      "Valid reward দিন।";
+
+    return;
+  }
+
+
+  msg.textContent =
+    "Task তৈরি হচ্ছে...";
+
+
+  try{
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "admin_create_task",
+        {
+          p_title:title,
+          p_description:description,
+          p_reward:reward,
+          p_task_url:taskUrl
+        }
+      );
+
+
+    if(error){
+
+      msg.textContent =
+        error.message;
+
+      return;
+    }
+
+
+    msg.textContent =
+      "✅ Task successfully added.";
+
+
+    document
+      .getElementById(
+        "adminTitle"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "adminDescription"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "adminReward"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "adminUrl"
+      )
+      .value = "";
+
+
+    await loadAdminTasks();
+
+    /*
+     * শুধু task list refresh
+     */
+    await loadTasks();
+
+  }catch(error){
+
+    msg.textContent =
+      error.message;
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN TASKS
+===================================================== */
+
+async function loadAdminTasks(){
+
+  const box =
+    document.getElementById(
+      "adminTasks"
+    );
+
+
+  const {
+    data,
+    error
+  } =
+    await db.rpc(
+      "admin_get_tasks"
+    );
+
+
+  if(error){
+
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(
+          error.message
+        )}
+      </p>
+    `;
+
+    return;
+  }
+
+
+  if(
+    !data ||
+    data.length === 0
+  ){
+
+    box.innerHTML = `
+      <div class="empty-box">
+        কোনো task নেই।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    data.map(task => `
+
+      <div class="task">
+
+        <h3>
+          ${escapeHtml(
+            task.title ||
+            "Task"
+          )}
+        </h3>
+
+        <p class="reward">
+          ৳${Number(
+            task.reward || 0
+          ).toFixed(2)}
+        </p>
+
+        <p class="small">
+          Status:
+          ${escapeHtml(
+            task.status || ""
+          )}
+        </p>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =====================================================
+   ADMIN SUBMISSIONS
+===================================================== */
+
+async function loadAdminSubmissions(){
+
+  const box =
+    document.getElementById(
+      "adminSubmissions"
+    );
+
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("task_submissions")
+      .select(`
+        id,
+        user_id,
+        task_id,
+        status,
+        proof,
+        submitted_at,
+        tasks(
+          title,
+          reward
+        )
+      `)
+      .eq(
+        "status",
+        "pending"
+      )
+      .order(
+        "submitted_at",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(
+          error.message
+        )}
+      </p>
+    `;
+
+    return;
+  }
+
+
+  if(
+    !data ||
+    data.length === 0
+  ){
+
+    box.innerHTML = `
+      <div class="empty-box">
+        কোনো pending submission নেই।
+      </div>
+    `;
+
+    return;
+  }
+
+
+  box.innerHTML =
+    data.map(item => `
+
+      <div class="task">
+
+        <h3>
+          📋 ${escapeHtml(
+            item.tasks?.title ||
+            "Task"
+          )}
+        </h3>
+
+        <p class="reward">
+          Reward:
+          ৳${Number(
+            item.tasks?.reward || 0
+          ).toFixed(2)}
+        </p>
+
+        <p class="small">
+          User ID:
+          ${escapeHtml(
+            item.user_id
+          )}
+        </p>
+
+        <hr>
+
+        <p class="small">
+          <b>Proof:</b><br>
+          ${escapeHtml(
+            item.proof || ""
+          )}
+        </p>
+
+        <button
+          class="success"
+          onclick="approveSubmission('${escapeAttr(item.id)}')"
+        >
+          ✅ Approve & Give Reward
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =====================================================
+   APPROVE
+===================================================== */
+
+async function approveSubmission(
+  submissionId
+){
+
+  if(
+    !confirm(
+      "এই submission approve করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+    await db.rpc(
+      "approve_task_submission",
+      {
+        p_submission_id:
+          submissionId
+      }
+    );
+
+
+  if(error){
+
+    alert(
+      "Approval failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    "✅ Approved successfully!"
+  );
+
+
+  await loadAdminSubmissions();
+
+  await loadProfile();
+
+  await loadSubmissions();
+
+  await loadEarnings();
+
+}
+
+
+/* =====================================================
    LOGOUT
-========================================= */
+===================================================== */
 
 async function logout(){
 
@@ -1647,21 +2614,32 @@ async function logout(){
 
   currentUser = null;
 
-  currentProfile = null;
-
 
   document
-    .getElementById("app")
+    .getElementById(
+      "dashboard"
+    )
     .classList.add("hidden");
 
 
   document
-    .getElementById("bottomNav")
+    .getElementById(
+      "adminPanel"
+    )
     .classList.add("hidden");
 
 
   document
-    .getElementById("auth")
+    .getElementById(
+      "bottomNav"
+    )
+    .classList.add("hidden");
+
+
+  document
+    .getElementById(
+      "auth"
+    )
     .classList.remove("hidden");
 
 
@@ -1670,9 +2648,64 @@ async function logout(){
 }
 
 
-/* =========================================
-   SESSION CHECK
-========================================= */
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  try{
+
+    return new Date(value)
+      .toLocaleString(
+        "bn-BD",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
+
+  }catch(e){
+
+    return String(value);
+
+  }
+
+}
+
+
+/* =====================================================
+   SESSION
+===================================================== */
 
 async function checkSession(){
 
@@ -1688,17 +2721,19 @@ async function checkSession(){
     if(error){
 
       console.error(
+        "SESSION ERROR:",
         error
       );
 
       return;
-
     }
 
 
-    if(data?.session?.user){
+    if(
+      data?.session?.user
+    ){
 
-      await showApp(
+      await showDashboard(
         data.session.user
       );
 
@@ -1707,7 +2742,7 @@ async function checkSession(){
   }catch(error){
 
     console.error(
-      "Session error:",
+      "SESSION CHECK ERROR:",
       error
     );
 
@@ -1716,14 +2751,16 @@ async function checkSession(){
 }
 
 
-/* =========================================
+/* =====================================================
    AUTH STATE
-========================================= */
+===================================================== */
 
 db.auth.onAuthStateChange(
-  (event,session) => {
+  async (event,session) => {
 
-    if(event === "SIGNED_OUT"){
+    if(
+      event === "SIGNED_OUT"
+    ){
 
       currentUser = null;
 
@@ -1733,9 +2770,7 @@ db.auth.onAuthStateChange(
 );
 
 
-/* =========================================
-   START
-========================================= */
+/* START */
 
 checkSession();
 
