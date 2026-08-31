@@ -3,28 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TaskEarn BD</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:Arial,sans-serif;
   color:#fff;
   min-height:100vh;
-
   background:
     radial-gradient(circle at 10% 0%,#24165c,transparent 30%),
     radial-gradient(circle at 100% 20%,#06465c,transparent 30%),
     #070a14;
+}
+
+button,
+input,
+textarea{
+  font-family:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
 }
 
 .container{
@@ -42,13 +53,7 @@ header{
 .logo{
   font-size:30px;
   font-weight:900;
-
-  background:linear-gradient(
-    90deg,
-    #8b5cf6,
-    #00d9ff
-  );
-
+  background:linear-gradient(90deg,#8b5cf6,#00d9ff);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -66,9 +71,7 @@ header{
   border-radius:20px;
   padding:20px;
   margin:16px 0;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.22);
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
 }
 
 .auth-card{
@@ -95,15 +98,11 @@ textarea{
   width:100%;
   padding:14px;
   margin-top:10px;
-
   border-radius:12px;
   border:1px solid #303954;
-
   background:#080c18;
   color:#fff;
-
   outline:none;
-  font-family:inherit;
 }
 
 textarea{
@@ -120,21 +119,16 @@ button{
   width:100%;
   padding:14px;
   margin-top:10px;
-
   border:0;
   border-radius:12px;
-
   color:#fff;
   font-weight:800;
-
   cursor:pointer;
+  background:linear-gradient(90deg,#7654f6,#00cfff);
+}
 
-  background:
-    linear-gradient(
-      90deg,
-      #7654f6,
-      #00cfff
-    );
+button:active{
+  transform:scale(.99);
 }
 
 button:disabled{
@@ -147,21 +141,11 @@ button:disabled{
 }
 
 .success{
-  background:
-    linear-gradient(
-      90deg,
-      #07845d,
-      #00a879
-    );
+  background:linear-gradient(90deg,#07845d,#00a879);
 }
 
 .danger{
-  background:
-    linear-gradient(
-      90deg,
-      #9f1239,
-      #e11d48
-    );
+  background:linear-gradient(90deg,#9f1239,#e11d48);
 }
 
 .hidden{
@@ -175,13 +159,7 @@ button:disabled{
 }
 
 .balance{
-  background:
-    linear-gradient(
-      135deg,
-      #3823a9,
-      #087f9e
-    );
-
+  background:linear-gradient(135deg,#3823a9,#087f9e);
   border:0;
 }
 
@@ -215,7 +193,6 @@ button:disabled{
   background:#0c1120;
   border:1px solid #29324d;
   border-radius:17px;
-
   padding:17px;
   margin-top:12px;
 }
@@ -228,24 +205,18 @@ button:disabled{
 
 .task-link{
   display:block;
-
   color:#50dfff;
   text-decoration:none;
   font-weight:800;
-
   margin-top:12px;
 }
 
 .badge{
   display:inline-block;
-
   padding:6px 10px;
-
   border-radius:20px;
-
   font-size:12px;
   font-weight:800;
-
   margin-top:9px;
 }
 
@@ -299,10 +270,8 @@ hr{
 
 .topbar{
   display:flex;
-
   justify-content:space-between;
   align-items:center;
-
   gap:10px;
 }
 
@@ -310,27 +279,34 @@ hr{
   width:auto;
   padding:9px 14px;
   margin:0;
-
   background:#252d46;
+}
+
+.refresh-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.refresh-btn{
+  margin-top:0;
 }
 
 .task button{
   margin-top:12px;
 }
 
-.refresh-button{
-  margin-top:15px;
-}
-
-.refresh-button.refreshing{
-  opacity:.65;
-}
-
-.section-header{
+.section-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
+}
+
+.status-text{
+  font-size:12px;
+  color:#8994b2;
+  margin-top:8px;
 }
 
 @media(max-width:650px){
@@ -351,52 +327,39 @@ hr{
     align-items:flex-start;
   }
 
-}
+  .section-title{
+    align-items:flex-start;
+    flex-direction:column;
+  }
 
+  .refresh-row{
+    flex-direction:column;
+  }
+}
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
-
 <header>
-
-  <div class="logo">
-    TaskEarn BD
-  </div>
-
-  <div class="online">
-    ● Online
-  </div>
-
+  <div class="logo">TaskEarn BD</div>
+  <div class="online">● Online</div>
 </header>
 
 
-<!-- =====================================================
-     AUTH
-===================================================== -->
+<!-- ================= AUTH ================= -->
 
 <section id="auth">
 
+  <div id="signupBox" class="card auth-card">
 
-  <!-- SIGNUP -->
-
-  <div
-    id="signupBox"
-    class="card auth-card"
-  >
-
-    <h2>
-      Create Account 🚀
-    </h2>
+    <h2>Create Account 🚀</h2>
 
     <p class="small">
       TaskEarn BD account তৈরি করুন।
     </p>
-
 
     <input
       id="name"
@@ -405,14 +368,12 @@ hr{
       autocomplete="name"
     >
 
-
     <input
       id="signupEmail"
       type="email"
       placeholder="Email address"
       autocomplete="email"
     >
-
 
     <input
       id="signupPassword"
@@ -421,48 +382,37 @@ hr{
       autocomplete="new-password"
     >
 
-
     <button
-      id="signupBtn"
       type="button"
+      id="signupBtn"
       onclick="signup()"
     >
       Create Account
     </button>
 
-
     <button
-      class="secondary"
       type="button"
+      class="secondary"
       onclick="showLogin()"
     >
       Already have an account? Login
     </button>
 
-
-    <p
-      id="signupMsg"
-      class="msg"
-    ></p>
+    <p id="signupMsg" class="msg"></p>
 
   </div>
 
-
-  <!-- LOGIN -->
 
   <div
     id="loginBox"
     class="card auth-card hidden"
   >
 
-    <h2>
-      Welcome Back 👋
-    </h2>
+    <h2>Welcome Back 👋</h2>
 
     <p class="small">
       Email ও password দিয়ে Login করুন।
     </p>
-
 
     <input
       id="loginEmail"
@@ -471,7 +421,6 @@ hr{
       autocomplete="email"
     >
 
-
     <input
       id="loginPassword"
       type="password"
@@ -479,47 +428,32 @@ hr{
       autocomplete="current-password"
     >
 
-
     <button
-      id="loginBtn"
       type="button"
+      id="loginBtn"
       onclick="login()"
     >
       Login 🔐
     </button>
 
-
     <button
-      class="secondary"
       type="button"
+      class="secondary"
       onclick="showSignup()"
     >
       Create New Account
     </button>
 
-
-    <p
-      id="loginMsg"
-      class="msg"
-    ></p>
+    <p id="loginMsg" class="msg"></p>
 
   </div>
 
 </section>
 
 
+<!-- ================= DASHBOARD ================= -->
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section
-  id="dashboard"
-  class="hidden"
->
-
-
-  <!-- USER HEADER -->
+<section id="dashboard" class="hidden">
 
   <div class="card">
 
@@ -537,10 +471,9 @@ hr{
 
       </div>
 
-
       <button
-        class="logout-small"
         type="button"
+        class="logout-small"
         onclick="logout()"
       >
         Logout
@@ -551,22 +484,14 @@ hr{
   </div>
 
 
-
   <!-- BALANCE -->
 
   <div class="card balance">
 
-    <p>
-      Available Balance
-    </p>
+    <p>Available Balance</p>
 
     <div class="balance-value">
-
-      ৳
-      <span id="balance">
-        0.00
-      </span>
-
+      ৳ <span id="balance">0.00</span>
     </div>
 
     <p class="small">
@@ -576,11 +501,9 @@ hr{
   </div>
 
 
-
   <!-- STATS -->
 
   <div class="stats">
-
 
     <div class="stat">
 
@@ -589,12 +512,7 @@ hr{
       </span>
 
       <span class="stat-number">
-
-        ৳
-        <span id="totalEarned">
-          0.00
-        </span>
-
+        ৳<span id="totalEarned">0.00</span>
       </span>
 
     </div>
@@ -631,19 +549,14 @@ hr{
 
     </div>
 
-
   </div>
 
 
-
-  <!-- =====================================================
-       TASKS
-  ===================================================== -->
+  <!-- ================= TASKS ================= -->
 
   <div class="card">
 
-
-    <div class="section-header">
+    <div class="section-title">
 
       <div>
 
@@ -657,20 +570,18 @@ hr{
 
       </div>
 
+      <button
+        type="button"
+        id="refreshTasksBtn"
+        class="secondary refresh-btn"
+        onclick="refreshTasksOnly(event)"
+      >
+        🔄 Refresh Tasks
+      </button>
+
     </div>
 
-
-    <!-- ONLY THIS AREA REFRESHES -->
-
-    <button
-      id="refreshTasksBtn"
-      class="secondary refresh-button"
-      type="button"
-      onclick="refreshTasksOnly()"
-    >
-      🔄 Refresh Tasks
-    </button>
-
+    <div id="taskRefreshStatus" class="status-text"></div>
 
     <div id="tasks">
 
@@ -680,21 +591,16 @@ hr{
 
     </div>
 
-
   </div>
 
 
-
-  <!-- =====================================================
-       SUBMISSIONS
-  ===================================================== -->
+  <!-- ================= SUBMISSIONS ================= -->
 
   <div class="card">
 
     <h2>
       My Submissions 📤
     </h2>
-
 
     <div id="submissions">
 
@@ -707,17 +613,13 @@ hr{
   </div>
 
 
-
-  <!-- =====================================================
-       EARNINGS
-  ===================================================== -->
+  <!-- ================= EARNINGS ================= -->
 
   <div class="card">
 
     <h2>
       Earnings History 💰
     </h2>
-
 
     <div id="earnings">
 
@@ -730,10 +632,7 @@ hr{
   </div>
 
 
-
-  <!-- =====================================================
-       ACCOUNT
-  ===================================================== -->
+  <!-- ================= ACCOUNT ================= -->
 
   <div class="card">
 
@@ -741,28 +640,16 @@ hr{
       Account 👤
     </h2>
 
-
-    <p
-      id="userEmail"
-      class="small"
-    ></p>
+    <p id="userEmail" class="small"></p>
 
   </div>
-
 
 </section>
 
 
+<!-- ================= ADMIN ================= -->
 
-<!-- =====================================================
-     ADMIN
-===================================================== -->
-
-<section
-  id="adminPanel"
-  class="hidden"
->
-
+<section id="adminPanel" class="hidden">
 
   <div class="card">
 
@@ -777,7 +664,6 @@ hr{
   </div>
 
 
-
   <!-- ADD TASK -->
 
   <div class="card">
@@ -786,20 +672,17 @@ hr{
       ➕ Add New Task
     </h2>
 
-
     <input
       id="adminTitle"
       type="text"
       placeholder="Task title"
     >
 
-
     <input
       id="adminDescription"
       type="text"
       placeholder="Task description"
     >
-
 
     <input
       id="adminReward"
@@ -809,13 +692,11 @@ hr{
       placeholder="Reward ৳"
     >
 
-
     <input
       id="adminUrl"
       type="url"
       placeholder="Task URL"
     >
-
 
     <button
       type="button"
@@ -823,7 +704,6 @@ hr{
     >
       ➕ Add Task
     </button>
-
 
     <p
       id="adminMsg"
@@ -833,7 +713,6 @@ hr{
   </div>
 
 
-
   <!-- ADMIN SUBMISSIONS -->
 
   <div class="card">
@@ -841,7 +720,6 @@ hr{
     <h2>
       📥 Pending Submissions
     </h2>
-
 
     <div id="adminSubmissions">
 
@@ -854,7 +732,6 @@ hr{
   </div>
 
 
-
   <!-- ADMIN TASKS -->
 
   <div class="card">
@@ -862,7 +739,6 @@ hr{
     <h2>
       📋 Admin Tasks
     </h2>
-
 
     <div id="adminTasks">
 
@@ -874,12 +750,9 @@ hr{
 
   </div>
 
-
 </section>
 
-
 </div>
-
 
 
 <script>
@@ -894,16 +767,13 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
 
-
 const db =
   window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
-
 let currentUser = null;
-
 
 
 /* =====================================================
@@ -936,7 +806,6 @@ function showSignup(){
 }
 
 
-
 /* =====================================================
    SIGNUP
 ===================================================== */
@@ -944,48 +813,27 @@ function showSignup(){
 async function signup(){
 
   const name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
-
+    document.getElementById("name").value.trim();
 
   const email =
-    document
-      .getElementById("signupEmail")
-      .value
-      .trim();
-
+    document.getElementById("signupEmail").value.trim();
 
   const password =
-    document
-      .getElementById("signupPassword")
-      .value;
-
+    document.getElementById("signupPassword").value;
 
   const msg =
-    document.getElementById(
-      "signupMsg"
-    );
-
+    document.getElementById("signupMsg");
 
   const btn =
-    document.getElementById(
-      "signupBtn"
-    );
+    document.getElementById("signupBtn");
 
 
-  if(
-    !name ||
-    !email ||
-    !password
-  ){
+  if(!name || !email || !password){
 
     msg.textContent =
       "সব ঘর পূরণ করুন।";
 
     return;
-
   }
 
 
@@ -995,23 +843,18 @@ async function signup(){
       "Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
 
     return;
-
   }
 
 
   msg.textContent =
     "Account তৈরি হচ্ছে...";
 
-
   btn.disabled = true;
 
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const { data, error } =
       await db.auth.signUp({
 
         email:email,
@@ -1019,11 +862,9 @@ async function signup(){
         password:password,
 
         options:{
-
           data:{
             full_name:name
           }
-
         }
 
       });
@@ -1035,38 +876,29 @@ async function signup(){
         error.message;
 
       return;
-
     }
 
 
-    if(
-      data?.session &&
-      data?.user
-    ){
+    if(data?.session && data?.user){
 
       msg.textContent = "";
 
-      await showDashboard(
-        data.user
-      );
+      await showDashboard(data.user);
 
       return;
-
     }
 
 
     msg.textContent =
       "Account তৈরি হয়েছে। Email verify করে Login করুন।";
 
-  }
-  finally{
+  }finally{
 
     btn.disabled = false;
 
   }
 
 }
-
 
 
 /* =====================================================
@@ -1076,56 +908,36 @@ async function signup(){
 async function login(){
 
   const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
-
+    document.getElementById("loginEmail").value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
-      .value;
-
+    document.getElementById("loginPassword").value;
 
   const msg =
-    document.getElementById(
-      "loginMsg"
-    );
-
+    document.getElementById("loginMsg");
 
   const btn =
-    document.getElementById(
-      "loginBtn"
-    );
+    document.getElementById("loginBtn");
 
 
-  if(
-    !email ||
-    !password
-  ){
+  if(!email || !password){
 
     msg.textContent =
       "Email ও password দিন।";
 
     return;
-
   }
 
 
   msg.textContent =
     "Login হচ্ছে...";
 
-
   btn.disabled = true;
 
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const { data, error } =
       await db.auth.signInWithPassword({
 
         email:email,
@@ -1141,18 +953,14 @@ async function login(){
         error.message;
 
       return;
-
     }
 
 
     msg.textContent = "";
 
-    await showDashboard(
-      data.user
-    );
+    await showDashboard(data.user);
 
-  }
-  finally{
+  }finally{
 
     btn.disabled = false;
 
@@ -1161,9 +969,8 @@ async function login(){
 }
 
 
-
 /* =====================================================
-   SHOW DASHBOARD
+   DASHBOARD
 ===================================================== */
 
 async function showDashboard(user){
@@ -1187,10 +994,6 @@ async function showDashboard(user){
       user.email || "";
 
 
-  /*
-    এগুলো initial dashboard load-এর সময় চলবে।
-  */
-
   await loadProfile();
 
   await loadTasks();
@@ -1198,7 +1001,6 @@ async function showDashboard(user){
   await loadSubmissions();
 
   await loadEarnings();
-
 
 
   /* ADMIN CHECK */
@@ -1209,23 +1011,14 @@ async function showDashboard(user){
       data,
       error
     } =
-      await db.rpc(
-        "is_admin"
-      );
+      await db.rpc("is_admin");
 
 
-    if(
-      !error &&
-      data === true
-    ){
+    if(!error && data === true){
 
       document
-        .getElementById(
-          "adminPanel"
-        )
-        .classList.remove(
-          "hidden"
-        );
+        .getElementById("adminPanel")
+        .classList.remove("hidden");
 
 
       await loadAdminTasks();
@@ -1234,8 +1027,7 @@ async function showDashboard(user){
 
     }
 
-  }
-  catch(error){
+  }catch(error){
 
     console.warn(
       "Admin check skipped:",
@@ -1245,7 +1037,6 @@ async function showDashboard(user){
   }
 
 }
-
 
 
 /* =====================================================
@@ -1265,13 +1056,8 @@ async function loadProfile(){
   } =
     await db
       .from("profiles")
-      .select(
-        "full_name,balance"
-      )
-      .eq(
-        "id",
-        currentUser.id
-      )
+      .select("full_name,balance")
+      .eq("id",currentUser.id)
       .single();
 
 
@@ -1283,29 +1069,21 @@ async function loadProfile(){
     );
 
     return;
-
   }
 
 
   if(data){
 
     document
-      .getElementById(
-        "welcome"
-      )
+      .getElementById("welcome")
       .textContent =
         "Welcome, " +
-        (
-          data.full_name ||
-          "User"
-        ) +
+        (data.full_name || "User") +
         " 👋";
 
 
     document
-      .getElementById(
-        "balance"
-      )
+      .getElementById("balance")
       .textContent =
         Number(
           data.balance || 0
@@ -1316,24 +1094,23 @@ async function loadProfile(){
 }
 
 
-
 /* =====================================================
    LOAD TASKS
-   ONLY TASK AREA IS UPDATED
+   IMPORTANT:
+   This function ONLY changes #tasks.
+   It does NOT reload the webpage.
 ===================================================== */
 
 async function loadTasks(){
 
   const box =
-    document.getElementById(
-      "tasks"
-    );
+    document.getElementById("tasks");
 
 
-  /*
-    শুধু #tasks-এর ভেতরের অংশ
-    loading হবে।
-  */
+  if(!box){
+    return;
+  }
+
 
   box.innerHTML = `
     <div class="loading">
@@ -1365,13 +1142,13 @@ async function loadTasks(){
         );
 
 
-    console.log(
-      "TASK DATA:",
-      data
-    );
-
-
     if(error){
+
+      console.error(
+        "TASK ERROR:",
+        error
+      );
+
 
       box.innerHTML = `
         <div class="task error-box">
@@ -1381,31 +1158,22 @@ async function loadTasks(){
           </h3>
 
           <p class="small">
-            ${escapeHtml(
-              error.message
-            )}
+            ${escapeHtml(error.message)}
           </p>
 
           <p class="task-meta">
             Code:
-            ${escapeHtml(
-              error.code ||
-              "N/A"
-            )}
+            ${escapeHtml(error.code || "N/A")}
           </p>
 
         </div>
       `;
 
       return;
-
     }
 
 
-    if(
-      !Array.isArray(data) ||
-      data.length === 0
-    ){
+    if(!Array.isArray(data) || data.length === 0){
 
       box.innerHTML = `
         <div class="task empty-box">
@@ -1422,137 +1190,99 @@ async function loadTasks(){
       `;
 
       return;
-
     }
 
 
     box.innerHTML =
-      data
-        .map(
-          task => {
+      data.map(task => {
 
-            const id =
-              String(
-                task.id || ""
-              );
+        const id =
+          String(task.id || "");
 
+        const title =
+          task.title ||
+          "Untitled Task";
 
-            const title =
-              task.title ||
-              "Untitled Task";
+        const description =
+          task.description ||
+          "এই task সম্পূর্ণ করুন।";
 
+        const reward =
+          Number(
+            task.reward || 0
+          ).toFixed(2);
 
-            const description =
-              task.description ||
-              "এই task সম্পূর্ণ করুন।";
-
-
-            const reward =
-              Number(
-                task.reward || 0
-              ).toFixed(2);
+        const url =
+          task.task_url || "";
 
 
-            const url =
-              task.task_url ||
-              "";
+        return `
+          <div class="task">
 
+            <h3>
+              ${escapeHtml(title)}
+            </h3>
 
-            return `
+            <p class="small">
+              ${escapeHtml(description)}
+            </p>
 
-              <div class="task">
+            <p class="reward">
+              💰 Reward: ৳${reward}
+            </p>
 
-                <h3>
-                  ${escapeHtml(
-                    title
-                  )}
-                </h3>
-
-
-                <p class="small">
-                  ${escapeHtml(
-                    description
-                  )}
-                </p>
-
-
-                <p class="reward">
-                  💰 Reward: ৳${reward}
-                </p>
-
-
-                ${
-                  url
-                  ?
-                  `
-                    <a
-                      class="task-link"
-                      href="${escapeAttr(
-                        url
-                      )}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      🔗 Open Task →
-                    </a>
-                  `
-                  :
-                  `
-                    <p class="task-meta">
-                      ⚠️ Task link unavailable
-                    </p>
-                  `
-                }
-
-
-                <button
-                  type="button"
-                  onclick="toggleSubmit('${escapeAttr(
-                    id
-                  )}')"
+            ${
+              url
+              ? `
+                <a
+                  class="task-link"
+                  href="${escapeAttr(url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  📤 Submit Proof
-                </button>
+                  🔗 Open Task →
+                </a>
+              `
+              : `
+                <p class="task-meta">
+                  ⚠️ Task link unavailable
+                </p>
+              `
+            }
 
+            <button
+              type="button"
+              onclick="toggleSubmit('${escapeAttr(id)}')"
+            >
+              📤 Submit Proof
+            </button>
 
-                <div
-                  id="submit-${escapeAttr(
-                    id
-                  )}"
-                  class="hidden"
-                >
+            <div
+              id="submit-${escapeAttr(id)}"
+              class="hidden"
+            >
 
-                  <textarea
-                    id="proof-${escapeAttr(
-                      id
-                    )}"
-                    placeholder="Task proof/details লিখুন..."
-                  ></textarea>
+              <textarea
+                id="proof-${escapeAttr(id)}"
+                placeholder="Task proof/details লিখুন..."
+              ></textarea>
 
+              <button
+                type="button"
+                class="success"
+                onclick="submitTask('${escapeAttr(id)}')"
+              >
+                ✅ Submit for Review
+              </button>
 
-                  <button
-                    class="success"
-                    type="button"
-                    onclick="submitTask('${escapeAttr(
-                      id
-                    )}')"
-                  >
-                    ✅ Submit for Review
-                  </button>
+            </div>
 
-                </div>
+          </div>
+        `;
 
-              </div>
+      }).join("");
 
-            `;
-
-          }
-        )
-        .join("");
-
-
-  }
-  catch(error){
+  }catch(error){
 
     console.error(
       "TASK EXCEPTION:",
@@ -1582,80 +1312,99 @@ async function loadTasks(){
 }
 
 
-
 /* =====================================================
+   TASK REFRESH
    IMPORTANT:
-   REFRESH ONLY TASKS
+   Prevents default browser action.
+   Updates ONLY the Tasks list.
 ===================================================== */
 
-async function refreshTasksOnly(){
+async function refreshTasksOnly(event){
+
+  if(event){
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+  }
+
 
   const btn =
     document.getElementById(
       "refreshTasksBtn"
     );
 
+  const status =
+    document.getElementById(
+      "taskRefreshStatus"
+    );
 
-  if(!btn){
-    return;
+
+  if(btn){
+
+    btn.disabled = true;
+
+    btn.textContent =
+      "🔄 Refreshing...";
+
   }
 
 
-  /*
-    পুরো page reload করা হচ্ছে না।
+  if(status){
 
-    location.reload()
-    ব্যবহার করা হয়নি।
+    status.textContent =
+      "Tasks update হচ্ছে...";
 
-    শুধু loadTasks()
-    function চালানো হচ্ছে।
-  */
-
-
-  if(btn.disabled){
-    return;
   }
-
-
-  btn.disabled = true;
-
-  btn.classList.add(
-    "refreshing"
-  );
-
-
-  const oldText =
-    btn.textContent;
-
-
-  btn.textContent =
-    "🔄 Refreshing Tasks...";
 
 
   try{
 
-    /*
-      শুধুমাত্র Tasks list update
-    */
-
     await loadTasks();
 
-  }
-  finally{
 
-    btn.disabled = false;
+    if(status){
 
-    btn.classList.remove(
-      "refreshing"
+      status.textContent =
+        "✅ Tasks updated";
+
+      setTimeout(() => {
+
+        status.textContent = "";
+
+      },1500);
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "REFRESH ERROR:",
+      error
     );
 
-    btn.textContent =
-      oldText;
+    if(status){
+
+      status.textContent =
+        "⚠️ Refresh failed";
+
+    }
+
+  }finally{
+
+    if(btn){
+
+      btn.disabled = false;
+
+      btn.textContent =
+        "🔄 Refresh Tasks";
+
+    }
 
   }
 
 }
-
 
 
 /* =====================================================
@@ -1666,21 +1415,17 @@ function toggleSubmit(taskId){
 
   const box =
     document.getElementById(
-      "submit-" +
-      taskId
+      "submit-" + taskId
     );
 
 
   if(box){
 
-    box.classList.toggle(
-      "hidden"
-    );
+    box.classList.toggle("hidden");
 
   }
 
 }
-
 
 
 /* =====================================================
@@ -1691,28 +1436,22 @@ async function submitTask(taskId){
 
   if(!currentUser){
 
-    alert(
-      "আগে Login করুন।"
-    );
+    alert("আগে Login করুন.");
 
     return;
-
   }
 
 
   const proofBox =
     document.getElementById(
-      "proof-" +
-      taskId
+      "proof-" + taskId
     );
 
 
   const proof =
     proofBox
-      ?
-      proofBox.value.trim()
-      :
-      "";
+      ? proofBox.value.trim()
+      : "";
 
 
   if(!proof){
@@ -1722,7 +1461,6 @@ async function submitTask(taskId){
     );
 
     return;
-
   }
 
 
@@ -1734,11 +1472,8 @@ async function submitTask(taskId){
       await db.rpc(
         "submit_task",
         {
-          p_task_id:
-            taskId,
-
-          p_proof:
-            proof
+          p_task_id:taskId,
+          p_proof:proof
         }
       );
 
@@ -1751,7 +1486,6 @@ async function submitTask(taskId){
       );
 
       return;
-
     }
 
 
@@ -1767,16 +1501,9 @@ async function submitTask(taskId){
     }
 
 
-    /*
-      এখানে পুরো website reload হচ্ছে না।
-
-      শুধু submissions update হবে।
-    */
-
     await loadSubmissions();
 
-  }
-  catch(error){
+  }catch(error){
 
     alert(
       "Submission error: " +
@@ -1786,7 +1513,6 @@ async function submitTask(taskId){
   }
 
 }
-
 
 
 /* =====================================================
@@ -1804,6 +1530,18 @@ async function loadSubmissions(){
     document.getElementById(
       "submissions"
     );
+
+
+  if(!box){
+    return;
+  }
+
+
+  box.innerHTML = `
+    <div class="loading">
+      Loading...
+    </div>
+  `;
 
 
   const {
@@ -1845,14 +1583,11 @@ async function loadSubmissions(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
     return;
-
   }
 
 
@@ -1861,26 +1596,18 @@ async function loadSubmissions(){
 
 
   document
-    .getElementById(
-      "submissionCount"
-    )
+    .getElementById("submissionCount")
     .textContent =
       rows.length;
 
 
   document
-    .getElementById(
-      "pendingCount"
-    )
+    .getElementById("pendingCount")
     .textContent =
       rows.filter(
         item =>
-          String(
-            item.status || ""
-          )
-          .toLowerCase()
-          ===
-          "pending"
+          String(item.status || "")
+            .toLowerCase() === "pending"
       ).length;
 
 
@@ -1893,97 +1620,68 @@ async function loadSubmissions(){
     `;
 
     return;
-
   }
 
 
   box.innerHTML =
-    rows
-      .map(
-        item => {
+    rows.map(item => {
 
-          const status =
-            String(
+      const status =
+        String(
+          item.status || ""
+        ).toLowerCase();
+
+
+      let cls = "pending";
+
+
+      if(status === "approved"){
+        cls = "approved";
+      }
+
+
+      if(status === "rejected"){
+        cls = "rejected";
+      }
+
+
+      return `
+        <div class="task">
+
+          <h3>
+            ${escapeHtml(
+              item.tasks?.title || "Task"
+            )}
+          </h3>
+
+          <p class="reward">
+            ৳${Number(
+              item.tasks?.reward || 0
+            ).toFixed(2)}
+          </p>
+
+          <span class="badge ${cls}">
+            ${escapeHtml(
               item.status || ""
-            ).toLowerCase();
+            )}
+          </span>
 
+          <p
+            class="small"
+            style="margin-top:8px"
+          >
+            Submitted:
+            ${formatDate(
+              item.submitted_at
+            )}
+          </p>
 
-          let cls =
-            "pending";
+        </div>
+      `;
 
-
-          if(
-            status ===
-            "approved"
-          ){
-
-            cls =
-              "approved";
-
-          }
-
-
-          if(
-            status ===
-            "rejected"
-          ){
-
-            cls =
-              "rejected";
-
-          }
-
-
-          return `
-
-            <div class="task">
-
-              <h3>
-                ${escapeHtml(
-                  item.tasks?.title ||
-                  "Task"
-                )}
-              </h3>
-
-
-              <p class="reward">
-                ৳${Number(
-                  item.tasks?.reward ||
-                  0
-                ).toFixed(2)}
-              </p>
-
-
-              <span
-                class="badge ${cls}"
-              >
-                ${escapeHtml(
-                  item.status ||
-                  ""
-                )}
-              </span>
-
-
-              <p
-                class="small"
-                style="margin-top:8px"
-              >
-                Submitted:
-                ${formatDate(
-                  item.submitted_at
-                )}
-              </p>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
+    }).join("");
 
 }
-
 
 
 /* =====================================================
@@ -2001,6 +1699,18 @@ async function loadEarnings(){
     document.getElementById(
       "earnings"
     );
+
+
+  if(!box){
+    return;
+  }
+
+
+  box.innerHTML = `
+    <div class="loading">
+      Loading...
+    </div>
+  `;
 
 
   const {
@@ -2034,14 +1744,11 @@ async function loadEarnings(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
     return;
-
   }
 
 
@@ -2049,36 +1756,29 @@ async function loadEarnings(){
     data || [];
 
 
-  let total =
-    0;
+  let total = 0;
 
 
-  rows.forEach(
-    item => {
+  rows.forEach(item => {
 
-      if(
-        String(
-          item.type || ""
-        )
+    if(
+      String(item.type || "")
         .toLowerCase()
         .includes("task")
-      ){
+    ){
 
-        total +=
-          Number(
-            item.amount || 0
-          );
-
-      }
+      total +=
+        Number(
+          item.amount || 0
+        );
 
     }
-  );
+
+  });
 
 
   document
-    .getElementById(
-      "totalEarned"
-    )
+    .getElementById("totalEarned")
     .textContent =
       total.toFixed(2);
 
@@ -2092,47 +1792,39 @@ async function loadEarnings(){
     `;
 
     return;
-
   }
 
 
   box.innerHTML =
-    rows
-      .map(
-        item => `
+    rows.map(item => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              💰 ৳${Number(
-                item.amount || 0
-              ).toFixed(2)}
-            </h3>
+        <h3>
+          💰 ৳${Number(
+            item.amount || 0
+          ).toFixed(2)}
+        </h3>
 
+        <p class="small">
+          ${escapeHtml(
+            item.description ||
+            item.type ||
+            ""
+          )}
+        </p>
 
-            <p class="small">
-              ${escapeHtml(
-                item.description ||
-                item.type ||
-                ""
-              )}
-            </p>
+        <p class="small">
+          ${formatDate(
+            item.created_at
+          )}
+        </p>
 
+      </div>
 
-            <p class="small">
-              ${formatDate(
-                item.created_at
-              )}
-            </p>
-
-          </div>
-
-        `
-      )
-      .join("");
+    `).join("");
 
 }
-
 
 
 /* =====================================================
@@ -2143,39 +1835,28 @@ async function adminCreateTask(){
 
   const title =
     document
-      .getElementById(
-        "adminTitle"
-      )
-      .value
-      .trim();
+      .getElementById("adminTitle")
+      .value.trim();
 
 
   const description =
     document
-      .getElementById(
-        "adminDescription"
-      )
-      .value
-      .trim();
+      .getElementById("adminDescription")
+      .value.trim();
 
 
   const reward =
     Number(
       document
-        .getElementById(
-          "adminReward"
-        )
+        .getElementById("adminReward")
         .value
     );
 
 
   const taskUrl =
     document
-      .getElementById(
-        "adminUrl"
-      )
-      .value
-      .trim();
+      .getElementById("adminUrl")
+      .value.trim();
 
 
   const msg =
@@ -2190,20 +1871,15 @@ async function adminCreateTask(){
       "Task title দিন।";
 
     return;
-
   }
 
 
-  if(
-    !reward ||
-    reward <= 0
-  ){
+  if(!reward || reward <= 0){
 
     msg.textContent =
       "Valid reward দিন।";
 
     return;
-
   }
 
 
@@ -2219,19 +1895,10 @@ async function adminCreateTask(){
       await db.rpc(
         "admin_create_task",
         {
-
-          p_title:
-            title,
-
-          p_description:
-            description,
-
-          p_reward:
-            reward,
-
-          p_task_url:
-            taskUrl
-
+          p_title:title,
+          p_description:description,
+          p_reward:reward,
+          p_task_url:taskUrl
         }
       );
 
@@ -2242,7 +1909,6 @@ async function adminCreateTask(){
         error.message;
 
       return;
-
     }
 
 
@@ -2251,46 +1917,27 @@ async function adminCreateTask(){
 
 
     document
-      .getElementById(
-        "adminTitle"
-      )
+      .getElementById("adminTitle")
       .value = "";
-
 
     document
-      .getElementById(
-        "adminDescription"
-      )
+      .getElementById("adminDescription")
       .value = "";
-
 
     document
-      .getElementById(
-        "adminReward"
-      )
+      .getElementById("adminReward")
       .value = "";
-
 
     document
-      .getElementById(
-        "adminUrl"
-      )
+      .getElementById("adminUrl")
       .value = "";
 
-
-    /*
-      Task যোগ করার পরও
-      পুরো page reload হবে না।
-
-      শুধু প্রয়োজনীয় task areas update।
-    */
 
     await loadAdminTasks();
 
     await loadTasks();
 
-  }
-  catch(error){
+  }catch(error){
 
     msg.textContent =
       error.message;
@@ -2298,7 +1945,6 @@ async function adminCreateTask(){
   }
 
 }
-
 
 
 /* =====================================================
@@ -2311,6 +1957,18 @@ async function loadAdminTasks(){
     document.getElementById(
       "adminTasks"
     );
+
+
+  if(!box){
+    return;
+  }
+
+
+  box.innerHTML = `
+    <div class="loading">
+      Loading...
+    </div>
+  `;
 
 
   const {
@@ -2326,21 +1984,15 @@ async function loadAdminTasks(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
     return;
-
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
     box.innerHTML = `
       <div class="empty-box">
@@ -2349,48 +2001,38 @@ async function loadAdminTasks(){
     `;
 
     return;
-
   }
 
 
   box.innerHTML =
-    data
-      .map(
-        task => `
+    data.map(task => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              ${escapeHtml(
-                task.title ||
-                "Task"
-              )}
-            </h3>
+        <h3>
+          ${escapeHtml(
+            task.title || "Task"
+          )}
+        </h3>
 
+        <p class="reward">
+          ৳${Number(
+            task.reward || 0
+          ).toFixed(2)}
+        </p>
 
-            <p class="reward">
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </p>
+        <p class="small">
+          Status:
+          ${escapeHtml(
+            task.status || ""
+          )}
+        </p>
 
+      </div>
 
-            <p class="small">
-              Status:
-              ${escapeHtml(
-                task.status ||
-                ""
-              )}
-            </p>
-
-          </div>
-
-        `
-      )
-      .join("");
+    `).join("");
 
 }
-
 
 
 /* =====================================================
@@ -2403,6 +2045,18 @@ async function loadAdminSubmissions(){
     document.getElementById(
       "adminSubmissions"
     );
+
+
+  if(!box){
+    return;
+  }
+
+
+  box.innerHTML = `
+    <div class="loading">
+      Loading...
+    </div>
+  `;
 
 
   const {
@@ -2439,21 +2093,15 @@ async function loadAdminSubmissions(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
     return;
-
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
     box.innerHTML = `
       <div class="empty-box">
@@ -2462,79 +2110,57 @@ async function loadAdminSubmissions(){
     `;
 
     return;
-
   }
 
 
   box.innerHTML =
-    data
-      .map(
-        item => `
+    data.map(item => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              📋 ${escapeHtml(
-                item.tasks?.title ||
-                "Task"
-              )}
-            </h3>
+        <h3>
+          📋 ${escapeHtml(
+            item.tasks?.title ||
+            "Task"
+          )}
+        </h3>
 
+        <p class="reward">
+          Reward:
+          ৳${Number(
+            item.tasks?.reward || 0
+          ).toFixed(2)}
+        </p>
 
-            <p class="reward">
-              Reward:
-              ৳${Number(
-                item.tasks?.reward ||
-                0
-              ).toFixed(2)}
-            </p>
+        <p class="small">
+          User ID:
+          ${escapeHtml(
+            item.user_id
+          )}
+        </p>
 
+        <hr>
 
-            <p class="small">
-              User ID:
-              ${escapeHtml(
-                item.user_id
-              )}
-            </p>
+        <p class="small">
+          <b>Proof:</b><br>
+          ${escapeHtml(
+            item.proof || ""
+          )}
+        </p>
 
+        <button
+          type="button"
+          class="success"
+          onclick="approveSubmission('${escapeAttr(item.id)}')"
+        >
+          ✅ Approve & Give Reward
+        </button>
 
-            <hr>
+      </div>
 
-
-            <p class="small">
-
-              <b>
-                Proof:
-              </b>
-
-              <br>
-
-              ${escapeHtml(
-                item.proof ||
-                ""
-              )}
-
-            </p>
-
-
-            <button
-              class="success"
-              type="button"
-              onclick="approveSubmission('${escapeAttr(
-                item.id
-              )}')"
-            >
-              ✅ Approve & Give Reward
-            </button>
-
-          </div>
-
-        `
-      )
-      .join("");
+    `).join("");
 
 }
-
 
 
 /* =====================================================
@@ -2545,11 +2171,9 @@ async function approveSubmission(
   submissionId
 ){
 
-  if(
-    !confirm(
-      "এই submission approve করবেন?"
-    )
-  ){
+  if(!confirm(
+    "এই submission approve করবেন?"
+  )){
 
     return;
 
@@ -2576,7 +2200,6 @@ async function approveSubmission(
     );
 
     return;
-
   }
 
 
@@ -2584,10 +2207,6 @@ async function approveSubmission(
     "✅ Approved successfully!"
   );
 
-
-  /*
-    পুরো page reload নয়।
-  */
 
   await loadAdminSubmissions();
 
@@ -2600,7 +2219,6 @@ async function approveSubmission(
 }
 
 
-
 /* =====================================================
    LOGOUT
 ===================================================== */
@@ -2609,42 +2227,27 @@ async function logout(){
 
   await db.auth.signOut();
 
-
-  currentUser =
-    null;
+  currentUser = null;
 
 
   document
-    .getElementById(
-      "dashboard"
-    )
-    .classList.add(
-      "hidden"
-    );
+    .getElementById("dashboard")
+    .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "adminPanel"
-    )
-    .classList.add(
-      "hidden"
-    );
+    .getElementById("adminPanel")
+    .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "auth"
-    )
-    .classList.remove(
-      "hidden"
-    );
+    .getElementById("auth")
+    .classList.remove("hidden");
 
 
   showSignup();
 
 }
-
 
 
 /* =====================================================
@@ -2653,72 +2256,26 @@ async function logout(){
 
 function escapeHtml(value){
 
-  return String(
-    value ?? ""
-  )
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
-
 
 
 function escapeAttr(value){
 
-  return String(
-    value ?? ""
-  )
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
 
 }
-
 
 
 function formatDate(value){
@@ -2730,30 +2287,22 @@ function formatDate(value){
 
   try{
 
-    return new Date(
-      value
-    ).toLocaleString(
-      "bn-BD",
-      {
-        dateStyle:
-          "medium",
+    return new Date(value)
+      .toLocaleString(
+        "bn-BD",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
 
-        timeStyle:
-          "short"
-      }
-    );
+  }catch(e){
 
-  }
-  catch(e){
-
-    return String(
-      value
-    );
+    return String(value);
 
   }
 
 }
-
 
 
 /* =====================================================
@@ -2779,13 +2328,10 @@ async function checkSession(){
       );
 
       return;
-
     }
 
 
-    if(
-      data?.session?.user
-    ){
+    if(data?.session?.user){
 
       await showDashboard(
         data.session.user
@@ -2793,8 +2339,7 @@ async function checkSession(){
 
     }
 
-  }
-  catch(error){
+  }catch(error){
 
     console.error(
       "SESSION CHECK ERROR:",
@@ -2806,30 +2351,23 @@ async function checkSession(){
 }
 
 
-
 /* =====================================================
    AUTH STATE
 ===================================================== */
 
 db.auth.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
+  async (event, session) => {
 
     if(
-      event ===
-      "SIGNED_OUT"
+      event === "SIGNED_OUT"
     ){
 
-      currentUser =
-        null;
+      currentUser = null;
 
     }
 
   }
 );
-
 
 
 /* =====================================================
