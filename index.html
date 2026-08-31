@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TaskEarn BD</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -29,7 +28,7 @@ body{
   width:92%;
   max-width:900px;
   margin:auto;
-  padding-bottom:50px;
+  padding-bottom:40px;
 }
 
 header{
@@ -38,7 +37,7 @@ header{
 }
 
 .logo{
-  font-size:32px;
+  font-size:30px;
   font-weight:900;
   background:linear-gradient(90deg,#8b5cf6,#00d9ff);
   -webkit-background-clip:text;
@@ -48,7 +47,7 @@ header{
 .online{
   color:#6ee7b7;
   font-size:13px;
-  margin-top:6px;
+  margin-top:5px;
 }
 
 .card{
@@ -57,7 +56,7 @@ header{
   border-radius:20px;
   padding:20px;
   margin:16px 0;
-  box-shadow:0 10px 30px rgba(0,0,0,.22);
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .auth-card{
@@ -128,7 +127,7 @@ button:disabled{
 }
 
 .danger{
-  background:linear-gradient(90deg,#b42342,#e34b65);
+  background:linear-gradient(90deg,#9f1239,#e11d48);
 }
 
 .hidden{
@@ -223,13 +222,20 @@ button:disabled{
   background:#2a1017;
 }
 
-.success-box{
-  border-color:#075e42;
-  background:#0b2b21;
-}
-
 .admin-title{
   color:#50dfff;
+}
+
+.empty-box{
+  text-align:center;
+  padding:25px 10px;
+  color:#aab3cc;
+}
+
+.task-meta{
+  margin-top:8px;
+  color:#8994b2;
+  font-size:12px;
 }
 
 hr{
@@ -244,26 +250,13 @@ hr{
   color:#aab3cc;
 }
 
-.empty{
-  text-align:center;
-  padding:25px 10px;
-  color:#aab3cc;
-}
-
-.debug{
-  font-size:12px;
-  color:#8791aa;
-  margin-top:8px;
-  word-break:break-word;
-}
-
 @media(max-width:650px){
   .stats{
     grid-template-columns:1fr;
   }
 
   .logo{
-    font-size:28px;
+    font-size:26px;
   }
 
   .balance-value{
@@ -299,18 +292,21 @@ hr{
       id="name"
       type="text"
       placeholder="Full name"
+      autocomplete="name"
     >
 
     <input
       id="signupEmail"
       type="email"
       placeholder="Email address"
+      autocomplete="email"
     >
 
     <input
       id="signupPassword"
       type="password"
       placeholder="Password"
+      autocomplete="new-password"
     >
 
     <button onclick="signup()">
@@ -329,7 +325,10 @@ hr{
   </div>
 
 
-  <div id="loginBox" class="card auth-card hidden">
+  <div
+    id="loginBox"
+    class="card auth-card hidden"
+  >
 
     <h2>Welcome Back 👋</h2>
 
@@ -341,12 +340,14 @@ hr{
       id="loginEmail"
       type="email"
       placeholder="Email address"
+      autocomplete="email"
     >
 
     <input
       id="loginPassword"
       type="password"
       placeholder="Password"
+      autocomplete="current-password"
     >
 
     <button onclick="login()">
@@ -369,7 +370,10 @@ hr{
 
 <!-- ================= DASHBOARD ================= -->
 
-<section id="dashboard" class="hidden">
+<section
+  id="dashboard"
+  class="hidden"
+>
 
   <div class="card">
 
@@ -406,17 +410,22 @@ hr{
   <div class="stats">
 
     <div class="stat">
+
       <span class="small">
         Total Earned
       </span>
 
       <span class="stat-number">
-        ৳<span id="totalEarned">0.00</span>
+        ৳<span id="totalEarned">
+          0.00
+        </span>
       </span>
+
     </div>
 
 
     <div class="stat">
+
       <span class="small">
         Pending
       </span>
@@ -427,10 +436,12 @@ hr{
       >
         0
       </span>
+
     </div>
 
 
     <div class="stat">
+
       <span class="small">
         Submissions
       </span>
@@ -441,6 +452,7 @@ hr{
       >
         0
       </span>
+
     </div>
 
   </div>
@@ -541,7 +553,10 @@ hr{
 
 <!-- ================= ADMIN ================= -->
 
-<section id="adminPanel" class="hidden">
+<section
+  id="adminPanel"
+  class="hidden"
+>
 
   <div class="card">
 
@@ -556,7 +571,7 @@ hr{
   </div>
 
 
-  <!-- CREATE TASK -->
+  <!-- ADD TASK -->
 
   <div class="card">
 
@@ -653,22 +668,14 @@ hr{
 const SUPABASE_URL =
   "https://limhetefzzbekcdaqtqw.supabase.co";
 
-
-/*
-  এখানে তোমার Supabase Publishable Key থাকবে।
-  Secret / service_role key এখানে কখনো ব্যবহার করবে না।
-*/
-
 const SUPABASE_KEY =
   "sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
-
 
 const db =
   window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
-
 
 let currentUser = null;
 
@@ -715,19 +722,16 @@ async function signup(){
       .value
       .trim();
 
-
   const email =
     document
       .getElementById("signupEmail")
       .value
       .trim();
 
-
   const password =
     document
       .getElementById("signupPassword")
       .value;
-
 
   const msg =
     document.getElementById(
@@ -735,7 +739,11 @@ async function signup(){
     );
 
 
-  if(!name || !email || !password){
+  if(
+    !name ||
+    !email ||
+    !password
+  ){
 
     msg.textContent =
       "সব ঘর পূরণ করুন।";
@@ -785,7 +793,10 @@ async function signup(){
   }
 
 
-  if(data?.session && data?.user){
+  if(
+    data?.session &&
+    data?.user
+  ){
 
     msg.textContent = "";
 
@@ -815,12 +826,10 @@ async function login(){
       .value
       .trim();
 
-
   const password =
     document
       .getElementById("loginPassword")
       .value;
-
 
   const msg =
     document.getElementById(
@@ -828,7 +837,10 @@ async function login(){
     );
 
 
-  if(!email || !password){
+  if(
+    !email ||
+    !password
+  ){
 
     msg.textContent =
       "Email ও password দিন।";
@@ -906,10 +918,7 @@ async function showDashboard(user){
   await loadEarnings();
 
 
-  /*
-    Admin check.
-    RPC function না থাকলেও website crash করবে না।
-  */
+  /* ADMIN CHECK */
 
   try{
 
@@ -917,7 +926,9 @@ async function showDashboard(user){
       data:adminCheck,
       error:adminError
     } =
-      await db.rpc("is_admin");
+      await db.rpc(
+        "is_admin"
+      );
 
 
     if(
@@ -936,11 +947,11 @@ async function showDashboard(user){
 
     }
 
-  }catch(e){
+  }catch(error){
 
-    console.log(
+    console.warn(
       "Admin check skipped:",
-      e
+      error
     );
 
   }
@@ -954,7 +965,9 @@ async function showDashboard(user){
 
 async function loadProfile(){
 
-  if(!currentUser) return;
+  if(!currentUser){
+    return;
+  }
 
 
   const {
@@ -970,7 +983,7 @@ async function loadProfile(){
         "id",
         currentUser.id
       )
-      .maybeSingle();
+      .single();
 
 
   if(error){
@@ -1034,214 +1047,231 @@ async function loadTasks(){
   );
 
 
-  /*
-    IMPORTANT:
-    Only active tasks are loaded.
-  */
+  try{
 
-  const {
-    data,
-    error
-  } =
-    await db
-      .from("tasks")
-      .select(
-        "id,title,description,reward,task_url,status,created_at"
-      )
-      .eq(
-        "status",
-        "active"
-      )
-      .order(
-        "created_at",
-        {
-          ascending:false
-        }
+    const {
+      data,
+      error
+    } =
+      await db
+        .from("tasks")
+        .select(`
+          id,
+          title,
+          description,
+          reward,
+          task_url,
+          status,
+          created_at
+        `)
+        .eq(
+          "status",
+          "active"
+        )
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    console.log(
+      "TASK RESPONSE:",
+      {
+        data,
+        error
+      }
+    );
+
+
+    if(error){
+
+      console.error(
+        "TASK DATABASE ERROR:",
+        error
       );
 
 
-  console.log(
-    "TASK RESULT:",
-    data,
-    error
-  );
+      box.innerHTML =
+        `
+          <div class="task error-box">
+
+            <h3>
+              ⚠️ Task Loading Error
+            </h3>
+
+            <p class="small">
+              ${escapeHtml(
+                error.message ||
+                "Database error"
+              )}
+            </p>
+
+            <p class="task-meta">
+              Error code:
+              ${escapeHtml(
+                error.code ||
+                "N/A"
+              )}
+            </p>
+
+          </div>
+        `;
+
+      return;
+    }
 
 
-  /* DATABASE ERROR */
+    const tasks =
+      Array.isArray(data)
+        ? data
+        : [];
 
-  if(error){
+
+    if(tasks.length === 0){
+
+      box.innerHTML =
+        `
+          <div class="task empty-box">
+
+            <h3>
+              📋 No Active Tasks
+            </h3>
+
+            <p class="small">
+              এই মুহূর্তে কোনো active task পাওয়া যায়নি।
+            </p>
+
+          </div>
+        `;
+
+      return;
+    }
+
+
+    box.innerHTML =
+      tasks
+        .map(
+          task => {
+
+            const title =
+              task.title ||
+              "Untitled Task";
+
+            const description =
+              task.description ||
+              "Complete this task.";
+
+            const reward =
+              Number(
+                task.reward || 0
+              ).toFixed(2);
+
+            const url =
+              task.task_url ||
+              "";
+
+
+            return `
+
+              <div class="task">
+
+                <h3>
+                  ${escapeHtml(title)}
+                </h3>
+
+                <p class="small">
+                  ${escapeHtml(description)}
+                </p>
+
+                <p class="reward">
+                  💰 Reward:
+                  ৳${reward}
+                </p>
+
+
+                ${
+                  url
+                    ? `
+                      <a
+                        class="task-link"
+                        href="${escapeAttr(url)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        🔗 Open Task →
+                      </a>
+                    `
+                    : `
+                      <p class="task-meta">
+                        Task link unavailable
+                      </p>
+                    `
+                }
+
+
+                <button
+                  onclick="toggleSubmit('${escapeAttr(task.id)}')"
+                >
+                  📤 Submit Proof
+                </button>
+
+
+                <div
+                  id="submit-${escapeAttr(task.id)}"
+                  class="hidden"
+                >
+
+                  <textarea
+                    id="proof-${escapeAttr(task.id)}"
+                    placeholder="Task proof/details লিখুন..."
+                  ></textarea>
+
+                  <button
+                    class="success"
+                    onclick="submitTask('${escapeAttr(task.id)}')"
+                  >
+                    Submit for Review
+                  </button>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+  }catch(error){
+
+    console.error(
+      "TASK FETCH EXCEPTION:",
+      error
+    );
+
 
     box.innerHTML =
       `
-
         <div class="task error-box">
 
           <h3>
-            ⚠️ Task Loading Error
+            ⚠️ Unexpected Error
           </h3>
 
           <p class="small">
             ${escapeHtml(
               error.message ||
-              "Database error"
-            )}
-          </p>
-
-          <p class="debug">
-            Code:
-            ${escapeHtml(
-              error.code ||
-              "N/A"
-            )}
-          </p>
-
-          <p class="debug">
-            Details:
-            ${escapeHtml(
-              error.details ||
-              "N/A"
+              String(error)
             )}
           </p>
 
         </div>
-
       `;
 
-    return;
   }
-
-
-  /*
-    NO DATA
-  */
-
-  if(
-    !data ||
-    data.length === 0
-  ){
-
-    box.innerHTML =
-      `
-
-        <div class="task empty">
-
-          <h3>
-            📋 No Active Tasks
-          </h3>
-
-          <p class="small">
-            এখন কোনো active task পাওয়া যাচ্ছে না।
-          </p>
-
-          <button
-            onclick="loadTasks()"
-          >
-            🔄 আবার চেষ্টা করুন
-          </button>
-
-        </div>
-
-      `;
-
-    return;
-  }
-
-
-  /*
-    SHOW TASKS
-  */
-
-  box.innerHTML =
-    data
-      .map(task => {
-
-        const taskId =
-          escapeAttr(
-            task.id
-          );
-
-
-        return `
-
-          <div class="task">
-
-            <h3>
-              ${escapeHtml(
-                task.title
-              )}
-            </h3>
-
-
-            <p class="small">
-              ${escapeHtml(
-                task.description || ""
-              )}
-            </p>
-
-
-            <p class="reward">
-              💰 Reward:
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </p>
-
-
-            ${
-              task.task_url
-              ?
-              `
-
-                <a
-                  class="task-link"
-                  href="${escapeAttr(
-                    task.task_url
-                  )}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  🔗 Open Task →
-                </a>
-
-              `
-              :
-              ""
-            }
-
-
-            <button
-              onclick="toggleSubmit('${taskId}')"
-            >
-              📤 Submit Proof
-            </button>
-
-
-            <div
-              id="submit-${taskId}"
-              class="hidden"
-            >
-
-              <textarea
-                id="proof-${taskId}"
-                placeholder="Task proof/details লিখুন..."
-              ></textarea>
-
-
-              <button
-                class="success"
-                onclick="submitTask('${taskId}')"
-              >
-                Submit for Review
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-      })
-      .join("");
 
 }
 
@@ -1293,10 +1323,8 @@ async function submitTask(taskId){
 
   const proof =
     proofBox
-      ?
-      proofBox.value.trim()
-      :
-      "";
+      ? proofBox.value.trim()
+      : "";
 
 
   if(!proof){
@@ -1310,7 +1338,6 @@ async function submitTask(taskId){
 
 
   const {
-    data,
     error
   } =
     await db.rpc(
@@ -1320,13 +1347,6 @@ async function submitTask(taskId){
         p_proof:proof
       }
     );
-
-
-  console.log(
-    "SUBMIT RESULT:",
-    data,
-    error
-  );
 
 
   if(error){
@@ -1363,7 +1383,9 @@ async function submitTask(taskId){
 
 async function loadSubmissions(){
 
-  if(!currentUser) return;
+  if(!currentUser){
+    return;
+  }
 
 
   const box =
@@ -1440,13 +1462,11 @@ async function loadSubmissions(){
     )
     .textContent =
       rows.filter(
-        x =>
+        item =>
           String(
-            x.status
-          )
-          .toLowerCase()
-          ===
-          "pending"
+            item.status || ""
+          ).toLowerCase()
+          === "pending"
       ).length;
 
 
@@ -1454,9 +1474,9 @@ async function loadSubmissions(){
 
     box.innerHTML =
       `
-        <p class="small">
+        <div class="empty-box">
           এখনো কোনো task submit করেননি।
-        </p>
+        </div>
       `;
 
     return;
@@ -1465,77 +1485,82 @@ async function loadSubmissions(){
 
   box.innerHTML =
     rows
-      .map(item => {
+      .map(
+        item => {
 
-        const status =
-          String(
-            item.status || ""
-          ).toLowerCase();
-
-
-        let cls =
-          "pending";
+          const status =
+            String(
+              item.status || ""
+            ).toLowerCase();
 
 
-        if(
-          status === "approved"
-        ){
-          cls =
-            "approved";
+          let cls =
+            "pending";
+
+
+          if(
+            status === "approved"
+          ){
+
+            cls =
+              "approved";
+
+          }
+
+
+          if(
+            status === "rejected"
+          ){
+
+            cls =
+              "rejected";
+
+          }
+
+
+          return `
+
+            <div class="task">
+
+              <h3>
+                ${escapeHtml(
+                  item.tasks?.title ||
+                  "Task"
+                )}
+              </h3>
+
+              <p class="reward">
+                ৳${Number(
+                  item.tasks?.reward ||
+                  0
+                ).toFixed(2)}
+              </p>
+
+              <span
+                class="badge ${cls}"
+              >
+                ${escapeHtml(
+                  item.status ||
+                  ""
+                )}
+              </span>
+
+              <p
+                class="small"
+                style="margin-top:8px"
+              >
+                Submitted:
+                ${formatDate(
+                  item.submitted_at
+                )}
+              </p>
+
+            </div>
+
+          `;
+
         }
-
-
-        if(
-          status === "rejected"
-        ){
-          cls =
-            "rejected";
-        }
-
-
-        return `
-
-          <div class="task">
-
-            <h3>
-              ${escapeHtml(
-                item.tasks?.title ||
-                "Task"
-              )}
-            </h3>
-
-
-            <p class="reward">
-              ৳${Number(
-                item.tasks?.reward || 0
-              ).toFixed(2)}
-            </p>
-
-
-            <span
-              class="badge ${cls}"
-            >
-              ${escapeHtml(
-                item.status || ""
-              )}
-            </span>
-
-
-            <p
-              class="small"
-              style="margin-top:8px"
-            >
-              Submitted:
-              ${formatDate(
-                item.submitted_at
-              )}
-            </p>
-
-          </div>
-
-        `;
-
-      })
+      )
       .join("");
 
 }
@@ -1547,7 +1572,9 @@ async function loadSubmissions(){
 
 async function loadEarnings(){
 
-  if(!currentUser) return;
+  if(!currentUser){
+    return;
+  }
 
 
   const box =
@@ -1605,24 +1632,26 @@ async function loadEarnings(){
   let total = 0;
 
 
-  rows.forEach(item => {
+  rows.forEach(
+    item => {
 
-    if(
-      String(
-        item.type || ""
-      )
-      .toLowerCase()
-      .includes("task")
-    ){
+      if(
+        String(
+          item.type || ""
+        )
+        .toLowerCase()
+        .includes("task")
+      ){
 
-      total +=
-        Number(
-          item.amount || 0
-        );
+        total +=
+          Number(
+            item.amount || 0
+          );
+
+      }
 
     }
-
-  });
+  );
 
 
   document
@@ -1637,9 +1666,9 @@ async function loadEarnings(){
 
     box.innerHTML =
       `
-        <p class="small">
+        <div class="empty-box">
           এখনো কোনো earning নেই।
-        </p>
+        </div>
       `;
 
     return;
@@ -1648,35 +1677,35 @@ async function loadEarnings(){
 
   box.innerHTML =
     rows
-      .map(item => `
+      .map(
+        item => `
 
-        <div class="task">
+          <div class="task">
 
-          <h3>
-            💰 ৳${Number(
-              item.amount || 0
-            ).toFixed(2)}
-          </h3>
+            <h3>
+              💰 ৳${Number(
+                item.amount || 0
+              ).toFixed(2)}
+            </h3>
 
+            <p class="small">
+              ${escapeHtml(
+                item.description ||
+                item.type ||
+                ""
+              )}
+            </p>
 
-          <p class="small">
-            ${escapeHtml(
-              item.description ||
-              item.type ||
-              ""
-            )}
-          </p>
+            <p class="small">
+              ${formatDate(
+                item.created_at
+              )}
+            </p>
 
+          </div>
 
-          <p class="small">
-            ${formatDate(
-              item.created_at
-            )}
-          </p>
-
-        </div>
-
-      `)
+        `
+      )
       .join("");
 
 }
@@ -1740,7 +1769,10 @@ async function adminCreateTask(){
   }
 
 
-  if(!reward || reward <= 0){
+  if(
+    !reward ||
+    reward <= 0
+  ){
 
     msg.textContent =
       "Valid reward দিন।";
@@ -1750,7 +1782,6 @@ async function adminCreateTask(){
 
 
   const {
-    data,
     error
   } =
     await db.rpc(
@@ -1855,9 +1886,9 @@ async function loadAdminTasks(){
 
     box.innerHTML =
       `
-        <p class="small">
+        <div class="empty-box">
           কোনো task নেই।
-        </p>
+        </div>
       `;
 
     return;
@@ -1866,34 +1897,35 @@ async function loadAdminTasks(){
 
   box.innerHTML =
     data
-      .map(task => `
+      .map(
+        task => `
 
-        <div class="task">
+          <div class="task">
 
-          <h3>
-            ${escapeHtml(
-              task.title
-            )}
-          </h3>
+            <h3>
+              ${escapeHtml(
+                task.title ||
+                "Task"
+              )}
+            </h3>
 
+            <p class="reward">
+              ৳${Number(
+                task.reward || 0
+              ).toFixed(2)}
+            </p>
 
-          <p class="reward">
-            ৳${Number(
-              task.reward || 0
-            ).toFixed(2)}
-          </p>
+            <p class="small">
+              Status:
+              ${escapeHtml(
+                task.status || ""
+              )}
+            </p>
 
+          </div>
 
-          <p class="small">
-            Status:
-            ${escapeHtml(
-              task.status || ""
-            )}
-          </p>
-
-        </div>
-
-      `)
+        `
+      )
       .join("");
 
 }
@@ -1963,9 +1995,9 @@ async function loadAdminSubmissions(){
 
     box.innerHTML =
       `
-        <p class="small">
+        <div class="empty-box">
           কোনো pending submission নেই।
-        </p>
+        </div>
       `;
 
     return;
@@ -1974,55 +2006,52 @@ async function loadAdminSubmissions(){
 
   box.innerHTML =
     data
-      .map(item => `
+      .map(
+        item => `
 
-        <div class="task">
+          <div class="task">
 
-          <h3>
-            📋 ${escapeHtml(
-              item.tasks?.title ||
-              "Task"
-            )}
-          </h3>
+            <h3>
+              📋 ${escapeHtml(
+                item.tasks?.title ||
+                "Task"
+              )}
+            </h3>
 
+            <p class="reward">
+              Reward:
+              ৳${Number(
+                item.tasks?.reward || 0
+              ).toFixed(2)}
+            </p>
 
-          <p class="reward">
-            Reward:
-            ৳${Number(
-              item.tasks?.reward || 0
-            ).toFixed(2)}
-          </p>
+            <p class="small">
+              User ID:
+              ${escapeHtml(
+                item.user_id
+              )}
+            </p>
 
+            <hr>
 
-          <p class="small">
-            User ID:
-            ${escapeHtml(
-              item.user_id
-            )}
-          </p>
+            <p class="small">
+              <b>Proof:</b><br>
+              ${escapeHtml(
+                item.proof || ""
+              )}
+            </p>
 
+            <button
+              class="success"
+              onclick="approveSubmission('${escapeAttr(item.id)}')"
+            >
+              ✅ Approve & Give Reward
+            </button>
 
-          <hr>
+          </div>
 
-
-          <p class="small">
-            <b>Proof:</b><br>
-            ${escapeHtml(
-              item.proof || ""
-            )}
-          </p>
-
-
-          <button
-            class="success"
-            onclick="approveSubmission('${escapeAttr(item.id)}')"
-          >
-            ✅ Approve & Give Reward
-          </button>
-
-        </div>
-
-      `)
+        `
+      )
       .join("");
 
 }
@@ -2041,12 +2070,13 @@ async function approveSubmission(
       "এই submission approve করবেন?"
     )
   ){
+
     return;
+
   }
 
 
   const {
-    data,
     error
   } =
     await db.rpc(
@@ -2100,21 +2130,27 @@ async function logout(){
     .getElementById(
       "dashboard"
     )
-    .classList.add("hidden");
+    .classList.add(
+      "hidden"
+    );
 
 
   document
     .getElementById(
       "adminPanel"
     )
-    .classList.add("hidden");
+    .classList.add(
+      "hidden"
+    );
 
 
   document
     .getElementById(
       "auth"
     )
-    .classList.remove("hidden");
+    .classList.remove(
+      "hidden"
+    );
 
 
   showSignup();
@@ -2195,7 +2231,8 @@ function formatDate(value){
 
     return new Date(
       value
-    ).toLocaleString(
+    )
+    .toLocaleString(
       "bn-BD",
       {
         dateStyle:"medium",
@@ -2205,9 +2242,7 @@ function formatDate(value){
 
   }catch(e){
 
-    return String(
-      value
-    );
+    return String(value);
 
   }
 
@@ -2250,42 +2285,17 @@ async function checkSession(){
 
     }
 
-  }catch(e){
+  }catch(error){
 
     console.error(
       "SESSION CHECK ERROR:",
-      e
+      error
     );
 
   }
 
 }
 
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-db.auth.onAuthStateChange(
-  async (event, session) => {
-
-    if(
-      session?.user &&
-      event === "SIGNED_IN"
-    ){
-
-      currentUser =
-        session.user;
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
 
 checkSession();
 
