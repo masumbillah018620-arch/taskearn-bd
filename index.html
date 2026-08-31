@@ -28,12 +28,12 @@ body{
   width:92%;
   max-width:900px;
   margin:auto;
-  padding-bottom:40px;
+  padding-bottom:50px;
 }
 
 header{
   text-align:center;
-  padding:25px 0 15px;
+  padding:28px 0 15px;
 }
 
 .logo{
@@ -47,7 +47,7 @@ header{
 .online{
   color:#6ee7b7;
   font-size:13px;
-  margin-top:5px;
+  margin-top:6px;
 }
 
 .card{
@@ -56,7 +56,7 @@ header{
   border-radius:20px;
   padding:20px;
   margin:16px 0;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
 }
 
 .auth-card{
@@ -65,7 +65,7 @@ header{
 }
 
 h2{
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
 h3{
@@ -250,7 +250,26 @@ hr{
   color:#aab3cc;
 }
 
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.logout-small{
+  width:auto;
+  padding:9px 14px;
+  margin:0;
+  background:#252d46;
+}
+
+.task button{
+  margin-top:12px;
+}
+
 @media(max-width:650px){
+
   .stats{
     grid-template-columns:1fr;
   }
@@ -261,6 +280,10 @@ hr{
 
   .balance-value{
     font-size:34px;
+  }
+
+  .topbar{
+    align-items:flex-start;
   }
 }
 </style>
@@ -309,7 +332,7 @@ hr{
       autocomplete="new-password"
     >
 
-    <button onclick="signup()">
+    <button id="signupBtn" onclick="signup()">
       Create Account
     </button>
 
@@ -350,7 +373,7 @@ hr{
       autocomplete="current-password"
     >
 
-    <button onclick="login()">
+    <button id="loginBtn" onclick="login()">
       Login 🔐
     </button>
 
@@ -370,20 +393,30 @@ hr{
 
 <!-- ================= DASHBOARD ================= -->
 
-<section
-  id="dashboard"
-  class="hidden"
->
+<section id="dashboard" class="hidden">
 
   <div class="card">
 
-    <h2 id="welcome">
-      Welcome 👋
-    </h2>
+    <div class="topbar">
 
-    <p class="small">
-      আপনার TaskEarn BD dashboard
-    </p>
+      <div>
+        <h2 id="welcome">
+          Welcome 👋
+        </h2>
+
+        <p class="small">
+          আপনার TaskEarn BD dashboard
+        </p>
+      </div>
+
+      <button
+        class="logout-small"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
 
   </div>
 
@@ -410,22 +443,17 @@ hr{
   <div class="stats">
 
     <div class="stat">
-
       <span class="small">
         Total Earned
       </span>
 
       <span class="stat-number">
-        ৳<span id="totalEarned">
-          0.00
-        </span>
+        ৳<span id="totalEarned">0.00</span>
       </span>
-
     </div>
 
 
     <div class="stat">
-
       <span class="small">
         Pending
       </span>
@@ -436,12 +464,10 @@ hr{
       >
         0
       </span>
-
     </div>
 
 
     <div class="stat">
-
       <span class="small">
         Submissions
       </span>
@@ -452,7 +478,6 @@ hr{
       >
         0
       </span>
-
     </div>
 
   </div>
@@ -467,7 +492,7 @@ hr{
     </h2>
 
     <p class="small">
-      Complete available tasks and follow the task instructions.
+      নিচের task সম্পূর্ণ করে proof submit করুন।
     </p>
 
     <button
@@ -480,7 +505,7 @@ hr{
     <div id="tasks">
 
       <div class="loading">
-        Loading tasks...
+        🔄 Loading tasks...
       </div>
 
     </div>
@@ -534,17 +559,7 @@ hr{
       Account 👤
     </h2>
 
-    <p
-      id="userEmail"
-      class="small"
-    ></p>
-
-    <button
-      class="secondary"
-      onclick="logout()"
-    >
-      Logout
-    </button>
+    <p id="userEmail" class="small"></p>
 
   </div>
 
@@ -553,10 +568,7 @@ hr{
 
 <!-- ================= ADMIN ================= -->
 
-<section
-  id="adminPanel"
-  class="hidden"
->
+<section id="adminPanel" class="hidden">
 
   <div class="card">
 
@@ -717,33 +729,22 @@ function showSignup(){
 async function signup(){
 
   const name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
+    document.getElementById("name").value.trim();
 
   const email =
-    document
-      .getElementById("signupEmail")
-      .value
-      .trim();
+    document.getElementById("signupEmail").value.trim();
 
   const password =
-    document
-      .getElementById("signupPassword")
-      .value;
+    document.getElementById("signupPassword").value;
 
   const msg =
-    document.getElementById(
-      "signupMsg"
-    );
+    document.getElementById("signupMsg");
+
+  const btn =
+    document.getElementById("signupBtn");
 
 
-  if(
-    !name ||
-    !email ||
-    !password
-  ){
+  if(!name || !email || !password){
 
     msg.textContent =
       "সব ঘর পূরণ করুন।";
@@ -764,52 +765,54 @@ async function signup(){
   msg.textContent =
     "Account তৈরি হচ্ছে...";
 
+  btn.disabled = true;
 
-  const {
-    data,
-    error
-  } =
-    await db.auth.signUp({
 
-      email:email,
+  try{
 
-      password:password,
+    const { data, error } =
+      await db.auth.signUp({
 
-      options:{
-        data:{
-          full_name:name
+        email:email,
+
+        password:password,
+
+        options:{
+          data:{
+            full_name:name
+          }
         }
-      }
 
-    });
+      });
 
 
-  if(error){
+    if(error){
+
+      msg.textContent =
+        error.message;
+
+      return;
+    }
+
+
+    if(data?.session && data?.user){
+
+      msg.textContent = "";
+
+      await showDashboard(data.user);
+
+      return;
+    }
+
 
     msg.textContent =
-      error.message;
+      "Account তৈরি হয়েছে। Email verify করে Login করুন।";
 
-    return;
+  }finally{
+
+    btn.disabled = false;
+
   }
-
-
-  if(
-    data?.session &&
-    data?.user
-  ){
-
-    msg.textContent = "";
-
-    await showDashboard(
-      data.user
-    );
-
-    return;
-  }
-
-
-  msg.textContent =
-    "Account তৈরি হয়েছে। Email confirmation প্রয়োজন হলে email verify করে Login করুন।";
 
 }
 
@@ -821,26 +824,19 @@ async function signup(){
 async function login(){
 
   const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+    document.getElementById("loginEmail").value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
-      .value;
+    document.getElementById("loginPassword").value;
 
   const msg =
-    document.getElementById(
-      "loginMsg"
-    );
+    document.getElementById("loginMsg");
+
+  const btn =
+    document.getElementById("loginBtn");
 
 
-  if(
-    !email ||
-    !password
-  ){
+  if(!email || !password){
 
     msg.textContent =
       "Email ও password দিন।";
@@ -852,34 +848,39 @@ async function login(){
   msg.textContent =
     "Login হচ্ছে...";
 
-
-  const {
-    data,
-    error
-  } =
-    await db.auth.signInWithPassword({
-
-      email:email,
-
-      password:password
-
-    });
+  btn.disabled = true;
 
 
-  if(error){
+  try{
 
-    msg.textContent =
-      error.message;
+    const { data, error } =
+      await db.auth.signInWithPassword({
 
-    return;
+        email:email,
+
+        password:password
+
+      });
+
+
+    if(error){
+
+      msg.textContent =
+        error.message;
+
+      return;
+    }
+
+
+    msg.textContent = "";
+
+    await showDashboard(data.user);
+
+  }finally{
+
+    btn.disabled = false;
+
   }
-
-
-  msg.textContent = "";
-
-  await showDashboard(
-    data.user
-  );
 
 }
 
@@ -923,18 +924,13 @@ async function showDashboard(user){
   try{
 
     const {
-      data:adminCheck,
-      error:adminError
+      data,
+      error
     } =
-      await db.rpc(
-        "is_admin"
-      );
+      await db.rpc("is_admin");
 
 
-    if(
-      !adminError &&
-      adminCheck === true
-    ){
+    if(!error && data === true){
 
       document
         .getElementById("adminPanel")
@@ -976,13 +972,8 @@ async function loadProfile(){
   } =
     await db
       .from("profiles")
-      .select(
-        "full_name,balance"
-      )
-      .eq(
-        "id",
-        currentUser.id
-      )
+      .select("full_name,balance")
+      .eq("id",currentUser.id)
       .single();
 
 
@@ -1003,10 +994,7 @@ async function loadProfile(){
       .getElementById("welcome")
       .textContent =
         "Welcome, " +
-        (
-          data.full_name ||
-          "User"
-        ) +
+        (data.full_name || "User") +
         " 👋";
 
 
@@ -1023,28 +1011,20 @@ async function loadProfile(){
 
 
 /* =====================================================
-   LOAD TASKS
+   LOAD TASKS - FIXED
 ===================================================== */
 
 async function loadTasks(){
 
   const box =
-    document.getElementById(
-      "tasks"
-    );
+    document.getElementById("tasks");
 
 
-  box.innerHTML =
-    `
-      <div class="loading">
-        🔄 Loading tasks...
-      </div>
-    `;
-
-
-  console.log(
-    "Loading active tasks..."
-  );
+  box.innerHTML = `
+    <div class="loading">
+      🔄 Loading tasks...
+    </div>
+  `;
 
 
   try{
@@ -1055,15 +1035,9 @@ async function loadTasks(){
     } =
       await db
         .from("tasks")
-        .select(`
-          id,
-          title,
-          description,
-          reward,
-          task_url,
-          status,
-          created_at
-        `)
+        .select(
+          "id,title,description,reward,task_url,status,created_at"
+        )
         .eq(
           "status",
           "active"
@@ -1077,199 +1051,172 @@ async function loadTasks(){
 
 
     console.log(
-      "TASK RESPONSE:",
-      {
-        data,
-        error
-      }
+      "TASK DATA:",
+      data
+    );
+
+    console.log(
+      "TASK ERROR:",
+      error
     );
 
 
     if(error){
 
-      console.error(
-        "TASK DATABASE ERROR:",
-        error
-      );
-
-
-      box.innerHTML =
-        `
-          <div class="task error-box">
-
-            <h3>
-              ⚠️ Task Loading Error
-            </h3>
-
-            <p class="small">
-              ${escapeHtml(
-                error.message ||
-                "Database error"
-              )}
-            </p>
-
-            <p class="task-meta">
-              Error code:
-              ${escapeHtml(
-                error.code ||
-                "N/A"
-              )}
-            </p>
-
-          </div>
-        `;
-
-      return;
-    }
-
-
-    const tasks =
-      Array.isArray(data)
-        ? data
-        : [];
-
-
-    if(tasks.length === 0){
-
-      box.innerHTML =
-        `
-          <div class="task empty-box">
-
-            <h3>
-              📋 No Active Tasks
-            </h3>
-
-            <p class="small">
-              এই মুহূর্তে কোনো active task পাওয়া যায়নি।
-            </p>
-
-          </div>
-        `;
-
-      return;
-    }
-
-
-    box.innerHTML =
-      tasks
-        .map(
-          task => {
-
-            const title =
-              task.title ||
-              "Untitled Task";
-
-            const description =
-              task.description ||
-              "Complete this task.";
-
-            const reward =
-              Number(
-                task.reward || 0
-              ).toFixed(2);
-
-            const url =
-              task.task_url ||
-              "";
-
-
-            return `
-
-              <div class="task">
-
-                <h3>
-                  ${escapeHtml(title)}
-                </h3>
-
-                <p class="small">
-                  ${escapeHtml(description)}
-                </p>
-
-                <p class="reward">
-                  💰 Reward:
-                  ৳${reward}
-                </p>
-
-
-                ${
-                  url
-                    ? `
-                      <a
-                        class="task-link"
-                        href="${escapeAttr(url)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        🔗 Open Task →
-                      </a>
-                    `
-                    : `
-                      <p class="task-meta">
-                        Task link unavailable
-                      </p>
-                    `
-                }
-
-
-                <button
-                  onclick="toggleSubmit('${escapeAttr(task.id)}')"
-                >
-                  📤 Submit Proof
-                </button>
-
-
-                <div
-                  id="submit-${escapeAttr(task.id)}"
-                  class="hidden"
-                >
-
-                  <textarea
-                    id="proof-${escapeAttr(task.id)}"
-                    placeholder="Task proof/details লিখুন..."
-                  ></textarea>
-
-                  <button
-                    class="success"
-                    onclick="submitTask('${escapeAttr(task.id)}')"
-                  >
-                    Submit for Review
-                  </button>
-
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        )
-        .join("");
-
-  }catch(error){
-
-    console.error(
-      "TASK FETCH EXCEPTION:",
-      error
-    );
-
-
-    box.innerHTML =
-      `
+      box.innerHTML = `
         <div class="task error-box">
 
           <h3>
-            ⚠️ Unexpected Error
+            ⚠️ Task Loading Error
           </h3>
 
           <p class="small">
-            ${escapeHtml(
-              error.message ||
-              String(error)
-            )}
+            ${escapeHtml(error.message)}
+          </p>
+
+          <p class="task-meta">
+            Code:
+            ${escapeHtml(error.code || "N/A")}
           </p>
 
         </div>
       `;
+
+      return;
+    }
+
+
+    if(!Array.isArray(data) || data.length === 0){
+
+      box.innerHTML = `
+        <div class="task empty-box">
+
+          <h3>
+            📋 No Active Tasks
+          </h3>
+
+          <p class="small">
+            এই মুহূর্তে কোনো active task পাওয়া যায়নি।
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+
+    box.innerHTML =
+      data.map(task => {
+
+        const id =
+          String(task.id || "");
+
+        const title =
+          task.title ||
+          "Untitled Task";
+
+        const description =
+          task.description ||
+          "এই task সম্পূর্ণ করুন।";
+
+        const reward =
+          Number(
+            task.reward || 0
+          ).toFixed(2);
+
+        const url =
+          task.task_url || "";
+
+
+        return `
+          <div class="task">
+
+            <h3>
+              ${escapeHtml(title)}
+            </h3>
+
+            <p class="small">
+              ${escapeHtml(description)}
+            </p>
+
+            <p class="reward">
+              💰 Reward: ৳${reward}
+            </p>
+
+            ${
+              url
+              ? `
+                <a
+                  class="task-link"
+                  href="${escapeAttr(url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🔗 Open Task →
+                </a>
+              `
+              : `
+                <p class="task-meta">
+                  ⚠️ Task link unavailable
+                </p>
+              `
+            }
+
+            <button
+              onclick="toggleSubmit('${escapeAttr(id)}')"
+            >
+              📤 Submit Proof
+            </button>
+
+            <div
+              id="submit-${escapeAttr(id)}"
+              class="hidden"
+            >
+
+              <textarea
+                id="proof-${escapeAttr(id)}"
+                placeholder="Task proof/details লিখুন..."
+              ></textarea>
+
+              <button
+                class="success"
+                onclick="submitTask('${escapeAttr(id)}')"
+              >
+                ✅ Submit for Review
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      }).join("");
+
+  }catch(error){
+
+    console.error(
+      "TASK EXCEPTION:",
+      error
+    );
+
+
+    box.innerHTML = `
+      <div class="task error-box">
+
+        <h3>
+          ⚠️ Unexpected Error
+        </h3>
+
+        <p class="small">
+          ${escapeHtml(
+            error.message ||
+            String(error)
+          )}
+        </p>
+
+      </div>
+    `;
 
   }
 
@@ -1290,9 +1237,7 @@ function toggleSubmit(taskId){
 
   if(box){
 
-    box.classList.toggle(
-      "hidden"
-    );
+    box.classList.toggle("hidden");
 
   }
 
@@ -1307,9 +1252,7 @@ async function submitTask(taskId){
 
   if(!currentUser){
 
-    alert(
-      "আগে Login করুন।"
-    );
+    alert("আগে Login করুন।");
 
     return;
   }
@@ -1337,42 +1280,53 @@ async function submitTask(taskId){
   }
 
 
-  const {
-    error
-  } =
-    await db.rpc(
-      "submit_task",
-      {
-        p_task_id:taskId,
-        p_proof:proof
-      }
+  try{
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "submit_task",
+        {
+          p_task_id:taskId,
+          p_proof:proof
+        }
+      );
+
+
+    if(error){
+
+      alert(
+        "Submission failed: " +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "✅ Task submitted successfully!"
     );
 
 
-  if(error){
+    if(proofBox){
+
+      proofBox.value = "";
+
+    }
+
+
+    await loadSubmissions();
+
+  }catch(error){
 
     alert(
-      "Submission failed: " +
+      "Submission error: " +
       error.message
     );
 
-    return;
   }
-
-
-  alert(
-    "✅ Task submitted successfully!"
-  );
-
-
-  if(proofBox){
-
-    proofBox.value = "";
-
-  }
-
-
-  await loadSubmissions();
 
 }
 
@@ -1389,9 +1343,7 @@ async function loadSubmissions(){
 
 
   const box =
-    document.getElementById(
-      "submissions"
-    );
+    document.getElementById("submissions");
 
 
   const {
@@ -1431,14 +1383,11 @@ async function loadSubmissions(){
     );
 
 
-    box.innerHTML =
-      `
-        <p class="small">
-          ${escapeHtml(
-            error.message
-          )}
-        </p>
-      `;
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
 
     return;
   }
@@ -1449,119 +1398,89 @@ async function loadSubmissions(){
 
 
   document
-    .getElementById(
-      "submissionCount"
-    )
+    .getElementById("submissionCount")
     .textContent =
       rows.length;
 
 
   document
-    .getElementById(
-      "pendingCount"
-    )
+    .getElementById("pendingCount")
     .textContent =
       rows.filter(
         item =>
-          String(
-            item.status || ""
-          ).toLowerCase()
-          === "pending"
+          String(item.status || "")
+            .toLowerCase() === "pending"
       ).length;
 
 
   if(rows.length === 0){
 
-    box.innerHTML =
-      `
-        <div class="empty-box">
-          এখনো কোনো task submit করেননি।
-        </div>
-      `;
+    box.innerHTML = `
+      <div class="empty-box">
+        এখনো কোনো task submit করেননি।
+      </div>
+    `;
 
     return;
   }
 
 
   box.innerHTML =
-    rows
-      .map(
-        item => {
+    rows.map(item => {
 
-          const status =
-            String(
+      const status =
+        String(
+          item.status || ""
+        ).toLowerCase();
+
+
+      let cls = "pending";
+
+
+      if(status === "approved"){
+        cls = "approved";
+      }
+
+      if(status === "rejected"){
+        cls = "rejected";
+      }
+
+
+      return `
+        <div class="task">
+
+          <h3>
+            ${escapeHtml(
+              item.tasks?.title || "Task"
+            )}
+          </h3>
+
+          <p class="reward">
+            ৳${Number(
+              item.tasks?.reward || 0
+            ).toFixed(2)}
+          </p>
+
+          <span class="badge ${cls}">
+            ${escapeHtml(
               item.status || ""
-            ).toLowerCase();
+            )}
+          </span>
 
+          <p
+            class="small"
+            style="margin-top:8px"
+          >
+            Submitted:
+            ${formatDate(
+              item.submitted_at
+            )}
+          </p>
 
-          let cls =
-            "pending";
+        </div>
+      `;
 
-
-          if(
-            status === "approved"
-          ){
-
-            cls =
-              "approved";
-
-          }
-
-
-          if(
-            status === "rejected"
-          ){
-
-            cls =
-              "rejected";
-
-          }
-
-
-          return `
-
-            <div class="task">
-
-              <h3>
-                ${escapeHtml(
-                  item.tasks?.title ||
-                  "Task"
-                )}
-              </h3>
-
-              <p class="reward">
-                ৳${Number(
-                  item.tasks?.reward ||
-                  0
-                ).toFixed(2)}
-              </p>
-
-              <span
-                class="badge ${cls}"
-              >
-                ${escapeHtml(
-                  item.status ||
-                  ""
-                )}
-              </span>
-
-              <p
-                class="small"
-                style="margin-top:8px"
-              >
-                Submitted:
-                ${formatDate(
-                  item.submitted_at
-                )}
-              </p>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
+    }).join("");
 
 }
 
@@ -1578,9 +1497,7 @@ async function loadEarnings(){
 
 
   const box =
-    document.getElementById(
-      "earnings"
-    );
+    document.getElementById("earnings");
 
 
   const {
@@ -1612,14 +1529,11 @@ async function loadEarnings(){
     );
 
 
-    box.innerHTML =
-      `
-        <p class="small">
-          ${escapeHtml(
-            error.message
-          )}
-        </p>
-      `;
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
 
     return;
   }
@@ -1632,81 +1546,70 @@ async function loadEarnings(){
   let total = 0;
 
 
-  rows.forEach(
-    item => {
+  rows.forEach(item => {
 
-      if(
-        String(
-          item.type || ""
-        )
+    if(
+      String(item.type || "")
         .toLowerCase()
         .includes("task")
-      ){
+    ){
 
-        total +=
-          Number(
-            item.amount || 0
-          );
-
-      }
+      total +=
+        Number(
+          item.amount || 0
+        );
 
     }
-  );
+
+  });
 
 
   document
-    .getElementById(
-      "totalEarned"
-    )
+    .getElementById("totalEarned")
     .textContent =
       total.toFixed(2);
 
 
   if(rows.length === 0){
 
-    box.innerHTML =
-      `
-        <div class="empty-box">
-          এখনো কোনো earning নেই।
-        </div>
-      `;
+    box.innerHTML = `
+      <div class="empty-box">
+        এখনো কোনো earning নেই।
+      </div>
+    `;
 
     return;
   }
 
 
   box.innerHTML =
-    rows
-      .map(
-        item => `
+    rows.map(item => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              💰 ৳${Number(
-                item.amount || 0
-              ).toFixed(2)}
-            </h3>
+        <h3>
+          💰 ৳${Number(
+            item.amount || 0
+          ).toFixed(2)}
+        </h3>
 
-            <p class="small">
-              ${escapeHtml(
-                item.description ||
-                item.type ||
-                ""
-              )}
-            </p>
+        <p class="small">
+          ${escapeHtml(
+            item.description ||
+            item.type ||
+            ""
+          )}
+        </p>
 
-            <p class="small">
-              ${formatDate(
-                item.created_at
-              )}
-            </p>
+        <p class="small">
+          ${formatDate(
+            item.created_at
+          )}
+        </p>
 
-          </div>
+      </div>
 
-        `
-      )
-      .join("");
+    `).join("");
 
 }
 
@@ -1719,45 +1622,32 @@ async function adminCreateTask(){
 
   const title =
     document
-      .getElementById(
-        "adminTitle"
-      )
-      .value
-      .trim();
+      .getElementById("adminTitle")
+      .value.trim();
 
 
   const description =
     document
-      .getElementById(
-        "adminDescription"
-      )
-      .value
-      .trim();
+      .getElementById("adminDescription")
+      .value.trim();
 
 
   const reward =
     Number(
       document
-        .getElementById(
-          "adminReward"
-        )
+        .getElementById("adminReward")
         .value
     );
 
 
   const taskUrl =
     document
-      .getElementById(
-        "adminUrl"
-      )
-      .value
-      .trim();
+      .getElementById("adminUrl")
+      .value.trim();
 
 
   const msg =
-    document.getElementById(
-      "adminMsg"
-    );
+    document.getElementById("adminMsg");
 
 
   if(!title){
@@ -1769,10 +1659,7 @@ async function adminCreateTask(){
   }
 
 
-  if(
-    !reward ||
-    reward <= 0
-  ){
+  if(!reward || reward <= 0){
 
     msg.textContent =
       "Valid reward দিন।";
@@ -1781,64 +1668,55 @@ async function adminCreateTask(){
   }
 
 
-  const {
-    error
-  } =
-    await db.rpc(
-      "admin_create_task",
-      {
-        p_title:title,
-        p_description:description,
-        p_reward:reward,
-        p_task_url:taskUrl
-      }
-    );
+  msg.textContent =
+    "Task তৈরি হচ্ছে...";
 
 
-  if(error){
+  try{
+
+    const {
+      error
+    } =
+      await db.rpc(
+        "admin_create_task",
+        {
+          p_title:title,
+          p_description:description,
+          p_reward:reward,
+          p_task_url:taskUrl
+        }
+      );
+
+
+    if(error){
+
+      msg.textContent =
+        error.message;
+
+      return;
+    }
+
+
+    msg.textContent =
+      "✅ Task successfully added.";
+
+
+    document.getElementById("adminTitle").value = "";
+    document.getElementById("adminDescription").value = "";
+    document.getElementById("adminReward").value = "";
+    document.getElementById("adminUrl").value = "";
+
+
+    await loadAdminTasks();
+
+    await loadTasks();
+
+  }catch(error){
 
     msg.textContent =
       error.message;
 
-    return;
   }
-
-
-  msg.textContent =
-    "✅ Task successfully added.";
-
-
-  document
-    .getElementById(
-      "adminTitle"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "adminDescription"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "adminReward"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "adminUrl"
-    )
-    .value = "";
-
-
-  await loadAdminTasks();
-
-  await loadTasks();
 
 }
 
@@ -1850,9 +1728,7 @@ async function adminCreateTask(){
 async function loadAdminTasks(){
 
   const box =
-    document.getElementById(
-      "adminTasks"
-    );
+    document.getElementById("adminTasks");
 
 
   const {
@@ -1866,67 +1742,55 @@ async function loadAdminTasks(){
 
   if(error){
 
-    box.innerHTML =
-      `
-        <p class="small">
-          ${escapeHtml(
-            error.message
-          )}
-        </p>
-      `;
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
 
     return;
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
-    box.innerHTML =
-      `
-        <div class="empty-box">
-          কোনো task নেই।
-        </div>
-      `;
+    box.innerHTML = `
+      <div class="empty-box">
+        কোনো task নেই।
+      </div>
+    `;
 
     return;
   }
 
 
   box.innerHTML =
-    data
-      .map(
-        task => `
+    data.map(task => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              ${escapeHtml(
-                task.title ||
-                "Task"
-              )}
-            </h3>
+        <h3>
+          ${escapeHtml(
+            task.title || "Task"
+          )}
+        </h3>
 
-            <p class="reward">
-              ৳${Number(
-                task.reward || 0
-              ).toFixed(2)}
-            </p>
+        <p class="reward">
+          ৳${Number(
+            task.reward || 0
+          ).toFixed(2)}
+        </p>
 
-            <p class="small">
-              Status:
-              ${escapeHtml(
-                task.status || ""
-              )}
-            </p>
+        <p class="small">
+          Status:
+          ${escapeHtml(
+            task.status || ""
+          )}
+        </p>
 
-          </div>
+      </div>
 
-        `
-      )
-      .join("");
+    `).join("");
 
 }
 
@@ -1975,84 +1839,73 @@ async function loadAdminSubmissions(){
 
   if(error){
 
-    box.innerHTML =
-      `
-        <p class="small">
-          ${escapeHtml(
-            error.message
-          )}
-        </p>
-      `;
+    box.innerHTML = `
+      <p class="small">
+        ${escapeHtml(error.message)}
+      </p>
+    `;
 
     return;
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
-    box.innerHTML =
-      `
-        <div class="empty-box">
-          কোনো pending submission নেই।
-        </div>
-      `;
+    box.innerHTML = `
+      <div class="empty-box">
+        কোনো pending submission নেই।
+      </div>
+    `;
 
     return;
   }
 
 
   box.innerHTML =
-    data
-      .map(
-        item => `
+    data.map(item => `
 
-          <div class="task">
+      <div class="task">
 
-            <h3>
-              📋 ${escapeHtml(
-                item.tasks?.title ||
-                "Task"
-              )}
-            </h3>
+        <h3>
+          📋 ${escapeHtml(
+            item.tasks?.title ||
+            "Task"
+          )}
+        </h3>
 
-            <p class="reward">
-              Reward:
-              ৳${Number(
-                item.tasks?.reward || 0
-              ).toFixed(2)}
-            </p>
+        <p class="reward">
+          Reward:
+          ৳${Number(
+            item.tasks?.reward || 0
+          ).toFixed(2)}
+        </p>
 
-            <p class="small">
-              User ID:
-              ${escapeHtml(
-                item.user_id
-              )}
-            </p>
+        <p class="small">
+          User ID:
+          ${escapeHtml(
+            item.user_id
+          )}
+        </p>
 
-            <hr>
+        <hr>
 
-            <p class="small">
-              <b>Proof:</b><br>
-              ${escapeHtml(
-                item.proof || ""
-              )}
-            </p>
+        <p class="small">
+          <b>Proof:</b><br>
+          ${escapeHtml(
+            item.proof || ""
+          )}
+        </p>
 
-            <button
-              class="success"
-              onclick="approveSubmission('${escapeAttr(item.id)}')"
-            >
-              ✅ Approve & Give Reward
-            </button>
+        <button
+          class="success"
+          onclick="approveSubmission('${escapeAttr(item.id)}')"
+        >
+          ✅ Approve & Give Reward
+        </button>
 
-          </div>
+      </div>
 
-        `
-      )
-      .join("");
+    `).join("");
 
 }
 
@@ -2065,11 +1918,9 @@ async function approveSubmission(
   submissionId
 ){
 
-  if(
-    !confirm(
-      "এই submission approve করবেন?"
-    )
-  ){
+  if(!confirm(
+    "এই submission approve করবেন?"
+  )){
 
     return;
 
@@ -2127,30 +1978,18 @@ async function logout(){
 
 
   document
-    .getElementById(
-      "dashboard"
-    )
-    .classList.add(
-      "hidden"
-    );
+    .getElementById("dashboard")
+    .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "adminPanel"
-    )
-    .classList.add(
-      "hidden"
-    );
+    .getElementById("adminPanel")
+    .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "auth"
-    )
-    .classList.remove(
-      "hidden"
-    );
+    .getElementById("auth")
+    .classList.remove("hidden");
 
 
   showSignup();
@@ -2164,58 +2003,24 @@ async function logout(){
 
 function escapeHtml(value){
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-  .replaceAll(
-    ">",
-    "&gt;"
-  )
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-  .replaceAll(
-    "'",
-    "&#039;"
-  );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
 function escapeAttr(value){
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-  .replaceAll(
-    "'",
-    "&#039;"
-  )
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-  .replaceAll(
-    ">",
-    "&gt;"
-  );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
 
 }
 
@@ -2229,16 +2034,14 @@ function formatDate(value){
 
   try{
 
-    return new Date(
-      value
-    )
-    .toLocaleString(
-      "bn-BD",
-      {
-        dateStyle:"medium",
-        timeStyle:"short"
-      }
-    );
+    return new Date(value)
+      .toLocaleString(
+        "bn-BD",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
 
   }catch(e){
 
@@ -2261,7 +2064,7 @@ async function checkSession(){
       data,
       error
     } =
-      await db.auth.getSession();
+    await db.auth.getSession();
 
 
     if(error){
@@ -2275,9 +2078,7 @@ async function checkSession(){
     }
 
 
-    if(
-      data?.session?.user
-    ){
+    if(data?.session?.user){
 
       await showDashboard(
         data.session.user
@@ -2297,9 +2098,30 @@ async function checkSession(){
 }
 
 
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+db.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if(
+      event === "SIGNED_OUT"
+    ){
+
+      currentUser = null;
+
+    }
+
+  }
+);
+
+
+/* START */
+
 checkSession();
 
 </script>
 
 </body>
-</html>
+</html> 
