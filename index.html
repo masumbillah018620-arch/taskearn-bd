@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TaskEarn BD</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -15,122 +14,128 @@
   padding:0;
 }
 
+:root{
+  --bg:#070914;
+  --card:rgba(18,23,45,.62);
+  --border:rgba(255,255,255,.12);
+  --text:#fff;
+  --muted:#aeb7d2;
+  --cyan:#00e5ff;
+  --purple:#8b5cf6;
+  --green:#35e0a1;
+  --pink:#ff4ecd;
+}
+
 html{
   scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
   min-height:100vh;
-  overflow-x:hidden;
   background:
-    radial-gradient(circle at 10% 10%,rgba(124,58,237,.35),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(6,182,212,.30),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(236,72,153,.18),transparent 35%),
-    #050816;
+    radial-gradient(circle at 10% 10%,rgba(139,92,246,.35),transparent 28%),
+    radial-gradient(circle at 90% 15%,rgba(0,229,255,.25),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(255,78,205,.18),transparent 32%),
+    var(--bg);
+  overflow-x:hidden;
 }
 
-/* BACKGROUND LIGHTS */
-
-body::before,
-body::after{
+body:before,
+body:after{
   content:"";
   position:fixed;
-  width:300px;
-  height:300px;
+  width:260px;
+  height:260px;
   border-radius:50%;
-  filter:blur(100px);
+  filter:blur(90px);
   opacity:.18;
-  z-index:-1;
   pointer-events:none;
+  z-index:-1;
 }
 
-body::before{
-  background:#8b5cf6;
-  top:80px;
-  left:-120px;
+body:before{
+  background:#7c3aed;
+  top:20%;
+  left:-100px;
 }
 
-body::after{
-  background:#06b6d4;
-  right:-120px;
-  bottom:50px;
+body:after{
+  background:#00e5ff;
+  bottom:5%;
+  right:-100px;
 }
 
-/* MAIN */
+button,
+input,
+textarea{
+  font-family:inherit;
+}
+
+button{
+  border:none;
+}
 
 .container{
   width:92%;
-  max-width:1000px;
+  max-width:920px;
   margin:auto;
-  padding-bottom:100px;
+  padding-bottom:105px;
 }
 
 /* HEADER */
 
 header{
   text-align:center;
-  padding:30px 0 18px;
+  padding:28px 0 18px;
 }
 
 .logo{
   font-size:32px;
   font-weight:900;
   letter-spacing:.5px;
-  background:linear-gradient(
-    90deg,
-    #a78bfa,
-    #22d3ee,
-    #f472b6
-  );
+  background:linear-gradient(90deg,#b78cff,#00e5ff,#ff62d5);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  text-shadow:0 0 30px rgba(34,211,238,.15);
+  text-shadow:0 0 25px rgba(0,229,255,.18);
 }
 
 .online{
   margin-top:7px;
-  color:#6ee7b7;
+  color:#65f2b5;
   font-size:13px;
 }
 
-.online::before{
-  content:"";
+.online span{
   display:inline-block;
   width:7px;
   height:7px;
-  background:#22c55e;
+  background:#35e0a1;
   border-radius:50%;
-  margin-right:6px;
-  box-shadow:0 0 12px #22c55e;
+  box-shadow:0 0 12px #35e0a1;
+  margin-right:5px;
 }
 
-/* GLASS CARD */
+/* GLASS */
 
 .card{
-  background:rgba(17,24,45,.60);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:24px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
   padding:20px;
   margin:16px 0;
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.05);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  box-shadow:
-    0 15px 50px rgba(0,0,0,.25),
-    inset 0 1px 0 rgba(255,255,255,.04);
 }
-
-.card:hover{
-  border-color:rgba(139,92,246,.35);
-}
-
-/* AUTH */
 
 .auth-card{
-  max-width:520px;
-  margin:35px auto;
+  max-width:500px;
+  margin:25px auto;
 }
 
 h2{
@@ -142,7 +147,7 @@ h3{
 }
 
 .small{
-  color:#aab4ce;
+  color:var(--muted);
   font-size:14px;
   line-height:1.55;
 }
@@ -154,24 +159,21 @@ textarea{
   width:100%;
   padding:14px 15px;
   margin-top:10px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(3,7,18,.65);
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(3,7,18,.72);
   color:#fff;
   outline:none;
-  font-family:inherit;
 }
 
 input:focus,
 textarea:focus{
-  border-color:#8b5cf6;
-  box-shadow:
-    0 0 0 3px rgba(139,92,246,.12),
-    0 0 20px rgba(139,92,246,.12);
+  border-color:var(--cyan);
+  box-shadow:0 0 18px rgba(0,229,255,.12);
 }
 
 textarea{
-  min-height:100px;
+  min-height:95px;
   resize:vertical;
 }
 
@@ -179,32 +181,22 @@ textarea{
 
 button{
   width:100%;
-  padding:14px;
+  padding:14px 16px;
   margin-top:10px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
+  border-radius:13px;
   color:#fff;
   font-weight:800;
   cursor:pointer;
-
-  background:linear-gradient(
-    90deg,
-    #7c3aed,
-    #06b6d4
-  );
-
-  box-shadow:
-    0 0 18px rgba(124,58,237,.25),
-    inset 0 1px 0 rgba(255,255,255,.15);
-
+  background:linear-gradient(90deg,#7c3aed,#00cfff);
+  box-shadow:0 0 18px rgba(0,229,255,.12);
   transition:.2s;
 }
 
 button:hover{
   transform:translateY(-2px);
   box-shadow:
-    0 0 25px rgba(124,58,237,.45),
-    0 0 45px rgba(6,182,212,.18);
+    0 0 12px rgba(0,229,255,.35),
+    0 8px 25px rgba(0,0,0,.25);
 }
 
 button:active{
@@ -218,68 +210,64 @@ button:disabled{
 }
 
 .secondary{
-  background:rgba(37,45,70,.75);
+  background:rgba(255,255,255,.08);
 }
 
 .success{
-  background:linear-gradient(
-    90deg,
-    #059669,
-    #10b981
-  );
+  background:linear-gradient(90deg,#059669,#16c784);
 }
 
 .danger{
-  background:linear-gradient(
-    90deg,
-    #be123c,
-    #ef4444
-  );
+  background:linear-gradient(90deg,#be123c,#ef4444);
 }
-
-/* HIDDEN */
 
 .hidden{
   display:none!important;
 }
 
-/* MESSAGE */
-
 .msg{
   margin-top:12px;
-  color:#c5cee5;
+  color:#c9d2ec;
   line-height:1.5;
+}
+
+/* TOPBAR */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logout-small{
+  width:auto;
+  margin:0;
+  padding:9px 15px;
+  background:rgba(255,255,255,.08);
 }
 
 /* BALANCE */
 
 .balance{
-  position:relative;
-  overflow:hidden;
   background:
     linear-gradient(
       135deg,
-      rgba(124,58,237,.78),
-      rgba(8,145,178,.72),
-      rgba(236,72,153,.45)
+      rgba(101,49,210,.88),
+      rgba(0,130,165,.78)
     );
-  border-color:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.15);
 }
 
-.balance::after{
-  content:"৳";
-  position:absolute;
-  right:25px;
-  top:5px;
-  font-size:100px;
-  font-weight:900;
-  color:rgba(255,255,255,.07);
+.balance-label{
+  color:#dce9ff;
 }
 
 .balance-value{
   font-size:42px;
   font-weight:900;
-  margin:9px 0;
+  margin:8px 0;
+  text-shadow:0 0 25px rgba(255,255,255,.18);
 }
 
 /* STATS */
@@ -287,50 +275,42 @@ button:disabled{
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  gap:12px;
 }
 
 .stat{
-  background:rgba(13,18,33,.65);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:18px;
-  padding:17px;
-  backdrop-filter:blur(15px);
+  background:rgba(8,13,30,.68);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:16px;
 }
 
 .stat-number{
   display:block;
-  font-size:22px;
+  font-size:21px;
   font-weight:900;
-  margin-top:7px;
+  margin-top:6px;
 }
 
 /* TASK */
 
 .task{
-  background:rgba(8,13,28,.72);
-  border:1px solid rgba(255,255,255,.09);
+  background:rgba(7,12,27,.72);
+  border:1px solid rgba(255,255,255,.10);
   border-radius:18px;
-  padding:18px;
+  padding:17px;
   margin-top:12px;
-  transition:.2s;
-}
-
-.task:hover{
-  transform:translateY(-2px);
-  border-color:rgba(34,211,238,.25);
-  box-shadow:0 10px 30px rgba(0,0,0,.20);
 }
 
 .reward{
-  color:#6ee7b7;
+  color:#65f2b5;
   font-weight:900;
   margin-top:9px;
 }
 
 .task-link{
   display:block;
-  color:#50dfff;
+  color:#55e8ff;
   text-decoration:none;
   font-weight:800;
   margin-top:12px;
@@ -342,11 +322,26 @@ button:disabled{
 
 .task-meta{
   margin-top:8px;
-  color:#8994b2;
+  color:#8995b5;
   font-size:12px;
 }
 
-/* BADGES */
+.empty-box{
+  text-align:center;
+  padding:28px 10px;
+  color:#aeb7d2;
+}
+
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#aeb7d2;
+}
+
+.error-box{
+  border-color:rgba(239,68,68,.4);
+  background:rgba(80,15,25,.35);
+}
 
 .badge{
   display:inline-block;
@@ -372,163 +367,85 @@ button:disabled{
   color:#ff8da5;
 }
 
-/* ERROR */
-
-.error-box{
-  border-color:#7f1d1d;
-  background:rgba(42,16,23,.8);
+hr{
+  border:0;
+  border-top:1px solid rgba(255,255,255,.10);
+  margin:15px 0;
 }
 
-/* EMPTY */
+/* ADMIN */
 
-.empty-box{
-  text-align:center;
-  padding:28px 10px;
-  color:#aab3cc;
-}
-
-/* LOADING */
-
-.loading{
-  text-align:center;
-  padding:25px;
-  color:#aab3cc;
-}
-
-/* TOPBAR */
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.logout-small{
-  width:auto;
-  padding:10px 16px;
-  margin:0;
-  background:rgba(37,45,70,.8);
-}
-
-/* PROFILE */
-
-.profile-box{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.avatar{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-  font-weight:900;
-  background:linear-gradient(
-    135deg,
-    #7c3aed,
-    #06b6d4
-  );
-  box-shadow:0 0 25px rgba(124,58,237,.3);
+.admin-title{
+  color:#63eaff;
 }
 
 /* NAVIGATION */
 
 .bottom-nav{
   position:fixed;
-  bottom:15px;
   left:50%;
+  bottom:14px;
   transform:translateX(-50%);
-  width:94%;
-  max-width:700px;
-  z-index:999;
-
+  width:min(94%,680px);
+  z-index:100;
   display:flex;
   justify-content:space-around;
-  gap:5px;
-
-  padding:10px;
-
-  background:rgba(8,12,28,.82);
-  border:1px solid rgba(255,255,255,.12);
+  gap:4px;
+  padding:9px;
   border-radius:22px;
-
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-
+  background:rgba(8,12,29,.76);
+  border:1px solid rgba(255,255,255,.13);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
   box-shadow:
-    0 10px 40px rgba(0,0,0,.45),
-    0 0 25px rgba(124,58,237,.12);
+    0 0 25px rgba(0,229,255,.12),
+    0 15px 40px rgba(0,0,0,.45);
 }
 
 .nav-btn{
   flex:1;
-  border:0;
   margin:0;
-  padding:10px 7px;
+  padding:10px 5px;
   background:transparent;
   box-shadow:none;
-  color:#8f9ab7;
+  color:#8f9ab8;
   font-size:12px;
-  font-weight:800;
   border-radius:15px;
 }
 
-.nav-btn:hover{
-  transform:none;
-  background:rgba(255,255,255,.05);
-  color:#fff;
-  box-shadow:none;
-}
-
-.nav-btn.active{
-  color:#fff;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(124,58,237,.65),
-      rgba(6,182,212,.40)
-    );
-  box-shadow:
-    0 0 18px rgba(124,58,237,.25);
-}
-
-.nav-icon{
+.nav-btn span{
   display:block;
   font-size:20px;
   margin-bottom:3px;
 }
 
+.nav-btn.active{
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    rgba(124,58,237,.48),
+    rgba(0,229,255,.18)
+  );
+  box-shadow:
+    0 0 18px rgba(0,229,255,.14),
+    inset 0 0 15px rgba(255,255,255,.03);
+}
+
 /* SECTION */
 
 .page-section{
-  display:none;
+  animation:fadeIn .25s ease;
 }
 
-.page-section.active{
-  display:block;
-}
-
-/* ADMIN */
-
-.admin-title{
-  color:#67e8f9;
-}
-
-.admin-card{
-  border-color:rgba(34,211,238,.18);
-}
-
-/* DIVIDER */
-
-hr{
-  border:0;
-  border-top:1px solid rgba(255,255,255,.08);
-  margin:15px 0;
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* MOBILE */
@@ -543,12 +460,12 @@ hr{
     font-size:27px;
   }
 
-  .balance-value{
-    font-size:35px;
-  }
-
   .stats{
     grid-template-columns:1fr;
+  }
+
+  .balance-value{
+    font-size:35px;
   }
 
   .topbar{
@@ -556,16 +473,16 @@ hr{
   }
 
   .bottom-nav{
-    bottom:10px;
-    width:96%;
+    bottom:8px;
+    padding:7px;
   }
 
   .nav-btn{
-    font-size:10px;
     padding:8px 3px;
+    font-size:10px;
   }
 
-  .nav-icon{
+  .nav-btn span{
     font-size:18px;
   }
 }
@@ -578,11 +495,13 @@ hr{
 
 <header>
   <div class="logo">TaskEarn BD</div>
-  <div class="online">Online</div>
+  <div class="online">
+    <span></span> Online
+  </div>
 </header>
 
 
-<!-- ================= AUTH ================= -->
+<!-- AUTH -->
 
 <section id="auth">
 
@@ -594,32 +513,23 @@ hr{
       TaskEarn BD-তে নতুন account তৈরি করুন।
     </p>
 
-    <input
-      id="name"
+    <input id="name"
       type="text"
-      placeholder="Full name"
-    >
+      placeholder="Full name">
 
-    <input
-      id="signupEmail"
+    <input id="signupEmail"
       type="email"
-      placeholder="Email address"
-    >
+      placeholder="Email address">
 
-    <input
-      id="signupPassword"
+    <input id="signupPassword"
       type="password"
-      placeholder="Password"
-    >
+      placeholder="Password">
 
     <button id="signupBtn" onclick="signup()">
       Create Account
     </button>
 
-    <button
-      class="secondary"
-      onclick="showLogin()"
-    >
+    <button class="secondary" onclick="showLogin()">
       Already have an account? Login
     </button>
 
@@ -636,26 +546,19 @@ hr{
       Email ও password দিয়ে Login করুন।
     </p>
 
-    <input
-      id="loginEmail"
+    <input id="loginEmail"
       type="email"
-      placeholder="Email address"
-    >
+      placeholder="Email address">
 
-    <input
-      id="loginPassword"
+    <input id="loginPassword"
       type="password"
-      placeholder="Password"
-    >
+      placeholder="Password">
 
     <button id="loginBtn" onclick="login()">
       Login 🔐
     </button>
 
-    <button
-      class="secondary"
-      onclick="showSignup()"
-    >
+    <button class="secondary" onclick="showSignup()">
       Create New Account
     </button>
 
@@ -666,121 +569,76 @@ hr{
 </section>
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- DASHBOARD -->
 
 <section id="dashboard" class="hidden">
 
+  <!-- HOME -->
 
-<!-- HOME -->
+  <div id="homeSection" class="page-section">
 
-<div id="homePage" class="page-section active">
+    <div class="card">
 
-  <div class="card">
+      <div class="topbar">
 
-    <div class="profile-box">
+        <div>
+          <h2 id="welcome">
+            Welcome 👋
+          </h2>
 
-      <div class="avatar">
-        👤
+          <p class="small">
+            আপনার TaskEarn BD dashboard
+          </p>
+        </div>
+
+        <button class="logout-small"
+          onclick="logout()">
+          Logout
+        </button>
+
       </div>
 
-      <div>
-        <h2 id="welcome">
-          Welcome 👋
-        </h2>
+    </div>
 
-        <p class="small">
-          TaskEarn BD Dashboard
-        </p>
+
+    <div class="card balance">
+
+      <p class="balance-label">
+        Available Balance
+      </p>
+
+      <div class="balance-value">
+        ৳ <span id="balance">0.00</span>
       </div>
 
+      <p class="small">
+        Approved task earnings
+      </p>
+
     </div>
 
-  </div>
 
+    <div class="stats">
 
-  <div class="card balance">
+      <div class="stat">
+        <span class="small">Total Earned</span>
+        <span class="stat-number">
+          ৳<span id="totalEarned">0.00</span>
+        </span>
+      </div>
 
-    <p>Available Balance</p>
+      <div class="stat">
+        <span class="small">Pending</span>
+        <span class="stat-number" id="pendingCount">
+          0
+        </span>
+      </div>
 
-    <div class="balance-value">
-      ৳ <span id="balance">0.00</span>
-    </div>
-
-    <p class="small">
-      Approved task earnings
-    </p>
-
-  </div>
-
-
-  <div class="stats">
-
-    <div class="stat">
-      <span class="small">
-        Total Earned
-      </span>
-
-      <span class="stat-number">
-        ৳<span id="totalEarned">0.00</span>
-      </span>
-    </div>
-
-    <div class="stat">
-      <span class="small">
-        Pending
-      </span>
-
-      <span
-        class="stat-number"
-        id="pendingCount"
-      >
-        0
-      </span>
-    </div>
-
-    <div class="stat">
-      <span class="small">
-        Submissions
-      </span>
-
-      <span
-        class="stat-number"
-        id="submissionCount"
-      >
-        0
-      </span>
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- TASKS -->
-
-<div id="tasksPage" class="page-section">
-
-  <div class="card">
-
-    <h2>
-      Available Tasks 📋
-    </h2>
-
-    <p class="small">
-      Task সম্পূর্ণ করে proof submit করুন।
-    </p>
-
-    <button
-      class="secondary"
-      onclick="loadTasks()"
-    >
-      🔄 Refresh Tasks
-    </button>
-
-    <div id="tasks">
-
-      <div class="loading">
-        🔄 Loading tasks...
+      <div class="stat">
+        <span class="small">Submissions</span>
+        <span class="stat-number" id="submissionCount">
+          0
+        </span>
       </div>
 
     </div>
@@ -788,215 +646,47 @@ hr{
   </div>
 
 
-  <div class="card">
+  <!-- TASKS -->
 
-    <h2>
-      My Submissions 📤
-    </h2>
+  <div id="tasksSection"
+       class="page-section hidden">
 
-    <div id="submissions">
+    <div class="card">
 
-      <div class="loading">
-        Loading...
-      </div>
+      <h2>Available Tasks 📋</h2>
 
-    </div>
+      <p class="small">
+        Task সম্পূর্ণ করে proof submit করুন।
+      </p>
 
-  </div>
+      <!-- গুরুত্বপূর্ণ:
+           এই button শুধু loadTasks()
+           চালায়। পুরো page reload করে না। -->
 
-</div>
+      <button class="secondary"
+        onclick="loadTasks()">
+        🔄 Refresh Tasks
+      </button>
 
+      <div id="tasks">
 
-<!-- WALLET -->
-
-<div id="walletPage" class="page-section">
-
-  <div class="card balance">
-
-    <p>My Wallet 💰</p>
-
-    <div class="balance-value">
-      ৳ <span id="walletBalance">0.00</span>
-    </div>
-
-    <p class="small">
-      আপনার বর্তমান available balance
-    </p>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>
-      Earnings History
-    </h2>
-
-    <div id="earnings">
-
-      <div class="loading">
-        Loading...
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- REFERRAL -->
-
-<div id="referralPage" class="page-section">
-
-  <div class="card">
-
-    <h2>
-      🎁 Referral
-    </h2>
-
-    <p class="small">
-      বন্ধুদের invite করে referral system ব্যবহার করতে পারবেন।
-    </p>
-
-    <input
-      id="referralLink"
-      readonly
-      value="Login required"
-    >
-
-    <button onclick="copyReferral()">
-      📋 Copy Referral Link
-    </button>
-
-    <p id="referralMsg" class="msg"></p>
-
-  </div>
-
-</div>
-
-
-<!-- PROFILE -->
-
-<div id="profilePage" class="page-section">
-
-  <div class="card">
-
-    <div class="profile-box">
-
-      <div class="avatar">
-        👤
-      </div>
-
-      <div>
-        <h2>
-          Account
-        </h2>
-
-        <p
-          id="profileName"
-          class="small"
-        >
-          User
-        </p>
+        <div class="loading">
+          🔄 Loading tasks...
+        </div>
 
       </div>
 
     </div>
 
-    <hr>
 
-    <p
-      id="userEmail"
-      class="small"
-    ></p>
+    <div class="card">
 
-    <button
-      class="danger"
-      onclick="logout()"
-    >
-      Logout
-    </button>
+      <h2>My Submissions 📤</h2>
 
-  </div>
-
-</div>
-
-
-<!-- ================= ADMIN ================= -->
-
-<section
-  id="adminPanel"
-  class="hidden"
->
-
-  <div class="card admin-card">
-
-    <h2 class="admin-title">
-      👑 Admin Dashboard
-    </h2>
-
-    <p class="small">
-      TaskEarn BD Management
-    </p>
-
-  </div>
-
-
-  <div class="card admin-card">
-
-    <h2>
-      ➕ Add New Task
-    </h2>
-
-    <input
-      id="adminTitle"
-      type="text"
-      placeholder="Task title"
-    >
-
-    <input
-      id="adminDescription"
-      type="text"
-      placeholder="Task description"
-    >
-
-    <input
-      id="adminReward"
-      type="number"
-      min="0"
-      step="0.01"
-      placeholder="Reward ৳"
-    >
-
-    <input
-      id="adminUrl"
-      type="url"
-      placeholder="Task URL"
-    >
-
-    <button onclick="adminCreateTask()">
-      ➕ Add Task
-    </button>
-
-    <p
-      id="adminMsg"
-      class="msg"
-    ></p>
-
-  </div>
-
-
-  <div class="card admin-card">
-
-    <h2>
-      📥 Pending Submissions
-    </h2>
-
-    <div id="adminSubmissions">
-
-      <div class="loading">
-        Loading...
+      <div id="submissions">
+        <div class="loading">
+          Loading...
+        </div>
       </div>
 
     </div>
@@ -1004,78 +694,229 @@ hr{
   </div>
 
 
-  <div class="card admin-card">
+  <!-- WALLET -->
 
-    <h2>
-      📋 Admin Tasks
-    </h2>
+  <div id="walletSection"
+       class="page-section hidden">
 
-    <div id="adminTasks">
+    <div class="card balance">
 
-      <div class="loading">
-        Loading...
+      <p>Wallet Balance</p>
+
+      <div class="balance-value">
+        ৳ <span id="walletBalance">0.00</span>
+      </div>
+
+      <p class="small">
+        আপনার বর্তমান approved balance
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>💰 Earnings History</h2>
+
+      <div id="earnings">
+        <div class="loading">
+          Loading...
+        </div>
       </div>
 
     </div>
 
   </div>
 
-</section>
 
+  <!-- REFERRAL -->
+
+  <div id="referralSection"
+       class="page-section hidden">
+
+    <div class="card">
+
+      <h2>🎁 Referral</h2>
+
+      <p class="small">
+        বন্ধুদের invite করে referral system ব্যবহার করতে পারবেন।
+      </p>
+
+      <input
+        id="referralLink"
+        type="text"
+        readonly
+        placeholder="Referral link">
+
+      <button onclick="copyReferral()">
+        📋 Copy Referral Link
+      </button>
+
+      <p id="referralMsg" class="msg"></p>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE -->
+
+  <div id="profileSection"
+       class="page-section hidden">
+
+    <div class="card">
+
+      <h2>👤 Profile</h2>
+
+      <p class="small">
+        Account Information
+      </p>
+
+      <hr>
+
+      <p class="small">
+        <b>Full Name:</b>
+      </p>
+
+      <p id="profileName"
+         style="margin-top:5px">
+        -
+      </p>
+
+      <br>
+
+      <p class="small">
+        <b>Email:</b>
+      </p>
+
+      <p id="userEmail"
+         class="small"
+         style="margin-top:5px">
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ADMIN -->
+
+  <section id="adminPanel"
+           class="hidden">
+
+    <div class="card">
+
+      <h2 class="admin-title">
+        👑 Admin Dashboard
+      </h2>
+
+      <p class="small">
+        TaskEarn BD Management
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>➕ Add New Task</h2>
+
+      <input id="adminTitle"
+        type="text"
+        placeholder="Task title">
+
+      <input id="adminDescription"
+        type="text"
+        placeholder="Task description">
+
+      <input id="adminReward"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="Reward ৳">
+
+      <input id="adminUrl"
+        type="url"
+        placeholder="Task URL">
+
+      <button onclick="adminCreateTask()">
+        ➕ Add Task
+      </button>
+
+      <p id="adminMsg"
+         class="msg"></p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>📥 Pending Submissions</h2>
+
+      <div id="adminSubmissions">
+        <div class="loading">
+          Loading...
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>📋 Admin Tasks</h2>
+
+      <div id="adminTasks">
+        <div class="loading">
+          Loading...
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
 </section>
 
 </div>
 
 
-<!-- ================= BOTTOM NAV ================= -->
+<!-- BOTTOM NAV -->
 
-<div
-  id="bottomNav"
-  class="bottom-nav hidden"
->
+<nav id="bottomNav"
+     class="bottom-nav hidden">
 
-  <button
-    class="nav-btn active"
-    onclick="showPage('home',this)"
-  >
-    <span class="nav-icon">🏠</span>
+  <button class="nav-btn active"
+    onclick="showPage('home',this)">
+    <span>🏠</span>
     Home
   </button>
 
-  <button
-    class="nav-btn"
-    onclick="showPage('tasks',this)"
-  >
-    <span class="nav-icon">📋</span>
+  <button class="nav-btn"
+    onclick="showPage('tasks',this)">
+    <span>📋</span>
     Tasks
   </button>
 
-  <button
-    class="nav-btn"
-    onclick="showPage('wallet',this)"
-  >
-    <span class="nav-icon">💰</span>
+  <button class="nav-btn"
+    onclick="showPage('wallet',this)">
+    <span>💰</span>
     Wallet
   </button>
 
-  <button
-    class="nav-btn"
-    onclick="showPage('referral',this)"
-  >
-    <span class="nav-icon">🎁</span>
+  <button class="nav-btn"
+    onclick="showPage('referral',this)">
+    <span>🎁</span>
     Referral
   </button>
 
-  <button
-    class="nav-btn"
-    onclick="showPage('profile',this)"
-  >
-    <span class="nav-icon">👤</span>
+  <button class="nav-btn"
+    onclick="showPage('profile',this)">
+    <span>👤</span>
     Profile
   </button>
 
-</div>
+</nav>
 
 
 <script>
@@ -1085,85 +926,18 @@ hr{
 ===================================================== */
 
 const SUPABASE_URL =
-"https://limhetefzzbekcdaqtqw.supabase.co";
+  "https://limhetefzzbekcdaqtqw.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
+  "sb_publishable_xhgWuwG1AoQGdDrSyPOwoQ_HTyKakDS";
 
 const db =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 let currentUser = null;
-
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
-function showPage(page,button){
-
-  const pages = [
-    "homePage",
-    "tasksPage",
-    "walletPage",
-    "referralPage",
-    "profilePage"
-  ];
-
-  pages.forEach(id => {
-
-    const el =
-      document.getElementById(id);
-
-    if(el){
-      el.classList.remove("active");
-    }
-
-  });
-
-
-  const selected =
-    document.getElementById(
-      page + "Page"
-    );
-
-  if(selected){
-    selected.classList.add("active");
-  }
-
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-
-  if(button){
-    button.classList.add("active");
-  }
-
-
-  /*
-   * IMPORTANT:
-   * এখানে পুরো website reload হচ্ছে না।
-   * শুধু selected section দেখানো হচ্ছে।
-   */
-
-  if(page === "tasks"){
-    loadTasks();
-    loadSubmissions();
-  }
-
-  if(page === "wallet"){
-    loadEarnings();
-    loadProfile();
-  }
-
-}
 
 
 /* =====================================================
@@ -1203,20 +977,15 @@ function showSignup(){
 async function signup(){
 
   const name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
+    document.getElementById("name")
+      .value.trim();
 
   const email =
-    document
-      .getElementById("signupEmail")
-      .value
-      .trim();
+    document.getElementById("signupEmail")
+      .value.trim();
 
   const password =
-    document
-      .getElementById("signupPassword")
+    document.getElementById("signupPassword")
       .value;
 
   const msg =
@@ -1252,15 +1021,11 @@ async function signup(){
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await db.auth.signUp({
 
-        email:email,
-
-        password:password,
+        email,
+        password,
 
         options:{
           data:{
@@ -1284,9 +1049,7 @@ async function signup(){
 
       msg.textContent = "";
 
-      await showDashboard(
-        data.user
-      );
+      await showDashboard(data.user);
 
       return;
     }
@@ -1311,14 +1074,11 @@ async function signup(){
 async function login(){
 
   const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+    document.getElementById("loginEmail")
+      .value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
+    document.getElementById("loginPassword")
       .value;
 
   const msg =
@@ -1345,15 +1105,11 @@ async function login(){
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await db.auth.signInWithPassword({
 
-        email:email,
-
-        password:password
+        email,
+        password
 
       });
 
@@ -1369,13 +1125,87 @@ async function login(){
 
     msg.textContent = "";
 
-    await showDashboard(
-      data.user
-    );
+    await showDashboard(data.user);
 
   }finally{
 
     btn.disabled = false;
+
+  }
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(page,button){
+
+  const sections = [
+    "homeSection",
+    "tasksSection",
+    "walletSection",
+    "referralSection",
+    "profileSection"
+  ];
+
+
+  sections.forEach(id => {
+
+    document
+      .getElementById(id)
+      .classList.add("hidden");
+
+  });
+
+
+  const target =
+    document.getElementById(
+      page + "Section"
+    );
+
+
+  if(target){
+    target.classList.remove("hidden");
+  }
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if(button){
+    button.classList.add("active");
+  }
+
+
+  if(page === "tasks"){
+
+    loadTasks();
+
+    loadSubmissions();
+
+  }
+
+
+  if(page === "wallet"){
+
+    loadProfile();
+
+    loadEarnings();
+
+  }
+
+
+  if(page === "profile"){
+
+    loadProfile();
 
   }
 
@@ -1406,12 +1236,6 @@ async function showDashboard(user){
     .classList.remove("hidden");
 
 
-  document
-    .getElementById("userEmail")
-    .textContent =
-      user.email || "";
-
-
   await loadProfile();
 
   await loadTasks();
@@ -1420,32 +1244,14 @@ async function showDashboard(user){
 
   await loadEarnings();
 
-
-  /* REFERRAL */
-
-  const referral =
-    document.getElementById(
-      "referralLink"
-    );
-
-  if(referral){
-
-    referral.value =
-      location.origin +
-      "?ref=" +
-      user.id;
-
-  }
+  setupReferral();
 
 
-  /* ADMIN */
+  /* ADMIN CHECK */
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await db.rpc("is_admin");
 
 
@@ -1484,19 +1290,11 @@ async function loadProfile(){
   }
 
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await db
       .from("profiles")
-      .select(
-        "full_name,balance"
-      )
-      .eq(
-        "id",
-        currentUser.id
-      )
+      .select("full_name,balance")
+      .eq("id",currentUser.id)
       .single();
 
 
@@ -1521,9 +1319,7 @@ async function loadProfile(){
     document
       .getElementById("welcome")
       .textContent =
-        "Welcome, " +
-        name +
-        " 👋";
+        "Welcome, " + name + " 👋";
 
 
     document
@@ -1533,9 +1329,8 @@ async function loadProfile(){
 
 
     const amount =
-      Number(
-        data.balance || 0
-      ).toFixed(2);
+      Number(data.balance || 0)
+        .toFixed(2);
 
 
     document
@@ -1551,27 +1346,29 @@ async function loadProfile(){
 
   }
 
+
+  document
+    .getElementById("userEmail")
+    .textContent =
+      currentUser.email || "";
+
 }
 
 
 /* =====================================================
    TASKS
-   ONLY TASK LIST REFRESHES
 ===================================================== */
 
 async function loadTasks(){
 
   const box =
-    document.getElementById(
-      "tasks"
-    );
+    document.getElementById("tasks");
 
 
-  /*
-   * শুধু #tasks এর ভিতরের content
-   * replace হবে।
-   * পুরো page reload হবে না।
-   */
+  if(!box){
+    return;
+  }
+
 
   box.innerHTML = `
     <div class="loading">
@@ -1582,36 +1379,36 @@ async function loadTasks(){
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await db
         .from("tasks")
         .select(
           "id,title,description,reward,task_url,status,created_at"
         )
-        .eq(
-          "status",
-          "active"
-        )
+        .eq("status","active")
         .order(
           "created_at",
-          {
-            ascending:false
-          }
+          {ascending:false}
         );
 
 
     if(error){
 
+      console.error(
+        "TASK ERROR:",
+        error
+      );
+
+
       box.innerHTML = `
         <div class="task error-box">
+
           <h3>⚠️ Task Loading Error</h3>
 
           <p class="small">
             ${escapeHtml(error.message)}
           </p>
+
         </div>
       `;
 
@@ -1619,20 +1416,15 @@ async function loadTasks(){
     }
 
 
-    if(
-      !Array.isArray(data) ||
-      data.length === 0
-    ){
+    if(!data || data.length === 0){
 
       box.innerHTML = `
-        <div class="task empty-box">
+        <div class="empty-box">
 
-          <h3>
-            📋 No Active Tasks
-          </h3>
+          <h3>📋 No Active Tasks</h3>
 
           <p class="small">
-            এই মুহূর্তে কোনো active task পাওয়া যায়নি।
+            এই মুহূর্তে কোনো active task নেই।
           </p>
 
         </div>
@@ -1657,9 +1449,8 @@ async function loadTasks(){
           "এই task সম্পূর্ণ করুন।";
 
         const reward =
-          Number(
-            task.reward || 0
-          ).toFixed(2);
+          Number(task.reward || 0)
+            .toFixed(2);
 
         const url =
           task.task_url || "";
@@ -1687,8 +1478,7 @@ async function loadTasks(){
                   class="task-link"
                   href="${escapeAttr(url)}"
                   target="_blank"
-                  rel="noopener noreferrer"
-                >
+                  rel="noopener noreferrer">
                   🔗 Open Task →
                 </a>
               `
@@ -1699,26 +1489,25 @@ async function loadTasks(){
               `
             }
 
+
             <button
-              onclick="toggleSubmit('${escapeAttr(id)}')"
-            >
+              onclick="toggleSubmit('${escapeAttr(id)}')">
               📤 Submit Proof
             </button>
 
+
             <div
               id="submit-${escapeAttr(id)}"
-              class="hidden"
-            >
+              class="hidden">
 
               <textarea
                 id="proof-${escapeAttr(id)}"
-                placeholder="Task proof/details লিখুন..."
-              ></textarea>
+                placeholder="Task proof/details লিখুন...">
+              </textarea>
 
               <button
                 class="success"
-                onclick="submitTask('${escapeAttr(id)}')"
-              >
+                onclick="submitTask('${escapeAttr(id)}')">
                 ✅ Submit for Review
               </button>
 
@@ -1729,15 +1518,18 @@ async function loadTasks(){
 
       }).join("");
 
-
   }catch(error){
+
+    console.error(
+      "TASK EXCEPTION:",
+      error
+    );
+
 
     box.innerHTML = `
       <div class="task error-box">
 
-        <h3>
-          ⚠️ Unexpected Error
-        </h3>
+        <h3>⚠️ Unexpected Error</h3>
 
         <p class="small">
           ${escapeHtml(
@@ -1768,9 +1560,7 @@ function toggleSubmit(taskId){
 
   if(box){
 
-    box.classList.toggle(
-      "hidden"
-    );
+    box.classList.toggle("hidden");
 
   }
 
@@ -1785,9 +1575,7 @@ async function submitTask(taskId){
 
   if(!currentUser){
 
-    alert(
-      "আগে Login করুন।"
-    );
+    alert("আগে Login করুন।");
 
     return;
   }
@@ -1817,9 +1605,7 @@ async function submitTask(taskId){
 
   try{
 
-    const {
-      error
-    } =
+    const {error} =
       await db.rpc(
         "submit_task",
         {
@@ -1883,10 +1669,12 @@ async function loadSubmissions(){
     );
 
 
-  const {
-    data,
-    error
-  } =
+  if(!box){
+    return;
+  }
+
+
+  const {data,error} =
     await db
       .from("task_submissions")
       .select(`
@@ -1906,13 +1694,17 @@ async function loadSubmissions(){
       )
       .order(
         "submitted_at",
-        {
-          ascending:false
-        }
+        {ascending:false}
       );
 
 
   if(error){
+
+    console.error(
+      "SUBMISSIONS ERROR:",
+      error
+    );
+
 
     box.innerHTML = `
       <p class="small">
@@ -1929,24 +1721,18 @@ async function loadSubmissions(){
 
 
   document
-    .getElementById(
-      "submissionCount"
-    )
+    .getElementById("submissionCount")
     .textContent =
       rows.length;
 
 
   document
-    .getElementById(
-      "pendingCount"
-    )
+    .getElementById("pendingCount")
     .textContent =
       rows.filter(
         item =>
-          String(
-            item.status || ""
-          ).toLowerCase()
-          === "pending"
+          String(item.status || "")
+            .toLowerCase() === "pending"
       ).length;
 
 
@@ -1966,18 +1752,17 @@ async function loadSubmissions(){
     rows.map(item => {
 
       const status =
-        String(
-          item.status || ""
-        ).toLowerCase();
+        String(item.status || "")
+          .toLowerCase();
 
 
-      let cls =
-        "pending";
+      let cls = "pending";
 
 
       if(status === "approved"){
         cls = "approved";
       }
+
 
       if(status === "rejected"){
         cls = "rejected";
@@ -1989,8 +1774,7 @@ async function loadSubmissions(){
 
           <h3>
             ${escapeHtml(
-              item.tasks?.title ||
-              "Task"
+              item.tasks?.title || "Task"
             )}
           </h3>
 
@@ -2006,10 +1790,8 @@ async function loadSubmissions(){
             )}
           </span>
 
-          <p
-            class="small"
-            style="margin-top:8px"
-          >
+          <p class="small"
+             style="margin-top:8px">
             Submitted:
             ${formatDate(
               item.submitted_at
@@ -2041,10 +1823,12 @@ async function loadEarnings(){
     );
 
 
-  const {
-    data,
-    error
-  } =
+  if(!box){
+    return;
+  }
+
+
+  const {data,error} =
     await db
       .from("transactions")
       .select(
@@ -2056,13 +1840,17 @@ async function loadEarnings(){
       )
       .order(
         "created_at",
-        {
-          ascending:false
-        }
+        {ascending:false}
       );
 
 
   if(error){
+
+    console.error(
+      "EARNINGS ERROR:",
+      error
+    );
+
 
     box.innerHTML = `
       <p class="small">
@@ -2084,17 +1872,13 @@ async function loadEarnings(){
   rows.forEach(item => {
 
     if(
-      String(
-        item.type || ""
-      )
-      .toLowerCase()
-      .includes("task")
+      String(item.type || "")
+        .toLowerCase()
+        .includes("task")
     ){
 
       total +=
-        Number(
-          item.amount || 0
-        );
+        Number(item.amount || 0);
 
     }
 
@@ -2102,9 +1886,7 @@ async function loadEarnings(){
 
 
   document
-    .getElementById(
-      "totalEarned"
-    )
+    .getElementById("totalEarned")
     .textContent =
       total.toFixed(2);
 
@@ -2157,47 +1939,73 @@ async function loadEarnings(){
    REFERRAL
 ===================================================== */
 
-function copyReferral(){
+function setupReferral(){
 
-  const input =
+  if(!currentUser){
+    return;
+  }
+
+
+  const link =
+    window.location.origin +
+    window.location.pathname +
+    "?ref=" +
+    encodeURIComponent(
+      currentUser.id
+    );
+
+
+  const box =
     document.getElementById(
       "referralLink"
     );
 
 
-  if(!input){
+  if(box){
+    box.value = link;
+  }
+
+}
+
+
+async function copyReferral(){
+
+  const box =
+    document.getElementById(
+      "referralLink"
+    );
+
+  const msg =
+    document.getElementById(
+      "referralMsg"
+    );
+
+
+  if(!box){
     return;
   }
 
 
-  navigator.clipboard
-    .writeText(input.value)
-    .then(() => {
+  try{
 
-      document
-        .getElementById(
-          "referralMsg"
-        )
-        .textContent =
-          "✅ Referral link copied!";
+    await navigator.clipboard.writeText(
+      box.value
+    );
 
-    })
-    .catch(() => {
 
-      input.select();
+    msg.textContent =
+      "✅ Referral link copied!";
 
-      document.execCommand(
-        "copy"
-      );
+  }catch(error){
 
-      document
-        .getElementById(
-          "referralMsg"
-        )
-        .textContent =
-          "✅ Referral link copied!";
+    box.select();
 
-    });
+    document.execCommand("copy");
+
+    msg.textContent =
+      "✅ Referral link copied!";
+
+  }
 
 }
 
@@ -2209,41 +2017,26 @@ function copyReferral(){
 async function adminCreateTask(){
 
   const title =
-    document
-      .getElementById(
-        "adminTitle"
-      )
-      .value
-      .trim();
-
+    document.getElementById(
+      "adminTitle"
+    ).value.trim();
 
   const description =
-    document
-      .getElementById(
-        "adminDescription"
-      )
-      .value
-      .trim();
-
+    document.getElementById(
+      "adminDescription"
+    ).value.trim();
 
   const reward =
     Number(
-      document
-        .getElementById(
-          "adminReward"
-        )
-        .value
+      document.getElementById(
+        "adminReward"
+      ).value
     );
 
-
   const taskUrl =
-    document
-      .getElementById(
-        "adminUrl"
-      )
-      .value
-      .trim();
-
+    document.getElementById(
+      "adminUrl"
+    ).value.trim();
 
   const msg =
     document.getElementById(
@@ -2275,9 +2068,7 @@ async function adminCreateTask(){
 
   try{
 
-    const {
-      error
-    } =
+    const {error} =
       await db.rpc(
         "admin_create_task",
         {
@@ -2302,36 +2093,25 @@ async function adminCreateTask(){
       "✅ Task successfully added.";
 
 
-    document
-      .getElementById(
-        "adminTitle"
-      )
-      .value = "";
+    document.getElementById(
+      "adminTitle"
+    ).value = "";
 
-    document
-      .getElementById(
-        "adminDescription"
-      )
-      .value = "";
+    document.getElementById(
+      "adminDescription"
+    ).value = "";
 
-    document
-      .getElementById(
-        "adminReward"
-      )
-      .value = "";
+    document.getElementById(
+      "adminReward"
+    ).value = "";
 
-    document
-      .getElementById(
-        "adminUrl"
-      )
-      .value = "";
+    document.getElementById(
+      "adminUrl"
+    ).value = "";
 
 
     await loadAdminTasks();
 
-    /*
-     * শুধু task list refresh
-     */
     await loadTasks();
 
   }catch(error){
@@ -2356,10 +2136,12 @@ async function loadAdminTasks(){
     );
 
 
-  const {
-    data,
-    error
-  } =
+  if(!box){
+    return;
+  }
+
+
+  const {data,error} =
     await db.rpc(
       "admin_get_tasks"
     );
@@ -2369,9 +2151,7 @@ async function loadAdminTasks(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
@@ -2379,10 +2159,7 @@ async function loadAdminTasks(){
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
     box.innerHTML = `
       <div class="empty-box">
@@ -2401,8 +2178,7 @@ async function loadAdminTasks(){
 
         <h3>
           ${escapeHtml(
-            task.title ||
-            "Task"
+            task.title || "Task"
           )}
         </h3>
 
@@ -2438,10 +2214,12 @@ async function loadAdminSubmissions(){
     );
 
 
-  const {
-    data,
-    error
-  } =
+  if(!box){
+    return;
+  }
+
+
+  const {data,error} =
     await db
       .from("task_submissions")
       .select(`
@@ -2462,9 +2240,7 @@ async function loadAdminSubmissions(){
       )
       .order(
         "submitted_at",
-        {
-          ascending:false
-        }
+        {ascending:false}
       );
 
 
@@ -2472,9 +2248,7 @@ async function loadAdminSubmissions(){
 
     box.innerHTML = `
       <p class="small">
-        ${escapeHtml(
-          error.message
-        )}
+        ${escapeHtml(error.message)}
       </p>
     `;
 
@@ -2482,10 +2256,7 @@ async function loadAdminSubmissions(){
   }
 
 
-  if(
-    !data ||
-    data.length === 0
-  ){
+  if(!data || data.length === 0){
 
     box.innerHTML = `
       <div class="empty-box">
@@ -2534,8 +2305,7 @@ async function loadAdminSubmissions(){
 
         <button
           class="success"
-          onclick="approveSubmission('${escapeAttr(item.id)}')"
-        >
+          onclick="approveSubmission('${escapeAttr(item.id)}')">
           ✅ Approve & Give Reward
         </button>
 
@@ -2554,20 +2324,14 @@ async function approveSubmission(
   submissionId
 ){
 
-  if(
-    !confirm(
-      "এই submission approve করবেন?"
-    )
-  ){
-
+  if(!confirm(
+    "এই submission approve করবেন?"
+  )){
     return;
-
   }
 
 
-  const {
-    error
-  } =
+  const {error} =
     await db.rpc(
       "approve_task_submission",
       {
@@ -2616,30 +2380,22 @@ async function logout(){
 
 
   document
-    .getElementById(
-      "dashboard"
-    )
+    .getElementById("dashboard")
     .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "adminPanel"
-    )
+    .getElementById("bottomNav")
     .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "bottomNav"
-    )
+    .getElementById("adminPanel")
     .classList.add("hidden");
 
 
   document
-    .getElementById(
-      "auth"
-    )
+    .getElementById("auth")
     .classList.remove("hidden");
 
 
@@ -2711,10 +2467,7 @@ async function checkSession(){
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await db.auth.getSession();
 
 
@@ -2729,9 +2482,7 @@ async function checkSession(){
     }
 
 
-    if(
-      data?.session?.user
-    ){
+    if(data?.session?.user){
 
       await showDashboard(
         data.session.user
@@ -2758,9 +2509,7 @@ async function checkSession(){
 db.auth.onAuthStateChange(
   async (event,session) => {
 
-    if(
-      event === "SIGNED_OUT"
-    ){
+    if(event === "SIGNED_OUT"){
 
       currentUser = null;
 
@@ -2770,7 +2519,9 @@ db.auth.onAuthStateChange(
 );
 
 
-/* START */
+/* =====================================================
+   START
+===================================================== */
 
 checkSession();
 
